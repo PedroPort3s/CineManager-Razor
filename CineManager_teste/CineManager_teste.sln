@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CineManager_teste", "CineManager_teste\CineManager_teste.csproj", "{6CDA55F0-2B61-422D-A1C4-0AA3BA644AF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CDA55F0-2B61-422D-A1C4-0AA3BA644AF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDA55F0-2B61-422D-A1C4-0AA3BA644AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDA55F0-2B61-422D-A1C4-0AA3BA644AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDA55F0-2B61-422D-A1C4-0AA3BA644AF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7AA4ABB-92BF-4CD6-AB7C-91FF46E98B0D}
+	EndGlobalSection
+EndGlobal
