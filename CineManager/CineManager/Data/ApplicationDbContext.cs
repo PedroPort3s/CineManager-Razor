@@ -9,6 +9,6 @@ namespace CineManager.Data {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
         }
-        //vitor passou por aqui >°w°<
+        //vitor passou por aqui >°w°< --- foi ele mezmo
     }
 }
