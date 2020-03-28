@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {}
+    "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {}
   },
   "projects": {
-    "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {
+    "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+        "projectUniqueName": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
         "projectName": "CineManager",
-        "projectPath": "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
-        "packagesPath": "C:\\Users\\Vitor Hainosz\\.nuget\\packages\\",
-        "outputPath": "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\obj\\",
+        "projectPath": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+        "packagesPath": "C:\\Users\\pedri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vitor Hainosz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pedri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -93,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
