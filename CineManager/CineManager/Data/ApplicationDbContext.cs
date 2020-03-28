@@ -11,6 +11,6 @@ namespace CineManager.Data {
             : base(options) {
         }
         public DbSet<CineManager.Models.Filme> Filme { get; set; }
-        public DbSet<CineManager.Models.Sala> Sala { get; set; }
+        public DbSet<CineManager.Models.Funcionario> Funcionario { get; set; }
     }
 }

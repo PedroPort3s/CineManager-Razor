@@ -9031,23 +9031,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pedri\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\pedro\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+      "projectUniqueName": "C:\\Users\\pedro\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\Facul\\Projeto Fernann_Bonilha\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
       "projectName": "CineManager",
-      "projectPath": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
-      "packagesPath": "C:\\Users\\pedri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\obj\\",
+      "projectPath": "C:\\Users\\pedro\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\Facul\\Projeto Fernann_Bonilha\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+      "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pedro\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\Facul\\Projeto Fernann_Bonilha\\CineManager\\CineManager\\CineManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\pedri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
