@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {}
+    "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {
+    "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+        "projectUniqueName": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
         "projectName": "CineManager",
-        "projectPath": "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
-        "packagesPath": "C:\\Users\\greic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\obj\\",
+        "projectPath": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+        "packagesPath": "C:\\Users\\pedri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pedri\\OneDrive - Complexo de Ensino Superior do Brasil LTDA\\FACULDADE\\Programação Web\\CineManager\\CineManager\\CineManager\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\greic\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\pedri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -89,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
