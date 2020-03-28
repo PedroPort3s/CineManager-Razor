@@ -9,10 +9,11 @@ namespace CineManager.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name ="Nome Completo")]
-        [Column(TypeName = "varchar(100)")]
-        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9""'\s-]*$^ ")]
-        [Range(0, 100, ErrorMessage = "O {0} tem de estar entre {1} e {2} caracteres")]
+        [Display(Name = "Nome Completo")]
+        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9""'\s-]*$")]
+        [MaxLength(20, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
+        [Column(TypeName = "varchar(20)")] 
         public string NomeCompleto{ get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
