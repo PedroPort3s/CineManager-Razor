@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {}
+    "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {}
   },
   "projects": {
-    "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {
+    "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+        "projectUniqueName": "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
         "projectName": "CineManager",
-        "projectPath": "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
-        "packagesPath": "C:\\Users\\Vitor Hainosz\\.nuget\\packages\\",
-        "outputPath": "E:\\Projetos Git\\CineManager\\CineManager\\CineManager\\obj\\",
+        "projectPath": "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\CineManager.csproj",
+        "packagesPath": "C:\\Users\\greic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\greic\\Source\\Repos\\CineManager\\CineManager\\CineManager\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Vitor Hainosz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\greic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
