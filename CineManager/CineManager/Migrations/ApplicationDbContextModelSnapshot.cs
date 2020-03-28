@@ -27,22 +27,25 @@ namespace CineManager.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EmCartazAte")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Genero")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("Lancamento")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("TipoFilme")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -57,40 +60,80 @@ namespace CineManager.Migrations
 
                     b.Property<string>("Cargo")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30)");
 
                     b.Property<long>("Cpf")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Endereco")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(80)");
 
                     b.Property<string>("NomeCompleto")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<long>("Rg")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("Salario")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(12,3)");
 
                     b.Property<string>("Setor")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Turno")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(15)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Funcionario");
+                });
+
+            modelBuilder.Entity("CineManager.Models.Sala", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumPoltrona")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TipoSala")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sala");
+                });
+
+            modelBuilder.Entity("CineManager.Models.Sessao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duracao_Sessao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Filme")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Sala")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sessao");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
