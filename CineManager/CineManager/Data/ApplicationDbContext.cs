@@ -14,5 +14,6 @@ namespace CineManager.Data {
         public DbSet<CineManager.Models.Funcionario> Funcionario { get; set; }
         public DbSet<CineManager.Models.Sala> Sala { get; set; }
         public DbSet<CineManager.Models.Sessao> Sessao { get; set; }
+        public DbSet<CineManager.Models.Endereco> Endereco { get; set; }
     }
 }

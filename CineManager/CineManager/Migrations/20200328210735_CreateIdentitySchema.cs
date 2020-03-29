@@ -48,21 +48,93 @@ namespace CineManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Endereco",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TipoLogradouro = table.Column<string>(type: "varchar(100)", nullable: false),
+                    NomeLogradoudro = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    Complemento = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Cep = table.Column<string>(type: "varchar(10)", nullable: false),
+                    Bairro = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Cidade = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Estado = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Pais = table.Column<string>(type: "varchar(100)", nullable: false),
+                    TipoEndereco = table.Column<string>(type: "varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Endereco", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Filme",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Titulo = table.Column<string>(nullable: true),
-                    Genero = table.Column<string>(nullable: true),
-                    Duracao = table.Column<int>(nullable: false),
-                    Lancamento = table.Column<DateTime>(nullable: false),
-                    EmCartazAte = table.Column<DateTime>(nullable: false),
-                    TipoFilme = table.Column<string>(nullable: true)
+                    Titulo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
+                    Genero = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Duracao = table.Column<int>(type: "int", nullable: false),
+                    Lancamento = table.Column<DateTime>(type: "datetime", nullable: false),
+                    EmCartazAte = table.Column<DateTime>(type: "datetime", nullable: false),
+                    TipoFilme = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Filme", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Funcionario",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NomeCompleto = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Endereco = table.Column<string>(type: "varchar(80)", nullable: false),
+                    Telefone = table.Column<string>(type: "varchar(20)", nullable: false),
+                    Setor = table.Column<string>(type: "varchar(30)", nullable: false),
+                    Cpf = table.Column<long>(type: "bigint", nullable: false),
+                    Rg = table.Column<long>(type: "bigint", nullable: false),
+                    Salario = table.Column<decimal>(type: "decimal(12,3)", nullable: false),
+                    Cargo = table.Column<string>(type: "varchar(30)", nullable: false),
+                    Turno = table.Column<string>(type: "varchar(15)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Funcionario", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sala",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NumPoltrona = table.Column<int>(type: "int", nullable: false),
+                    TipoSala = table.Column<string>(type: "varchar(150)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sala", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sessao",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Duracao_Sessao = table.Column<int>(nullable: false),
+                    Filme = table.Column<string>(nullable: false),
+                    Sala = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sessao", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,7 +299,19 @@ namespace CineManager.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Endereco");
+
+            migrationBuilder.DropTable(
                 name: "Filme");
+
+            migrationBuilder.DropTable(
+                name: "Funcionario");
+
+            migrationBuilder.DropTable(
+                name: "Sala");
+
+            migrationBuilder.DropTable(
+                name: "Sessao");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
