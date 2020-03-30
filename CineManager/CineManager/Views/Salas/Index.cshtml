@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.NumPoltrona)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoSala)
+                @Html.DisplayFor(modelItem => item.TipoSala.Tipo)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
