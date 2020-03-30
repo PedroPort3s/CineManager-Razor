@@ -22,7 +22,7 @@ namespace CineManager.Controllers
         // GET: Salas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sala.ToListAsync());
+            return View(await _context.Sala.Include(x => x.TipoSala).ToListAsync());
         }
 
         // GET: Salas/Details/5
@@ -44,8 +44,9 @@ namespace CineManager.Controllers
         }
 
         // GET: Salas/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.ListaTipoSalas = await _context.TipoSala.ToListAsync();
             return View();
         }
 
@@ -54,11 +55,11 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumPoltrona,TipoSala")] Sala sala)
+        public async Task<IActionResult> Create([FromForm] Sala sala)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sala);
+                _context.Sala.Add(sala);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

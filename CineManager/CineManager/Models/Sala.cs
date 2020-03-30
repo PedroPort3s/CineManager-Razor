@@ -17,10 +17,13 @@ namespace CineManager.Models
         [Column(TypeName = "int")]
         public int NumPoltrona { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Tipo de Sala")]
-        [StringLength(100, MinimumLength = 10, ErrorMessage = "o {0} deve ter entre {1} e {2} caracteres")]
-        [Column(TypeName = "varchar(150)")]
-        public string TipoSala { get; set; }
+        //[Required(ErrorMessage = "o campo {0} é obrigatório")]
+        //[Display(Name = "Tipo de Sala")]
+        //[StringLength(100, MinimumLength = 10, ErrorMessage = "o {0} deve ter entre {1} e {2} caracteres")]
+        //[Column(TypeName = "varchar(150)")]
+        //public string TipoSala { get; set; }
+
+        public int TipoSalaId { get; set; }
+        public TipoSala TipoSala { get; set; }
     }
 }

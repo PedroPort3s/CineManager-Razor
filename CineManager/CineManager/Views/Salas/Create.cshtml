@@ -19,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="TipoSala" class="control-label"></label>
-                <input asp-for="TipoSala" class="form-control" />
+                @*<input asp-for="TipoSala" class="form-control" />*@
+                <select asp-for="TipoSalaId" asp-items="@(new SelectList(ViewBag.listaTipoSalas , "Id", "Tipo"))" class="form-control"></select>
                 <span asp-validation-for="TipoSala" class="text-danger"></span>
             </div>
             <div class="form-group">
