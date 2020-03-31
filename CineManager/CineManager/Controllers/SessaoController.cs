@@ -22,7 +22,7 @@ namespace CineManager.Controllers
         // GET: Sessao
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sessao.ToListAsync());
+            return View(await _context.Sessao.Include(x => x.Filme).Include(x => x.Sala).ToListAsync());
         }
 
         // GET: Sessao/Details/5
@@ -46,6 +46,8 @@ namespace CineManager.Controllers
         // GET: Sessao/Create
         public IActionResult Create()
         {
+            ViewBag.ListaSalas = _context.Sala.ToList();
+            ViewBag.ListaFilmes= _context.Filme.ToList();
             return View();
         }
 
@@ -54,15 +56,15 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Duracao_Sessao,Filme,Sala")] Sessao sessao)
+        public async Task<IActionResult> Create([FromForm] Sessao sessao)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sessao);
+                _context.Sessao.Add(sessao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(sessao);
+            return RedirectToAction(nameof(Create));
         }
 
         // GET: Sessao/Edit/5
