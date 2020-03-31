@@ -19,12 +19,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Filme" class="control-label"></label>
-                <input asp-for="Filme" class="form-control" />
+                <select asp-for="FilmeId" asp-items="@(new SelectList(ViewBag.ListaFilmes, "Id", "Titulo"))" class="form-control"></select>
                 <span asp-validation-for="Filme" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Sala" class="control-label"></label>
-                <input asp-for="Sala" class="form-control" />
+                <select asp-for="SalaId" asp-items="@(new SelectList(ViewBag.ListaSalas, "Id", "Id"))" class="form-control"></select>
                 <span asp-validation-for="Sala" class="text-danger"></span>
             </div>
             <div class="form-group">

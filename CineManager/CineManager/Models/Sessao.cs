@@ -17,18 +17,11 @@ namespace CineManager.Models
         public int Duracao_Sessao { get; set; }
 
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9""'\s-]*$^ ")]
-        [MaxLength(200, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no mínimo {1} caractere")]
-        [Column(TypeName = "varchar(200)")]
+        public Filme Filme { get; set; }
 
-        public string Filme { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [RegularExpression(@"^[0-9]*$")]
-        [Column(TypeName = "int")]
-        public int Sala { get; set; }
+        public Sala Sala { get; set; }
+        public int FilmeId { get; set; }
+        public int SalaId { get; set; }
 
     }
 }
