@@ -3,14 +3,16 @@ using System;
 using CineManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CineManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200331231217_RelacionandoSessao")]
+    partial class RelacionandoSessao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,14 +80,18 @@ namespace CineManager.Migrations
                     b.Property<DateTime>("EmCartazAte")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("GeneroId")
-                        .HasColumnType("int");
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("Lancamento")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("TipoFilmeId")
-                        .HasColumnType("int");
+                    b.Property<string>("TipoFilme")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -93,10 +99,6 @@ namespace CineManager.Migrations
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GeneroId");
-
-                    b.HasIndex("TipoFilmeId");
 
                     b.ToTable("Filme");
                 });
@@ -177,22 +179,6 @@ namespace CineManager.Migrations
                     b.ToTable("Funcionario");
                 });
 
-            modelBuilder.Entity("CineManager.Models.Genero", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Generos");
-                });
-
             modelBuilder.Entity("CineManager.Models.Sala", b =>
                 {
                     b.Property<int>("Id")
@@ -234,22 +220,6 @@ namespace CineManager.Migrations
                     b.HasIndex("SalaId");
 
                     b.ToTable("Sessao");
-                });
-
-            modelBuilder.Entity("CineManager.Models.TipoFilme", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("NomeTipoFilme")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TipoFilmes");
                 });
 
             modelBuilder.Entity("CineManager.Models.TipoSala", b =>
@@ -462,21 +432,6 @@ namespace CineManager.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CineManager.Models.Filme", b =>
-                {
-                    b.HasOne("CineManager.Models.Genero", "Genero")
-                        .WithMany()
-                        .HasForeignKey("GeneroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CineManager.Models.TipoFilme", "TipoFilme")
-                        .WithMany()
-                        .HasForeignKey("TipoFilmeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CineManager.Models.Sala", b =>
