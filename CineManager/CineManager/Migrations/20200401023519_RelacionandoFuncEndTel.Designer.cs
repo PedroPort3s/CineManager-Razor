@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CineManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200330003028_CriandoTipoSala")]
-    partial class CriandoTipoSala
+    [Migration("20200401023519_RelacionandoFuncEndTel")]
+    partial class RelacionandoFuncEndTel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,9 +21,9 @@ namespace CineManager.Migrations
 
             modelBuilder.Entity("CineManager.Models.Endereco", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -43,6 +43,9 @@ namespace CineManager.Migrations
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
+
+                    b.Property<int?>("FuncionarioId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NomeLogradoudro")
                         .IsRequired()
@@ -65,6 +68,8 @@ namespace CineManager.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FuncionarioId");
+
                     b.ToTable("Endereco");
                 });
 
@@ -80,18 +85,14 @@ namespace CineManager.Migrations
                     b.Property<DateTime>("EmCartazAte")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Genero")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<int>("GeneroId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Lancamento")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("TipoFilme")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20);
+                    b.Property<int>("TipoFilmeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -99,6 +100,10 @@ namespace CineManager.Migrations
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GeneroId");
+
+                    b.HasIndex("TipoFilmeId");
 
                     b.ToTable("Filme");
                 });
@@ -142,14 +147,12 @@ namespace CineManager.Migrations
 
                     b.Property<string>("Cargo")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<long>("Cpf")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Endereco")
-                        .IsRequired()
-                        .HasColumnType("varchar(80)");
+                        .HasColumnType("bigint")
+                        .HasMaxLength(11);
 
                     b.Property<string>("NomeCompleto")
                         .IsRequired()
@@ -157,26 +160,42 @@ namespace CineManager.Migrations
                         .HasMaxLength(20);
 
                     b.Property<long>("Rg")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasMaxLength(11);
 
                     b.Property<decimal>("Salario")
-                        .HasColumnType("decimal(12,3)");
+                        .HasColumnType("decimal(12,3)")
+                        .HasMaxLength(18);
 
                     b.Property<string>("Setor")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Turno")
                         .IsRequired()
-                        .HasColumnType("varchar(15)");
+                        .HasColumnType("varchar(15)")
+                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 
                     b.ToTable("Funcionario");
+                });
+
+            modelBuilder.Entity("CineManager.Models.Genero", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Generos");
                 });
 
             modelBuilder.Entity("CineManager.Models.Sala", b =>
@@ -207,17 +226,65 @@ namespace CineManager.Migrations
                     b.Property<int>("Duracao_Sessao")
                         .HasColumnType("int");
 
-                    b.Property<string>("Filme")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)")
-                        .HasMaxLength(200);
+                    b.Property<int>("FilmeId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Sala")
+                    b.Property<int>("SalaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FilmeId");
+
+                    b.HasIndex("SalaId");
+
                     b.ToTable("Sessao");
+                });
+
+            modelBuilder.Entity("CineManager.Models.Telefone", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("DDD")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DDI")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FuncionarioId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Numero")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.ToTable("Telefone");
+                });
+
+            modelBuilder.Entity("CineManager.Models.TipoFilme", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomeTipoFilme")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoFilmes");
                 });
 
             modelBuilder.Entity("CineManager.Models.TipoSala", b =>
@@ -432,6 +499,28 @@ namespace CineManager.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CineManager.Models.Endereco", b =>
+                {
+                    b.HasOne("CineManager.Models.Funcionario", null)
+                        .WithMany("Endereco")
+                        .HasForeignKey("FuncionarioId");
+                });
+
+            modelBuilder.Entity("CineManager.Models.Filme", b =>
+                {
+                    b.HasOne("CineManager.Models.Genero", "Genero")
+                        .WithMany()
+                        .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CineManager.Models.TipoFilme", "TipoFilme")
+                        .WithMany()
+                        .HasForeignKey("TipoFilmeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CineManager.Models.Sala", b =>
                 {
                     b.HasOne("CineManager.Models.TipoSala", "TipoSala")
@@ -439,6 +528,28 @@ namespace CineManager.Migrations
                         .HasForeignKey("TipoSalaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CineManager.Models.Sessao", b =>
+                {
+                    b.HasOne("CineManager.Models.Filme", "Filme")
+                        .WithMany()
+                        .HasForeignKey("FilmeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CineManager.Models.Sala", "Sala")
+                        .WithMany()
+                        .HasForeignKey("SalaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CineManager.Models.Telefone", b =>
+                {
+                    b.HasOne("CineManager.Models.Funcionario", null)
+                        .WithMany("Telefone")
+                        .HasForeignKey("FuncionarioId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
