@@ -3,14 +3,16 @@ using System;
 using CineManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CineManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200401001856_RelacionandoFilme2")]
+    partial class RelacionandoFilme2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,17 +223,15 @@ namespace CineManager.Migrations
                     b.Property<int>("Duracao_Sessao")
                         .HasColumnType("int");
 
-                    b.Property<int>("FilmeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Filme")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200);
 
-                    b.Property<int>("SalaId")
+                    b.Property<int>("Sala")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FilmeId");
-
-                    b.HasIndex("SalaId");
 
                     b.ToTable("Sessao");
                 });
@@ -484,21 +484,6 @@ namespace CineManager.Migrations
                     b.HasOne("CineManager.Models.TipoSala", "TipoSala")
                         .WithMany()
                         .HasForeignKey("TipoSalaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CineManager.Models.Sessao", b =>
-                {
-                    b.HasOne("CineManager.Models.Filme", "Filme")
-                        .WithMany()
-                        .HasForeignKey("FilmeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CineManager.Models.Sala", "Sala")
-                        .WithMany()
-                        .HasForeignKey("SalaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
