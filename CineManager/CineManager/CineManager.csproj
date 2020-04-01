@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200401001220_RelacionandoFilme.cs" />
     <Compile Remove="Migrations\20200401001220_RelacionandoFilme.Designer.cs" />
+    <Compile Remove="Migrations\20200401013224_devFornecedorUpdateDbContext.cs" />
+    <Compile Remove="Migrations\20200401013224_devFornecedorUpdateDbContext.Designer.cs" />
   </ItemGroup>
 
 
@@ -20,6 +22,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>
