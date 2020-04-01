@@ -10,12 +10,14 @@ namespace CineManager.Data {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
         }
-        public DbSet<CineManager.Models.Filme> Filme { get; set; }
-        public DbSet<CineManager.Models.Funcionario> Funcionario { get; set; }
-        public DbSet<CineManager.Models.Sala> Sala { get; set; }
-        public DbSet<CineManager.Models.TipoSala> TipoSala { get; set; }
-        public DbSet<CineManager.Models.Sessao> Sessao { get; set; }
-        public DbSet<CineManager.Models.Fornecedor> Fornecedor { get; set; }
-        public DbSet<CineManager.Models.Endereco> Endereco { get; set; }
+        public DbSet<Filme> Filme { get; set; }
+        public DbSet<Funcionario> Funcionario { get; set; }
+        public DbSet<Sala> Sala { get; set; }
+        public DbSet<TipoSala> TipoSala { get; set; }
+        public DbSet<Sessao> Sessao { get; set; }
+        public DbSet<Fornecedor> Fornecedor { get; set; }
+        public DbSet<Endereco> Endereco { get; set; }
+        public DbSet<TipoFilme> TipoFilmes { get; set; }
+        public DbSet<Genero> Generos { get; set; }
     }
 }

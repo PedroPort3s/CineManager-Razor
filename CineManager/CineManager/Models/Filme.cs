@@ -19,13 +19,6 @@ namespace CineManager.Models {
         [Column(TypeName = "varchar(200)")]
         public string Titulo { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Gênero")]
-        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9""'\s-]*$")]
-        [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
-        [Column(TypeName = "varchar(100)")]
-        public string Genero { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Duração do filme")]
@@ -36,24 +29,24 @@ namespace CineManager.Models {
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Data de lançamento")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
+        [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
         public DateTime Lancamento { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Em cartaz até")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
+        [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
         public DateTime EmCartazAte { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Tipo do filme")]
-        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9""'\s-]*$")]
-        [MaxLength(20, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
-        [Column(TypeName = "varchar(20)")]
-        public string TipoFilme { get; set; }
+        public TipoFilme TipoFilme { get; set; }
+
+        [Display(Name = "Gênero")]
+        public Genero Genero { get; set; }
+        
+        public int GeneroId { get; set; }
+        public int TipoFilmeId { get; set; }
+
     }
 }

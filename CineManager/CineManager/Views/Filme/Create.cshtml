@@ -19,8 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control" />
-                <span asp-validation-for="Genero" class="text-danger"></span>
+                <select asp-for="GeneroId" asp-items="@(new SelectList(ViewBag.ListaGeneros, "Id", "Nome"))"
+                        class="form-control"></select>                <span asp-validation-for="Genero" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Duracao" class="control-label"></label>
@@ -39,7 +39,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="TipoFilme" class="control-label"></label>
-                <input asp-for="TipoFilme" class="form-control" />
+                <select asp-for="TipoFilmeId" asp-items="@(new SelectList(ViewBag.ListaTipoFilmes, "Id", "NomeTipoFilme"))" 
+                        class="form-control"></select>
+
                 <span asp-validation-for="TipoFilme" class="text-danger"></span>
             </div>
             <div class="form-group">
