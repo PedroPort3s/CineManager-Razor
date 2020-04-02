@@ -11,7 +11,7 @@ namespace CineManager.Models
     {   
         public int Id { get; set; }
 
-        [Display(Name = "Tipo De Logradouro")]
+        [Display(Name = "Tipo Logradouro")]
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Column(TypeName = "varchar(100)")]
         public string TipoLogradouro { get; set; }
@@ -21,7 +21,7 @@ namespace CineManager.Models
         [Column(TypeName = "varchar(100)")]
         public string NomeLogradouro { get; set; }
 
-        [Display(Name = "Numero")]
+        [Display(Name = "Número")]
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Column(TypeName = "int")]
         public int Numero { get; set; }
@@ -32,7 +32,6 @@ namespace CineManager.Models
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "CEP")]
         [Column(TypeName = "varchar(10)")]
-        [RegularExpression("^[0-9]*$")]
         public string Cep { get; set; }
         
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
