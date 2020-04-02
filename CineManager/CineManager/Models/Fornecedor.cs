@@ -22,7 +22,7 @@ namespace CineManager.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        public string Endereco { get; set; }
+        public Endereco Endereco { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         public string NomeResponsavel { get; set; }

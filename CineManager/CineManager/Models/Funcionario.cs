@@ -26,24 +26,18 @@ namespace CineManager.Models
         [Display(Name = "CPF")]
         [Column(TypeName = "bigint")]
         [RegularExpression("^[0-9]*$")]
-        [MaxLength(11, ErrorMessage = "O campo {0} 11 caracteres")]
-        [MinLength(11, ErrorMessage = "O campo {0} 11 caracteres")]
         public long Cpf { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "RG")]
         [Column(TypeName = "bigint")]
         [RegularExpression("^[0-9]*$")]
-        [MaxLength(11, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(7, ErrorMessage = "O campo {0} deve ter no minimo {1} caracter")]
         public long Rg { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Salário")]
         [Column(TypeName = "decimal(12,3)")]
         [RegularExpression("^[0-9]*$")]
-        [MaxLength(18, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracter")]
         public decimal Salario { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
@@ -58,10 +52,9 @@ namespace CineManager.Models
         [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracter")]
         public string Turno { get; set; }
 
-        [Display(Name ="Endereço")]
-        public List<Telefone> Telefones { get; set; }
-        public List<Endereco> Enderecos { get; set; }
         public Telefone Telefone { get; set; }
+
+        [Display(Name = "Endereço")]
         public Endereco Endereco { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace CineManager.Controllers
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionario.Include(x => x.Telefone).Include(x => x.Endereco).ToListAsync());
+            return View(await _context.Funcionario.Include(x => x.Endereco).Include(x => x.Telefone).ToListAsync());
         }
 
         // GET: Funcionarios/Details/5
@@ -44,7 +44,7 @@ namespace CineManager.Controllers
         }
 
         // GET: Funcionarios/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -59,6 +59,7 @@ namespace CineManager.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(funcionario);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
