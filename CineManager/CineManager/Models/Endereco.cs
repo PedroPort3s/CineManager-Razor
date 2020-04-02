@@ -51,7 +51,7 @@ namespace CineManager.Models
         [Column(TypeName = "varchar(100)")]
         public string Pais { get; set; }
 
-        [Display(Name = "Tipo De Endereço")]
+        [Display(Name = "Tipo End.")]
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Column(TypeName = "varchar(100)")]
         public string TipoEndereco { get; set; }
