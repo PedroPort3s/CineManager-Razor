@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CineManager.Services;
+using CineManager.Services.IdentityMultifator;
 
 namespace CineManager {
     public class Startup {
@@ -28,33 +29,44 @@ namespace CineManager {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => {
-            options.SignIn.RequireConfirmedAccount = true;
 
-                options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
-                    new TokenProviderDescriptor(typeof(CustomEmailTokenProv<IdentityUser>)));
+            // 2F
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-                options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmacao";
+            services.AddSingleton<IEmailSender, SenderEmailConfirmacao>();
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>,IdentityMfa>();
 
-            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddAuthorization(options => options.AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr","mfa")));
 
-            services.AddTransient<CustomEmailTokenProv<IdentityUser>>();
+            //// Confirmar email
+            //services.AddDefaultIdentity<IdentityUser>(options => {
+            //options.SignIn.RequireConfirmedAccount = true;
 
-            services.AddControllersWithViews();
+            //    options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
+            //        new TokenProviderDescriptor(typeof(CustomEmailTokenProv<IdentityUser>)));
 
-            //Vida do token de email
-            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
+            //    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmacao";
 
-            //Autenticacao email e senha
-            services.AddTransient<IEmailSender, SenderEmailConfirmacao>();
-            services.Configure<EmailConfirmacao>(Configuration);
+            //}).AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //Inatividade para 7 dias
-            services.ConfigureApplicationCookie(o =>
-            {
-                o.ExpireTimeSpan = TimeSpan.FromDays(7);
-                o.SlidingExpiration = true;
-            });
+            //services.AddTransient<CustomEmailTokenProv<IdentityUser>>();
+
+            //services.AddControllersWithViews();
+
+            ////Vida do token de email
+            //services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
+
+            ////Autenticacao email e senha
+            //services.AddTransient<IEmailSender, SenderEmailConfirmacao>();
+            //services.Configure<EmailConfirmacao>(Configuration);
+
+            ////Inatividade para 7 dias
+            //services.ConfigureApplicationCookie(o =>
+            //{
+            //    o.ExpireTimeSpan = TimeSpan.FromDays(7);
+            //    o.SlidingExpiration = true;
+            //});
 
 
             services.AddRazorPages();
