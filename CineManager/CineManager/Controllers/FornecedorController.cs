@@ -22,7 +22,8 @@ namespace CineManager.Controllers
         // GET: Fornecedor
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Fornecedor.ToListAsync());
+            return View(await _context.Fornecedor.Include(x => x.Email).
+                Include(x => x.Telefone).Include(x => x.Endereco).ToListAsync());
         }
 
         // GET: Fornecedor/Details/5
@@ -54,7 +55,7 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NomeDaEmpresa,Telefone,Email,Endereco,NomeResponsavel")] Fornecedor fornecedor)
+        public async Task<IActionResult> Create([FromForm] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +87,7 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NomeDaEmpresa,Telefone,Email,Endereco,NomeResponsavel")] Fornecedor fornecedor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NomeDaEmpresa,NomeResponsavel")] Fornecedor fornecedor)
         {
             if (id != fornecedor.Id)
             {

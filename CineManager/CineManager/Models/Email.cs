@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace CineManager.Models
 {
-    public class Sala
+    public class Email
     {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Nº Poltrona")]
-        [Range(1, 120, ErrorMessage = "O {0} estar entre {1} e {2}")]
-        [Column(TypeName = "int")]
-        public int NumPoltrona { get; set; }
-        public int TipoSalaId { get; set; }
-        public TipoSala TipoSala { get; set; }
+        [Display(Name = "E-Mail")]
+        [MaxLength(20, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
+        [Column(TypeName = "varchar(160)")]
+        public string EnderecoEmail { get; set; }
     }
 }

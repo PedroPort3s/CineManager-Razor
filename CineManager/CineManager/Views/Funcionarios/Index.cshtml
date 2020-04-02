@@ -49,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.NomeCompleto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Endereco)
+                @Html.DisplayFor(modelItem => item.Endereco.NomeLogradouro)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
+                @Html.DisplayFor(modelItem => item.Telefone.Numero)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Setor)
