@@ -13,7 +13,6 @@ namespace CineManager.Models {
         
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Título")]
-        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9""'\s-]*$")]
         [MaxLength(200, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
         [Column(TypeName = "varchar(200)")]
@@ -23,7 +22,6 @@ namespace CineManager.Models {
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Duração do filme")]
         [Range(20, 500, ErrorMessage = "A {0} tem de estar entre {1} e {2}")]
-        [RegularExpression(@"^[0-9]*$")]
         [Column(TypeName = "int")]
         public int Duracao { get; set; }
 

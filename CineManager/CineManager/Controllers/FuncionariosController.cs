@@ -22,7 +22,7 @@ namespace CineManager.Controllers
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionario.ToListAsync());
+            return View(await _context.Funcionario.Include(x => x.Endereco).Include(x => x.Telefone).ToListAsync());
         }
 
         // GET: Funcionarios/Details/5
@@ -54,11 +54,12 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NomeCompleto,Endereco,Telefone,Setor,Cpf,Rg,Salario,Cargo,Turno")] Funcionario funcionario)
+        public async Task<IActionResult> Create([FromForm] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(funcionario);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
