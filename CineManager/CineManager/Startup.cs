@@ -30,6 +30,15 @@ namespace CineManager {
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //Autenticação do Google
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                IConfigurationSection googleAutentication = Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = googleAutentication["ClientId"];
+                options.ClientSecret = googleAutentication["ClientSecret"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
