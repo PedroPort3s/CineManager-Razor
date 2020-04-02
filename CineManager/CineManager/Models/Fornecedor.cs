@@ -29,7 +29,5 @@ namespace CineManager.Models
         public Endereco Endereco { get; set; }
         public Telefone Telefone { get; set; }
         public Email Email { get; set; }
-
-
     }
 }

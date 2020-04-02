@@ -25,20 +25,17 @@ namespace CineManager.Models
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "CPF")]
         [Column(TypeName = "bigint")]
-        [RegularExpression("^[0-9]*$")]
         public long Cpf { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "RG")]
         [Column(TypeName = "bigint")]
-        [RegularExpression("^[0-9]*$")]
         public long Rg { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Salário")]
         [Column(TypeName = "decimal(12,3)")]
-        [RegularExpression("^[0-9]*$")]
-        public decimal Salario { get; set; }
+        [RegularExpression("^[0-9]*$")]        public decimal Salario { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Column(TypeName = "varchar(30)")]

@@ -15,13 +15,9 @@ namespace CineManager.Models
         [Display(Name = "Duração da Sessão")]
         [Column(TypeName = "int")]
         public int Duracao_Sessao { get; set; }
-
-
         public Filme Filme { get; set; }
-
         public Sala Sala { get; set; }
         public int FilmeId { get; set; }
         public int SalaId { get; set; }
-
     }
 }

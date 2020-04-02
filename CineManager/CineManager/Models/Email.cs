@@ -12,7 +12,7 @@ namespace CineManager.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Email")]
+        [Display(Name = "E-Mail")]
         [MaxLength(20, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
         [Column(TypeName = "varchar(160)")]
