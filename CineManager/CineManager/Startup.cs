@@ -1,14 +1,20 @@
-using CineManager.Data;
-using CineManager.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
+using CineManager.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using CineManager.Services;
+using CineManager.Services.IdentityMultifator;
 
 namespace CineManager {
     public class Startup {
@@ -23,35 +29,46 @@ namespace CineManager {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => {
-            options.SignIn.RequireConfirmedAccount = true;
 
-                options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
-                    new TokenProviderDescriptor(typeof(CustomEmailTokenProv<IdentityUser>)));
+            // 2F
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-                options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmacao";
+            services.AddSingleton<IEmailSender, SenderEmailConfirmacao>();
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>,IdentityMfa>();
 
-            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddAuthorization(options => options.AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr","mfa")));
 
-            services.AddTransient<CustomEmailTokenProv<IdentityUser>>();
+            //// Confirmar email
+            //services.AddDefaultIdentity<IdentityUser>(options => {
+            //options.SignIn.RequireConfirmedAccount = true;
 
-            services.AddControllersWithViews();
+            //    options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
+            //        new TokenProviderDescriptor(typeof(CustomEmailTokenProv<IdentityUser>)));
 
-            //Vida do token de email
-            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
+            //    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmacao";
 
-            //Autenticacao email e senha
-            services.AddTransient<IEmailSender, SenderEmailConfirmacao>();
-            services.Configure<EmailConfirmacao>(Configuration);
+            //}).AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //Inatividade para 7 dias
-            services.ConfigureApplicationCookie(o =>
-            {
-                o.ExpireTimeSpan = TimeSpan.FromDays(7);
-                o.SlidingExpiration = true;
-            });
+            //services.AddTransient<CustomEmailTokenProv<IdentityUser>>();
 
-            services.AddMvc();
+            //services.AddControllersWithViews();
+
+            ////Vida do token de email
+            //services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
+
+            ////Autenticacao email e senha
+            //services.AddTransient<IEmailSender, SenderEmailConfirmacao>();
+            //services.Configure<EmailConfirmacao>(Configuration);
+
+            ////Inatividade para 7 dias
+            //services.ConfigureApplicationCookie(o =>
+            //{
+            //    o.ExpireTimeSpan = TimeSpan.FromDays(7);
+            //    o.SlidingExpiration = true;
+            //});
+
+
             services.AddRazorPages();
 
             //Autenticação do Google
@@ -66,8 +83,6 @@ namespace CineManager {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-            app.UseRouting();
-
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -83,8 +98,8 @@ namespace CineManager {
 
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints => {
-                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
