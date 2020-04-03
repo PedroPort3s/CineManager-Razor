@@ -12,6 +12,8 @@ using CineManager.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using CineManager.Services;
 
 namespace CineManager {
     public class Startup {
@@ -26,11 +28,46 @@ namespace CineManager {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDefaultIdentity<IdentityUser>(options => {
+            options.SignIn.RequireConfirmedAccount = true;
+
+                options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
+                    new TokenProviderDescriptor(typeof(CustomEmailTokenProv<IdentityUser>)));
+
+                options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmacao";
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<CustomEmailTokenProv<IdentityUser>>();
+
             services.AddControllersWithViews();
+
+            //Vida do token de email
+            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
+
+            //Autenticacao email e senha
+            services.AddTransient<IEmailSender, SenderEmailConfirmacao>();
+            services.Configure<EmailConfirmacao>(Configuration);
+
+            //Inatividade para 7 dias
+            services.ConfigureApplicationCookie(o =>
+            {
+                o.ExpireTimeSpan = TimeSpan.FromDays(7);
+                o.SlidingExpiration = true;
+            });
+
+
             services.AddRazorPages();
-            services.AddMvc();
+
+            //Autenticação do Google
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                IConfigurationSection googleAutentication = Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = googleAutentication["ClientId"];
+                options.ClientSecret = googleAutentication["ClientSecret"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
