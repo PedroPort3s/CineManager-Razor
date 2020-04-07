@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CineManager.Data;
 using CineManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CineManager.Controllers
 {
+    [Authorize]
     public class SalasController : Controller
     {
         private readonly ApplicationDbContext _context;
