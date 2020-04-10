@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CineManager.Data;
 using CineManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CineManager.Controllers
 {
+    [Authorize(Policy = "CineManeger")]
     public class FilmeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,6 +25,30 @@ namespace CineManager.Controllers
         public async Task<IActionResult> Index()
         {
             return View("Index", await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero).ToListAsync());
+        }
+
+        // GET: Filme/Create
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.ListaTipoFilmes = await _context.TipoFilmes.ToListAsync();
+            ViewBag.ListaGeneros = await _context.Generos.ToListAsync();
+            return View();
+        }
+
+        // POST: Filme/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateFilme([FromForm] Filme filme)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Filme.Add(filme);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Create));
         }
 
         // GET: Filme/Details/5
@@ -41,30 +67,6 @@ namespace CineManager.Controllers
             }
 
             return View(filme);
-        }
-
-        // GET: Filme/Create
-        public async Task<IActionResult> Create()
-        {
-            ViewBag.ListaTipoFilmes = await _context.TipoFilmes.ToListAsync();
-            ViewBag.ListaGeneros = await _context.Generos.ToListAsync();
-            return View();
-        }
-
-        // POST: Filme/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] Filme filme)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Filme.Add(filme);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return RedirectToAction(nameof(Create));
         }
 
         // GET: Filme/Edit/5
@@ -96,7 +98,8 @@ namespace CineManager.Controllers
             if (id != filme.Id)
             {
                 return NotFound();
-            }
+            } 
+
             if (ModelState.IsValid)
             {
                 try

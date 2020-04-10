@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CineManager.Data;
 using CineManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CineManager.Controllers
 {
+    [Authorize(Policy = "CineManeger")]
     public class FuncionariosController : Controller
     {
         private readonly ApplicationDbContext _context;

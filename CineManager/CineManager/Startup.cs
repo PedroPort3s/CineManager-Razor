@@ -58,6 +58,8 @@ namespace CineManager {
             });
 
 
+            services.AddAuthorization(options => options.AddPolicy("CineManeger", policy => policy.RequireUserName("cinemanagerteam@gmail.com")));
+
             services.AddRazorPages();
 
             //Autenticação do Google
