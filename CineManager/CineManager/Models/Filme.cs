@@ -10,7 +10,7 @@ namespace CineManager.Models {
 
 
         public int Id { get; set; }
-        
+
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Título")]
         [MaxLength(200, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
@@ -42,7 +42,7 @@ namespace CineManager.Models {
 
         [Display(Name = "Gênero")]
         public Genero Genero { get; set; }
-        
+
         public int GeneroId { get; set; }
         public int TipoFilmeId { get; set; }
 

@@ -9,27 +9,22 @@ using CineManager.Data;
 using CineManager.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace CineManager.Controllers
-{
+namespace CineManager.Controllers {
     [Authorize(Policy = "CineManeger")]
-    public class FilmeController : Controller
-    {
+    public class FilmeController : Controller {
         private readonly ApplicationDbContext _context;
 
-        public FilmeController(ApplicationDbContext context)
-        {
+        public FilmeController(ApplicationDbContext context) {
             _context = context;
         }
 
         // GET: Filme
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             return View("Index", await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero).ToListAsync());
         }
 
         // GET: Filme/Create
-        public async Task<IActionResult> Create()
-        {
+        public async Task<IActionResult> Create() {
             ViewBag.ListaTipoFilmes = await _context.TipoFilmes.ToListAsync();
             ViewBag.ListaGeneros = await _context.Generos.ToListAsync();
             return View();
@@ -40,10 +35,8 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFilme([FromForm] Filme filme)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> CreateFilme([FromForm] Filme filme) {
+            if (ModelState.IsValid) {
                 _context.Filme.Add(filme);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -52,17 +45,14 @@ namespace CineManager.Controllers
         }
 
         // GET: Filme/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (filme == null)
-            {
+            if (filme == null) {
                 return NotFound();
             }
 
@@ -70,17 +60,14 @@ namespace CineManager.Controllers
         }
 
         // GET: Filme/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero).
                 FirstOrDefaultAsync(x => x.Id == id);
-            if (filme == null)
-            {
+            if (filme == null) {
                 return NotFound();
             }
             ViewBag.ListaTipoFilmes = await _context.TipoFilmes.ToListAsync();
@@ -93,28 +80,19 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [FromForm] Filme filme)
-        {
-            if (id != filme.Id)
-            {
+        public async Task<IActionResult> Edit(int id, [FromForm] Filme filme) {
+            if (id != filme.Id) {
                 return NotFound();
-            } 
+            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(filme);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FilmeExists(filme.Id))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!FilmeExists(filme.Id)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -124,17 +102,14 @@ namespace CineManager.Controllers
         }
 
         // GET: Filme/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (filme == null)
-            {
+            if (filme == null) {
                 return NotFound();
             }
 
@@ -144,13 +119,11 @@ namespace CineManager.Controllers
         // POST: Filme/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (filme == null)
-            {
+            if (filme == null) {
                 return NotFound();
             }
 
@@ -159,8 +132,7 @@ namespace CineManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FilmeExists(int id)
-        {
+        private bool FilmeExists(int id) {
             return _context.Filme.Any(e => e.Id == id);
         }
     }
