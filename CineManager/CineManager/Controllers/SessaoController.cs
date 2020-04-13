@@ -33,7 +33,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var sessao = await _context.Sessao
+            var sessao = await _context.Sessao.Include(x =>x.Filme).Include(x=>x.Sala).Include(x=>x.Filme.Genero)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sessao == null)
             {
@@ -75,11 +75,15 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var sessao = await _context.Sessao.FindAsync(id);
+            var sessao = await _context.Sessao.Include(x => x.Filme).Include(x => x.Sala).FirstOrDefaultAsync(x=>x.Id == id);
             if (sessao == null)
             {
                 return NotFound();
             }
+
+            ViewBag.ListaSalas = _context.Sala.ToList();
+            ViewBag.ListaFilmes = _context.Filme.ToList();
+
             return View(sessao);
         }
 
@@ -88,7 +92,7 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Duracao_Sessao,Filme,Sala")] Sessao sessao)
+        public async Task<IActionResult> Edit(int id, [FromForm] Sessao sessao)
         {
             if (id != sessao.Id)
             {
@@ -126,12 +130,14 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var sessao = await _context.Sessao
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var sessao = await _context.Sessao.Include(x => x.Filme).Include(x => x.Sala).Include(x => x.Filme.Genero).FirstOrDefaultAsync(m => m.Id == id);
             if (sessao == null)
             {
                 return NotFound();
             }
+
+            ViewBag.ListaSalas = _context.Sala.ToList();
+            ViewBag.ListaFilmes = _context.Filme.ToList();
 
             return View(sessao);
         }

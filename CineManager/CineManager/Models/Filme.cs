@@ -29,12 +29,14 @@ namespace CineManager.Models {
         [Display(Name = "Data de lançamento")]
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Lancamento { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Em cartaz até")]
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EmCartazAte { get; set; }
 
         [Display(Name = "Tipo do filme")]
