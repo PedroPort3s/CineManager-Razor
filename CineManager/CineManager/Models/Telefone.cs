@@ -19,24 +19,19 @@ namespace CineManager.Models {
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "DDD")]
         [Column(TypeName = "int")]
-        [Range(2,2,ErrorMessage = "o campo {0} tem de ter {1} caracteres")]
+        [Range(10, 99, ErrorMessage = "O campo {0} precisa estar entre {1} e {2}")]
+
         public int DDD { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Número")]
         [Column(TypeName = "bigint")]
-        [Range(8, 9, ErrorMessage = "o campo {0} tem de ter de {1}-{2} caracteres")]
+        [Range(10000000,999999999,ErrorMessage = "Insira um número válido")]
         public long Numero { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "DDI")]
         [Column(TypeName = "int")]
-        [Range(2, 2, ErrorMessage = "o campo {0} tem de ter {1} caracteres")]
         public int DDI { get; set; }
-
-        public string MostrarNumero() {
-            return $"{DDI} {DDD} {Numero}";
-        }
-
     }
 }

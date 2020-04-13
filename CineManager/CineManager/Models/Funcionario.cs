@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,19 +26,16 @@ namespace CineManager.Models
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "CPF")]
         [Column(TypeName = "bigint")]
-        [Range(11, 11, ErrorMessage = "o campo {0} tem de ter {11} caracteres")]
         public long Cpf { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "RG")]
         [Column(TypeName = "bigint")]
-        [Range(9, 9, ErrorMessage = "o campo {0} tem de ter {1} caracteres")]
         public long Rg { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Salário")]
         [Column(TypeName = "decimal(12,3)")]
-        [RegularExpression("^[0-9]*$")]   
         [Range(100, 100000, ErrorMessage = "o campo {0} tem de estar entre {1} e {2}")]
         public decimal Salario { get; set; }
 

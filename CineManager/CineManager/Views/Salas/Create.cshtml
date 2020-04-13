@@ -20,18 +20,16 @@
             <div class="form-group">
                 <label asp-for="TipoSala" class="control-label"></label>
                 @*<input asp-for="TipoSala" class="form-control" />*@
-                <select asp-for="TipoSalaId" asp-items="@(new SelectList(ViewBag.listaTipoSalas , "Id", "Tipo"))" class="form-control"></select>
+                <select asp-for="TipoSalaId" asp-items="@(new SelectList(ViewBag.listaTipoSalas , "Id", "Tipo"))" 
+                        class="form-control"></select>
                 <span asp-validation-for="TipoSala" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />
+                <a class="btn btn-secondary" asp-action="Index">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {
