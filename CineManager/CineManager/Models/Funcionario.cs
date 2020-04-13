@@ -57,5 +57,7 @@ namespace CineManager.Models
 
         [Display(Name = "Endereço")]
         public Endereco Endereco { get; set; }
+        public int TelefoneId { get; set; }
+        public int EnderecoId { get; set; }
     }
 }

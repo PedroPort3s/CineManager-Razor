@@ -35,7 +35,7 @@ namespace CineManager.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFilme([FromForm] Filme filme) {
+        public async Task<IActionResult> Create([FromForm] Filme filme) {
             if (ModelState.IsValid) {
                 _context.Filme.Add(filme);
                 await _context.SaveChangesAsync();
