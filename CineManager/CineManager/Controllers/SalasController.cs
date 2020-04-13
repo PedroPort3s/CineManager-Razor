@@ -35,7 +35,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var sala = await _context.Sala
+            var sala = await _context.Sala.Include(x => x.TipoSala)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sala == null)
             {
@@ -76,11 +76,12 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var sala = await _context.Sala.FindAsync(id);
+            var sala = await _context.Sala.Include(x => x.TipoSala).FirstOrDefaultAsync(x => x.Id == id);
             if (sala == null)
             {
                 return NotFound();
             }
+            ViewBag.ListaTipoSalas = await _context.TipoSala.ToListAsync();
             return View(sala);
         }
 
@@ -89,7 +90,7 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumPoltrona,TipoSala")] Sala sala)
+        public async Task<IActionResult> Edit(int id, [FromForm] Sala sala)
         {
             if (id != sala.Id)
             {
@@ -127,7 +128,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var sala = await _context.Sala
+            var sala = await _context.Sala.Include(x => x.TipoSala)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sala == null)
             {
@@ -142,7 +143,7 @@ namespace CineManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sala = await _context.Sala.FindAsync(id);
+            var sala = await _context.Sala.Include(x => x.TipoSala).FirstOrDefaultAsync(x => x.Id == id);
             _context.Sala.Remove(sala);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

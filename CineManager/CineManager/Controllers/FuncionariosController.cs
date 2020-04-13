@@ -35,7 +35,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionario
+            var funcionario = await _context.Funcionario.Include(x => x.Endereco).Include(x => x.Telefone)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (funcionario == null)
             {
@@ -76,7 +76,8 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionario.FindAsync(id);
+            var funcionario = await _context.Funcionario.Include(x => x.Endereco).
+                Include(x => x.Telefone).FirstOrDefaultAsync(x => x.Id == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -127,8 +128,8 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var funcionario = await _context.Funcionario.Include(x => x.Endereco).Include(x => x.Telefone)
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -142,7 +143,8 @@ namespace CineManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var funcionario = await _context.Funcionario.FindAsync(id);
+            var funcionario = await _context.Funcionario.Include(x => x.Endereco).
+                Include(x => x.Telefone).FirstOrDefaultAsync(x => x.Id == id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

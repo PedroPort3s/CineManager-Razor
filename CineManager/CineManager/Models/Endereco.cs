@@ -32,6 +32,7 @@ namespace CineManager.Models
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "CEP")]
         [Column(TypeName = "varchar(10)")]
+        [Range(10000000, 99999999, ErrorMessage = "Insira um número válido")]
         public string Cep { get; set; }
         
         [Required(ErrorMessage = "o campo {0} é obrigatório")]

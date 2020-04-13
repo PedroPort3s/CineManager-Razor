@@ -34,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item.Filme.Titulo)
             </td>
             <td>
-                Sala: @Html.DisplayFor(modelItem => item.Sala.Id)
+                Sala @Html.DisplayFor(modelItem => item.Sala.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a> |

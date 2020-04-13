@@ -13,7 +13,7 @@ namespace CineManager.Models
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Tipo de Sala")]
-        [StringLength(100, MinimumLength = 10, ErrorMessage = "o {0} deve ter entre {1} e {2} caracteres")]
+        [StringLength(150, MinimumLength = 10, ErrorMessage = "o {0} deve ter entre {1} e {2} caracteres")]
         [Column(TypeName = "varchar(150)")]
         public string Tipo { get; set; }
     }

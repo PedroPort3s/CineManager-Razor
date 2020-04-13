@@ -78,7 +78,8 @@ namespace CineManager.Controllers
             }
 
             var fornecedor = await _context.Fornecedor.Include(x => x.Email).
-                Include(x => x.Telefone).Include(x => x.Endereco).FirstOrDefaultAsync(x => x.Id == id);
+                Include(x => x.Telefone).Include(x => x.Endereco).
+                FirstOrDefaultAsync(x => x.Id == id);
             if (fornecedor == null)
             {
                 return NotFound();
@@ -91,7 +92,7 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NomeDaEmpresa,NomeResponsavel")] Fornecedor fornecedor)
+        public async Task<IActionResult> Edit(int id, [FromForm] Fornecedor fornecedor)
         {
             if (id != fornecedor.Id)
             {
@@ -129,7 +130,8 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var fornecedor = await _context.Fornecedor
+            var fornecedor = await _context.Fornecedor.Include(x => x.Email).
+                Include(x => x.Telefone).Include(x => x.Endereco)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (fornecedor == null)
             {
@@ -144,7 +146,8 @@ namespace CineManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fornecedor = await _context.Fornecedor.FindAsync(id);
+            var fornecedor = await _context.Fornecedor.Include(x => x.Email).
+                Include(x => x.Telefone).Include(x => x.Endereco).FirstOrDefaultAsync(x => x.Id == id);
             _context.Fornecedor.Remove(fornecedor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
