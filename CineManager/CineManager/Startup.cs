@@ -73,6 +73,10 @@ namespace CineManager {
             {
                 ms.ClientId = Configuration["Authentication:Microsoft:ClientId"];
                 ms.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+            }).AddFacebook(facebookOptions => 
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             }); 
         }
 
