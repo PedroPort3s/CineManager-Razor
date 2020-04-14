@@ -48,9 +48,10 @@ namespace CineManager.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Senha")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Lembrar de mim?")]
             public bool RememberMe { get; set; }
         }
 
