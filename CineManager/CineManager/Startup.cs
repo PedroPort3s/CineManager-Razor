@@ -69,7 +69,11 @@ namespace CineManager {
 
                 options.ClientId = googleAutentication["ClientId"];
                 options.ClientSecret = googleAutentication["ClientSecret"];
-            });
+            }).AddMicrosoftAccount(ms =>//Autenticação da Microsoft
+            {
+                ms.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                ms.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
