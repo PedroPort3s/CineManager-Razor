@@ -6,57 +6,154 @@
     <title>@ViewData["Title"] - CineManager</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @*Font Awesome - Para os Icones*@
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CineManager</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
+    @*<header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CineManager</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Filme" asp-action="Index">Filmes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sessao" asp-action="Index">Sessões</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionários</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Fornecedor" asp-action="Index">Fornecedores</a>
-                        </li>
-                    </ul>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Filme" asp-action="Index">Filmes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Sessao" asp-action="Index">Sessões</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionários</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Fornecedor" asp-action="Index">Fornecedores</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+            </nav>
+        </header>*@
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Menu</h3>
             </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Filme" asp-action="Index">Filmes</a>
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Sessao" asp-action="Index">Sessões</a>
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionários</a>
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Fornecedor" asp-action="Index">Fornecedores</a>
+
+
+                    @*<ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Filme" asp-action="Index">Filmes</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Sessao" asp-action="Index">Sessões</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionários</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Fornecedor" asp-action="Index">Fornecedores</a>
+                            </li>
+                            <li>
+                                <partial name="_LoginPartial" />
+                            </li>
+                        </ul>*@
+                </li>
+            </ul>
+
+            <partial name="_LoginPartial" />
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3 pt-4">
+        <div class="container body-content">
             @RenderBody()
-        </main>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - CineManager
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @*<div id="content">
+        @*<nav class="navbar navbar-expand-lg navbar-light bg-light">*@
+
+    @*<div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+                <span>Toggle Sidebar</span>
+            </button>
+
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <footer></footer>
+
+        </div>*@
+    @*</nav>*@
+    @*</div>*@
+
+
+    @*<div class="container">
+            <main role="main" class="pb-3 pt-4">
+                @RenderBody()
+            </main>
+        </div>*@
+
+    @*<footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2020 - CineManager
+            </div>
+        </footer>*@
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @*Menu Teste*@
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
