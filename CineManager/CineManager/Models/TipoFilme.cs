@@ -11,11 +11,12 @@ namespace CineManager.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Tipo de filme")]
-        [RegularExpression(@"^[A-Z0-9]+[a-zA-Z0-9""'\s-]*$")]
-        [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        [Display(Name = "Tipo de Filme")]
+        //Expressão regular que permite a entrada de números, letras (sem acentuação), traço e espaço.
+        [RegularExpression(@"^[\w]+[\w\s-]*$", ErrorMessage = "O campo {0} não pode conter acentuação ou caracteres especiais.")]
+        [MaxLength(100, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres.")]
+        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caractere.")]
         [Column(TypeName = "varchar(100)")]
         public string NomeTipoFilme { get; set; }
     }
