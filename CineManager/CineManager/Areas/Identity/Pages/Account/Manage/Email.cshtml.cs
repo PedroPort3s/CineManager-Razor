@@ -101,7 +101,7 @@ namespace CineManager.Areas.Identity.Pages.Account.Manage
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
-                    "Confirm your email",
+                    "Confirme seu email",
                     $"Por favor, confirme sua conta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicando aqui.</a>.");
 
                 StatusMessage = "Link de confirmação para alterar o email enviado. Por favor verifique seu email.";

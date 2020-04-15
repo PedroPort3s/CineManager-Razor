@@ -130,12 +130,6 @@ namespace CineManager.Areas.Identity.Pages.Account
                     {
                         _logger.LogInformation("O usuário criou uma conta usando o provedor {Name}.", info.LoginProvider);
 
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                        {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
-                        }
-
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -147,6 +141,11 @@ namespace CineManager.Areas.Identity.Pages.Account
 
                         await _emailSender.SendEmailAsync(Input.Email, "Confirme seu email",
                             $"Por favor, confirme sua conta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicando aqui.</a>.");
+
+                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                        }
 
                         return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                     }
