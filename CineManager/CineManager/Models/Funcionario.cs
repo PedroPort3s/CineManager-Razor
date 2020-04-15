@@ -10,45 +10,51 @@ namespace CineManager.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Nome Completo")]
-        [MaxLength(200, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres")]
-        [Column(TypeName = "varchar(200)")] 
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        [Display(Name = "Nome completo")]
+        [MaxLength(100, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
+        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
+        [Column(TypeName = "varchar(100)")]
         public string NomeCompleto{ get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        [Display(Name = "E-Mail")]
+        [MaxLength(100, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
+        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
         [Column(TypeName = "varchar(100)")]
-        [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracter")]
         public string Setor { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "CPF")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "O campo {0} deve conter 11 dígitos")]
         [Column(TypeName = "bigint")]
         public long Cpf { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "RG")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [RegularExpression(@"^(\d{8,9})$", ErrorMessage = "O campo {0} deve conter 9 dígitos")]
         [Column(TypeName = "bigint")]
         public long Rg { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
         [Display(Name = "Salário")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [Range(100, 100000, ErrorMessage = "O campo {0} tem de estar entre {1} e {2}")]
+        [RegularExpression(@"^(\d{3,6})$", ErrorMessage = "O campo {0} deve conter de 3 a 6 dígitos")]
         [Column(TypeName = "decimal(12,3)")]
-        [Range(100, 100000, ErrorMessage = "o campo {0} tem de estar entre {1} e {2}")]
         public decimal Salario { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        [Display(Name = "Cargo")]
+        [MaxLength(100, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
+        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
         [Column(TypeName = "varchar(100)")]
-        [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracter")]
         public string Cargo { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Column(TypeName = "varchar(80)")]
-        [MaxLength(80, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracter")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        [Display(Name = "Turno")]
+        [MaxLength(100, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
+        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
+        [Column(TypeName = "varchar(100)")]
         public string Turno { get; set; }
 
         public Telefone Telefone { get; set; }

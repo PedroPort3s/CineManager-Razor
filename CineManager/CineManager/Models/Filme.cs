@@ -19,10 +19,11 @@ namespace CineManager.Models {
         public string Titulo { get; set; }
 
 
+        [Display(Name = "Duração")]
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Duração do filme")]
-        [Range(20, 500, ErrorMessage = "A {0} tem de estar entre {1} e {2}")]
         [Column(TypeName = "int")]
+        [Range(20, 500, ErrorMessage = "O campo {0} deve estar entre {1} e {2}")]
+        [RegularExpression(@"^(\d{1,3})$", ErrorMessage = "O campo {0} deve conter de 1 a 3 dígitos")]
         public int Duracao { get; set; }
 
         [Required(ErrorMessage = "o campo {0} é obrigatório")]
