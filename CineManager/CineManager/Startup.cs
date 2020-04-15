@@ -30,7 +30,8 @@ namespace CineManager {
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => {
-            options.SignIn.RequireConfirmedAccount = false;
+
+            options.SignIn.RequireConfirmedAccount = true;
                 options.SignIn.RequireConfirmedEmail = true;
 
                 options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
