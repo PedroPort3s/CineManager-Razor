@@ -136,7 +136,6 @@ namespace CineManager.Areas.Identity.Pages.Account
                             return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                         }
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -149,7 +148,7 @@ namespace CineManager.Areas.Identity.Pages.Account
                         await _emailSender.SendEmailAsync(Input.Email, "Confirme seu email",
                             $"Por favor, confirme sua conta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicando aqui.</a>.");
 
-                        return LocalRedirect(returnUrl);
+                        return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                     }
                 }
                 foreach (var error in result.Errors)

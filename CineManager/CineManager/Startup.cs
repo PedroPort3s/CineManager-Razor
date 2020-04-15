@@ -30,7 +30,8 @@ namespace CineManager {
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => {
-            options.SignIn.RequireConfirmedAccount = true;
+            options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedEmail = true;
 
                 options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
                     new TokenProviderDescriptor(typeof(CustomEmailTokenProv<IdentityUser>)));
@@ -69,7 +70,15 @@ namespace CineManager {
 
                 options.ClientId = googleAutentication["ClientId"];
                 options.ClientSecret = googleAutentication["ClientSecret"];
-            });
+            }).AddMicrosoftAccount(ms =>//Autenticação da Microsoft
+            {
+                ms.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                ms.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+            }).AddFacebook(facebookOptions => 
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
