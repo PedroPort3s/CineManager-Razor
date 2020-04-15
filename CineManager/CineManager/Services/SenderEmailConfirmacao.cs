@@ -13,8 +13,10 @@ namespace CineManager.Services
             Email = optionsAcessor.Value;
         }
 
+        //Pega os dados do user id e do user secret do send grid
         public EmailConfirmacao Email { get; }
 
+        //Tarefa que envia o email
         public Task SendEmailAsync(string email, string assunto, string mensagem){
             return Executar(Email.KeySendGrid, assunto, mensagem, email);
         }
@@ -23,6 +25,7 @@ namespace CineManager.Services
         {
             var cliente = new SendGridClient(chaveApi);
 
+            //cria o email
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress("cinemanagerteam@gmail.com", Email.UserSendGrid),
