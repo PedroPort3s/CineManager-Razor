@@ -32,13 +32,13 @@ namespace CineManager.Models
 
         [Display(Name = "RG")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [RegularExpression(@"^(\d{8,9})$", ErrorMessage = "O campo {0} deve conter 9 dígitos")]
+        [RegularExpression(@"^(\d{9})$", ErrorMessage = "O campo {0} deve conter 9 dígitos")]
         [Column(TypeName = "bigint")]
         public long Rg { get; set; }
 
         [Display(Name = "Salário")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [Range(100, 100000, ErrorMessage = "O campo {0} tem de estar entre {1} e {2}")]
+        [Range(100, 100000, ErrorMessage = "O campo {0} deve conter de {1} a {2}")]
         [RegularExpression(@"^(\d{3,6})$", ErrorMessage = "O campo {0} deve conter de 3 a 6 dígitos")]
         [Column(TypeName = "decimal(12,3)")]
         public decimal Salario { get; set; }
