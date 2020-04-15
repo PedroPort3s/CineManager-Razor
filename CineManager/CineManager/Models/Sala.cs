@@ -11,9 +11,10 @@ namespace CineManager.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
-        [Display(Name = "Nº Poltrona")]
-        [Range(1, 120, ErrorMessage = "O {0} estar entre {1} e {2}")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        [Display(Name = "Nº de Poltronas")]
+        [Range(1, 120, ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
+        [RegularExpression(@"^(\d{1,3})$", ErrorMessage = "O campo {0} deve conter de 1 a 3 dígitos.")]
         [Column(TypeName = "int")]
         public int NumPoltrona { get; set; }
         public int TipoSalaId { get; set; }
