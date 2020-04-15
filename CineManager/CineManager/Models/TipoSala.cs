@@ -11,10 +11,9 @@ namespace CineManager.Models
     {
         public int Id{ get; set; }
 
-        [Required(ErrorMessage = "o campo {0} é obrigatório")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Tipo de Sala")]
-        [StringLength(150, MinimumLength = 10, ErrorMessage = "o {0} deve ter entre {1} e {2} caracteres")]
-        [Column(TypeName = "varchar(150)")]
+        [Column(TypeName = "varchar(20)")]
         public string Tipo { get; set; }
     }
 }
