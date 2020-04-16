@@ -34,6 +34,7 @@ namespace CineManager {
             options.SignIn.RequireConfirmedAccount = true;
                 options.SignIn.RequireConfirmedEmail = true;
 
+                // provedor personalizado dos tokens de usuario de identidade - 1 dia é o padrao
                 options.Tokens.ProviderMap.Add("CustomEmailConfirmacao", 
                     new TokenProviderDescriptor(typeof(CustomEmailTokenProv<IdentityUser>)));
 
@@ -41,18 +42,19 @@ namespace CineManager {
 
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //Seriço de personalização do token
             services.AddTransient<CustomEmailTokenProv<IdentityUser>>();
 
             services.AddControllersWithViews();
 
-            //Vida do token de email
+            //Vida do token de segurança do email - identidade interna
             services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
 
             //Autenticacao email e senha
             services.AddTransient<IEmailSender, SenderEmailConfirmacao>();
             services.Configure<EmailConfirmacao>(Configuration);
 
-            //Inatividade para 7 dias
+            //Inatividade padrao de 14 dias, mudando para 7 dias
             services.ConfigureApplicationCookie(o =>
             {
                 o.ExpireTimeSpan = TimeSpan.FromDays(7);
@@ -71,15 +73,19 @@ namespace CineManager {
 
                 options.ClientId = googleAutentication["ClientId"];
                 options.ClientSecret = googleAutentication["ClientSecret"];
-            }).AddMicrosoftAccount(ms =>//Autenticação da Microsoft
-            {
-                ms.ClientId = Configuration["Authentication:Microsoft:ClientId"];
-                ms.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
-            }).AddFacebook(facebookOptions => 
+            }).AddFacebook(facebookOptions => // Autenticação do Facebook
             {
                 facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-            }); 
+            });
+
+
+            // Problemas com o redirecionamento de falhas externas https://github.com/aspnet/Security/issues/1165
+            //.AddMicrosoftAccount(ms => //Autenticação da Microsoft 
+            // {
+            //     ms.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+            //     ms.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+            // })
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

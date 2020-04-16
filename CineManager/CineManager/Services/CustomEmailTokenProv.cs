@@ -12,6 +12,7 @@ namespace CineManager.Services
     {
     }
 
+    //Provedor personalizado para a validade do token de usuario de segurança
     public class CustomEmailTokenProv<TUser> : DataProtectorTokenProvider<TUser> where TUser : class
     {
         public CustomEmailTokenProv(IDataProtectionProvider dataProtectionProvider,
