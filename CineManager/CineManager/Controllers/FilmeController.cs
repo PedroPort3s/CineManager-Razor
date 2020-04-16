@@ -20,6 +20,7 @@ namespace CineManager.Controllers {
 
         // GET: Filme
         public async Task<IActionResult> Index() {
+            InserirDados();
             return View("Index", await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero).ToListAsync());
         }
 
@@ -134,6 +135,48 @@ namespace CineManager.Controllers {
 
         private bool FilmeExists(int id) {
             return _context.Filme.Any(e => e.Id == id);
+        }
+
+        public void InserirDados() {
+            Genero genero = _context.Generos.FirstOrDefault(x => x.Nome.Equals("Ação"));
+            if (genero == null) {
+                Genero obj1 = new Genero();
+                obj1.Nome = "Ação";
+                _context.Generos.Add(obj1);
+
+                Genero obj2 = new Genero();
+                obj2.Nome = "Comédia";
+                _context.Generos.Add(obj2);
+
+                Genero obj3 = new Genero();
+                obj3.Nome = "Romance";
+                _context.Generos.Add(obj3);
+
+                TipoFilme obj4 = new TipoFilme();
+                obj4.NomeTipoFilme = "2D";
+                _context.TipoFilmes.Add(obj4);
+
+                TipoFilme obj5 = new TipoFilme();
+                obj5.NomeTipoFilme = "3D";
+                _context.TipoFilmes.Add(obj5);
+
+                TipoFilme obj6 = new TipoFilme();
+                obj6.NomeTipoFilme = "4D";
+                _context.TipoFilmes.Add(obj6);
+
+                TipoSala obj7 = new TipoSala();
+                obj7.Tipo = "2D";
+                _context.TipoSala.Add(obj7);
+
+                TipoSala obj8 = new TipoSala();
+                obj8.Tipo = "3D";
+                _context.TipoSala.Add(obj8);
+
+                TipoSala obj9 = new TipoSala();
+                obj9.Tipo = "4D";
+                _context.TipoSala.Add(obj9);
+                _context.SaveChanges();
+            }
         }
     }
 }
