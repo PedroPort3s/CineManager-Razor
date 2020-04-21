@@ -20,5 +20,6 @@ namespace CineManager.Data {
         public DbSet<TipoFilme> TipoFilmes { get; set; }
         public DbSet<Genero> Generos { get; set; }
         public DbSet<Telefone> Telefone { get; set; }
+        public DbSet<GeneroFilme> GeneroFilmes { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CineManager.Migrations
 {
-    public partial class telefoneporpessoa : Migration
+    public partial class initial1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,21 +48,34 @@ namespace CineManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Email",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    EnderecoEmail = table.Column<string>(type: "varchar(160)", maxLength: 160, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Email", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Endereco",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TipoLogradouro = table.Column<string>(type: "varchar(100)", nullable: false),
-                    NomeLogradouro = table.Column<string>(type: "varchar(100)", nullable: false),
+                    TipoLogradouro = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    NomeLogradouro = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Numero = table.Column<int>(type: "int", nullable: false),
-                    Complemento = table.Column<string>(type: "varchar(100)", nullable: true),
-                    Cep = table.Column<string>(type: "varchar(10)", nullable: false),
-                    Bairro = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Cidade = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Estado = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Pais = table.Column<string>(type: "varchar(100)", nullable: false),
-                    TipoEndereco = table.Column<string>(type: "varchar(100)", nullable: false)
+                    Complemento = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    Cep = table.Column<string>(type: "varchar(8)", maxLength: 8, nullable: false),
+                    Bairro = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Cidade = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Estado = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Pais = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    TipoEndereco = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,20 +83,19 @@ namespace CineManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fornecedor",
+                name: "Filme",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NomeDaEmpresa = table.Column<string>(nullable: false),
-                    Telefone = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Endereco = table.Column<string>(nullable: false),
-                    NomeResponsavel = table.Column<string>(nullable: false)
+                    Titulo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
+                    Duracao = table.Column<int>(type: "int", nullable: false),
+                    Lancamento = table.Column<DateTime>(type: "datetime", nullable: false),
+                    EmCartazAte = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fornecedor", x => x.Id);
+                    table.PrimaryKey("PK_Filme", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,7 +104,7 @@ namespace CineManager.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                    Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,7 +117,7 @@ namespace CineManager.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Tipo = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    Tipo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     DDD = table.Column<int>(type: "int", nullable: false),
                     Numero = table.Column<long>(type: "bigint", nullable: false),
                     DDI = table.Column<int>(type: "int", nullable: false)
@@ -116,25 +128,12 @@ namespace CineManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TipoFilmes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NomeTipoFilme = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TipoFilmes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TipoSala",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Tipo = table.Column<string>(type: "varchar(150)", maxLength: 100, nullable: false)
+                    Tipo = table.Column<string>(type: "varchar(20)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -248,20 +247,75 @@ namespace CineManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TipoFilmes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NomeTipoFilme = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    FilmeId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoFilmes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TipoFilmes_Filme_FilmeId",
+                        column: x => x.FilmeId,
+                        principalTable: "Filme",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fornecedor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NomeDaEmpresa = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    NomeResponsavel = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false),
+                    EnderecoId = table.Column<int>(nullable: true),
+                    TelefoneId = table.Column<int>(nullable: true),
+                    EmailId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fornecedor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Fornecedor_Email_EmailId",
+                        column: x => x.EmailId,
+                        principalTable: "Email",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Fornecedor_Endereco_EnderecoId",
+                        column: x => x.EnderecoId,
+                        principalTable: "Endereco",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Fornecedor_Telefone_TelefoneId",
+                        column: x => x.TelefoneId,
+                        principalTable: "Telefone",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Funcionario",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NomeCompleto = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
-                    Setor = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false),
+                    NomeCompleto = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Setor = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Cpf = table.Column<long>(type: "bigint", nullable: false),
                     Rg = table.Column<long>(type: "bigint", nullable: false),
                     Salario = table.Column<decimal>(type: "decimal(12,3)", nullable: false),
-                    Cargo = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false),
-                    Turno = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false),
-                    TelefoneId = table.Column<int>(nullable: true),
-                    EnderecoId = table.Column<int>(nullable: true)
+                    Cargo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Turno = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    TelefoneId = table.Column<int>(nullable: false),
+                    EnderecoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -271,41 +325,11 @@ namespace CineManager.Migrations
                         column: x => x.EnderecoId,
                         principalTable: "Endereco",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Funcionario_Telefone_TelefoneId",
                         column: x => x.TelefoneId,
                         principalTable: "Telefone",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Filme",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Titulo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
-                    Duracao = table.Column<int>(type: "int", nullable: false),
-                    Lancamento = table.Column<DateTime>(type: "datetime", nullable: false),
-                    EmCartazAte = table.Column<DateTime>(type: "datetime", nullable: false),
-                    GeneroId = table.Column<int>(nullable: false),
-                    TipoFilmeId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Filme", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Filme_Generos_GeneroId",
-                        column: x => x.GeneroId,
-                        principalTable: "Generos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Filme_TipoFilmes_TipoFilmeId",
-                        column: x => x.TipoFilmeId,
-                        principalTable: "TipoFilmes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -395,14 +419,19 @@ namespace CineManager.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Filme_GeneroId",
-                table: "Filme",
-                column: "GeneroId");
+                name: "IX_Fornecedor_EmailId",
+                table: "Fornecedor",
+                column: "EmailId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Filme_TipoFilmeId",
-                table: "Filme",
-                column: "TipoFilmeId");
+                name: "IX_Fornecedor_EnderecoId",
+                table: "Fornecedor",
+                column: "EnderecoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fornecedor_TelefoneId",
+                table: "Fornecedor",
+                column: "TelefoneId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Funcionario_EnderecoId",
@@ -428,6 +457,11 @@ namespace CineManager.Migrations
                 name: "IX_Sessao_SalaId",
                 table: "Sessao",
                 column: "SalaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipoFilmes_FilmeId",
+                table: "TipoFilmes",
+                column: "FilmeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -454,7 +488,13 @@ namespace CineManager.Migrations
                 name: "Funcionario");
 
             migrationBuilder.DropTable(
+                name: "Generos");
+
+            migrationBuilder.DropTable(
                 name: "Sessao");
+
+            migrationBuilder.DropTable(
+                name: "TipoFilmes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -463,22 +503,19 @@ namespace CineManager.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Email");
+
+            migrationBuilder.DropTable(
                 name: "Endereco");
 
             migrationBuilder.DropTable(
                 name: "Telefone");
 
             migrationBuilder.DropTable(
-                name: "Filme");
-
-            migrationBuilder.DropTable(
                 name: "Sala");
 
             migrationBuilder.DropTable(
-                name: "Generos");
-
-            migrationBuilder.DropTable(
-                name: "TipoFilmes");
+                name: "Filme");
 
             migrationBuilder.DropTable(
                 name: "TipoSala");

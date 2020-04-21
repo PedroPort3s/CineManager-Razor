@@ -17,5 +17,11 @@ namespace CineManager.Models
         [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
         [Column(TypeName = "varchar(100)")]
         public string Nome{ get; set; }
+
+        [NotMapped]
+        public Filme Filme { get; set; }
+
+        [NotMapped]
+        public int FilmeId { get; set; }
     }
 }

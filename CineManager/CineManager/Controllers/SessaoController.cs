@@ -45,7 +45,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
             // Faz uma busca no banco de dados a partir do Id que recebeu como parâmetro
-            var sessao = await _context.Sessao.Include(x =>x.Filme).Include(x=>x.Sala).Include(x=>x.Filme.Genero)
+            var sessao = await _context.Sessao
                 .FirstOrDefaultAsync(m => m.Id == id);
             // Confere se a sessão é nula
             if (sessao == null)
@@ -96,7 +96,7 @@ namespace CineManager.Controllers
             }
 
             // Faz uma consulta no banco trazendo a sessão
-            var sessao = await _context.Sessao.Include(x => x.Filme).Include(x => x.Sala).FirstOrDefaultAsync(x=>x.Id == id);
+            var sessao = await _context.Sessao.FirstOrDefaultAsync(x=>x.Id == id);
 
             // Confere se a sessão é nula
             if (sessao == null)
@@ -159,7 +159,7 @@ namespace CineManager.Controllers
             }
 
             // Faz uma busca no banco pela sessão, filme, sala e gênero do filme
-            var sessao = await _context.Sessao.Include(x => x.Filme).Include(x => x.Sala).Include(x => x.Filme.Genero).FirstOrDefaultAsync(m => m.Id == id);
+            var sessao = await _context.Sessao.FirstOrDefaultAsync(m => m.Id == id);
             // Confere se a sessão é nula
             if (sessao == null)
             {

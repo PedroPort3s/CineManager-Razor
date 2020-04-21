@@ -3,14 +3,16 @@ using System;
 using CineManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CineManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200421003628_initial1")]
+    partial class initial1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,32 +220,6 @@ namespace CineManager.Migrations
                     b.ToTable("Generos");
                 });
 
-            modelBuilder.Entity("CineManager.Models.GeneroFilme", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("FilmeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GeneroId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TipoFilmeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilmeId");
-
-                    b.HasIndex("GeneroId");
-
-                    b.HasIndex("TipoFilmeId");
-
-                    b.ToTable("GeneroFilmes");
-                });
-
             modelBuilder.Entity("CineManager.Models.Sala", b =>
                 {
                     b.Property<int>("Id")
@@ -318,12 +294,17 @@ namespace CineManager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("FilmeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("NomeTipoFilme")
                         .IsRequired()
                         .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FilmeId");
 
                     b.ToTable("TipoFilmes");
                 });
@@ -569,27 +550,6 @@ namespace CineManager.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CineManager.Models.GeneroFilme", b =>
-                {
-                    b.HasOne("CineManager.Models.Filme", "Filme")
-                        .WithMany()
-                        .HasForeignKey("FilmeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CineManager.Models.Genero", "Genero")
-                        .WithMany()
-                        .HasForeignKey("GeneroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CineManager.Models.TipoFilme", "TipoFilme")
-                        .WithMany()
-                        .HasForeignKey("TipoFilmeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CineManager.Models.Sala", b =>
                 {
                     b.HasOne("CineManager.Models.TipoSala", "TipoSala")
@@ -612,6 +572,13 @@ namespace CineManager.Migrations
                         .HasForeignKey("SalaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CineManager.Models.TipoFilme", b =>
+                {
+                    b.HasOne("CineManager.Models.Filme", "Filme")
+                        .WithMany()
+                        .HasForeignKey("FilmeId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

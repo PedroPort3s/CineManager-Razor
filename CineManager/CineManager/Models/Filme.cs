@@ -40,13 +40,18 @@ namespace CineManager.Models {
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EmCartazAte { get; set; }
 
+        [NotMapped]
         [Display(Name = "Tipo do filme")]
         public TipoFilme TipoFilme { get; set; }
 
+        [NotMapped]
         [Display(Name = "Gênero")]
         public Genero Genero { get; set; }
 
+        [NotMapped]
         public int GeneroId { get; set; }
+
+        [NotMapped]
         public int TipoFilmeId { get; set; }
 
     }
