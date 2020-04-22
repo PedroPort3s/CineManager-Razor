@@ -1,7 +1,7 @@
 ﻿@model CineManager.Models.Filme
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
 <h1>Editar</h1>
@@ -13,6 +13,8 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ListaGenero" />
+            <input type="hidden" asp-for="ListaTipoFilme" />
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
                 <input asp-for="Titulo" class="form-control" />
@@ -20,8 +22,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Genero" class="control-label"></label>
-                <select asp-for="GeneroId" asp-items="@(new SelectList(ViewBag.ListaGeneros, "Id", "Nome"))"
-                        class="form-control"></select>   
+                <select asp-for="ListaGenero[0].Id " asp-items="@(new SelectList(ViewBag.ListaGeneros, "Id", "Nome"))"
+                        class="form-control"></select>
                 <span asp-validation-for="Genero" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,8 +43,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="TipoFilme" class="control-label"></label>
-                <select asp-for="TipoFilmeId" asp-items="@(new SelectList(ViewBag.ListaTipoFilmes, "Id", "NomeTipoFilme"))"
-                        class="form-control"></select>    
+                <select asp-for="ListaTipoFilme[0].Id" asp-items="@(new SelectList(ViewBag.ListaTipoFilmes, "Id", "NomeTipoFilme"))"
+                        class="form-control"></select>
                 <span asp-validation-for="TipoFilme" class="text-danger"></span>
             </div>
             <div class="form-group">

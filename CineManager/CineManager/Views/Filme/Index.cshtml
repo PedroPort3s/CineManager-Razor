@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CineManager.Models.Filme>
+﻿
+@model IEnumerable<CineManager.Models.Filme>
 
 @{
     ViewData["Title"] = "Index";
@@ -34,32 +35,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duracao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lancamento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmCartazAte)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoFilme.NomeTipoFilme)
-            </td>
-            <td>
-                <a class="btn btn-primary p-1" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a class="btn btn-info p-1" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a class="btn btn-danger p-1" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListaGenero[0].Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lancamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmCartazAte)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListaTipoFilme[0].NomeTipoFilme)
+                </td>
+                <td>
+                    <a class="btn btn-primary p-1" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a class="btn btn-info p-1" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a class="btn btn-danger p-1" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
