@@ -4,54 +4,58 @@
     ViewData["Title"] = "Delete";
 }
 
+<h1>Delete</h1>
+
 <h1>Excluir</h1>
 
 <h3>
-    Você tem certeza que deseja excluir este item?</h3>
-    <div>
-        <h4>Fornecedor</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.NomeDaEmpresa)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.NomeDaEmpresa)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.NomeResponsavel)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.NomeResponsavel)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Endereco)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Endereco.TipoLogradouro)
-                @Html.DisplayFor(model => model.Endereco.NomeLogradouro)
-                @Html.DisplayFor(model => model.Endereco.Numero) -
-                @Html.DisplayFor(model => model.Endereco.Cep)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Telefone)
-            </dt>
-            <dd class="col-sm-10">
-                (@Html.DisplayFor(model => model.Telefone.DDD))
-                @Html.DisplayFor(model => model.Telefone.Numero)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Email.EnderecoEmail)
-            </dd>
+    Você tem certeza que deseja excluir este item?
+</h3>
+<div>
+    <h4>Fornecedor</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeDaEmpresa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeDaEmpresa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeResponsavel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeResponsavel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Endereco)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ListaEndereco[0].TipoLogradouro)
+            @Html.DisplayFor(model => model.ListaEndereco[0].NomeLogradouro)
+            @Html.DisplayFor(model => model.ListaEndereco[0].Numero) -
+            @Html.DisplayFor(model => model.ListaEndereco[0].Cep)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+        <dd class="col-sm-10">
+            +@Html.DisplayFor(model => model.ListaTelefone[0].DDI) 
+            (@Html.DisplayFor(model => model.ListaTelefone[0].DDD))
+            @Html.DisplayFor(model => model.ListaTelefone[0].Numero)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ListaEmail[0].EnderecoEmail)
+        </dd>
 
-        </dl>
+    </dl>
 
-        <form asp-action="Delete">
-            <input type="hidden" asp-for="Id" />
-            <input type="submit" value="Excluir" class="btn btn-danger" /> |
-            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
-        </form>
-    </div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" /> |
+        <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+    </form>
+</div>
