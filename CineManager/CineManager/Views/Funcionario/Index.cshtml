@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Funcionario</h1>
+<h1>Index</h1>
 
 <p>
-    <a class="btn btn-success" asp-action="Create">Criar</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -21,6 +21,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Telefone)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Setor)
             </th>
@@ -28,31 +29,25 @@
                 @Html.DisplayNameFor(model => model.Cpf)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rg)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Salario)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cargo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Turno)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.NomeCompleto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Endereco.NomeLogradouro)
+                @Html.DisplayFor(modelItem => item.ListaEnderecos[0].NomeLogradouro)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Telefone.Numero)
+                @Html.DisplayFor(modelItem => item.ListaTelefones[0].Numero)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Setor)
@@ -61,21 +56,15 @@
                 @Html.DisplayFor(modelItem => item.Cpf)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rg)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Salario)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cargo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Turno)
-            </td>
-            <td>
-                <a class="btn btn-primary p-1" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a class="btn btn-info p-1" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a class="btn btn-danger p-1" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

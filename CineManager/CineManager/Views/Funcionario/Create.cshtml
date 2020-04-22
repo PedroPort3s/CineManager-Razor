@@ -1,17 +1,16 @@
 ﻿@model CineManager.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Editar</h1>
+<h1>Create</h1>
 
 <h4>Funcionario</h4>
 <hr />
 <div class="row">
-    <div>
-        <form asp-action="Edit">
-            <input asp-for="Id" hidden />
+    <div class="col-md-12">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NomeCompleto" class="control-label"></label>
@@ -132,11 +131,15 @@
                 <span asp-validation-for="Turno" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-success" />
-                <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+                <input type="submit" value="Criar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
             </div>
         </form>
     </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
