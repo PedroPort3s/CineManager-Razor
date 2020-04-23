@@ -7,7 +7,7 @@ namespace CineManager.Models
 {
     public class FilmeGenTipo
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public TipoFilme TipoFilme { get; set; }
         public int TipoFilmeId { get; set; }
         public Genero Genero { get; set; }
