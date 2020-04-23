@@ -17,6 +17,7 @@
 
 # Build results
 [Dd]ebug/
+[Mm]igrations/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/

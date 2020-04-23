@@ -10,6 +10,7 @@ using CineManager.Models;
 
 namespace CineManager.Controllers
 {
+    [Authorize]
     public class FornecedorController : Controller
     {
         private readonly ApplicationDbContext _context;

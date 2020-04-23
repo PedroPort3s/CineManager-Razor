@@ -1,0 +1,147 @@
+﻿@model CineManager.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Funcionario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <input asp-for="Id" hidden />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeCompleto" class="control-label"></label>
+                <input asp-for="NomeCompleto" class="form-control" />
+                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+            </div>
+
+            @*ENDERECO*@
+            <div class="form-group row ">
+                <input asp-for="ListaEnderecos[0].Id" hidden/>
+                <div class="col-lg-2">
+                    <label asp-for="ListaEnderecos[0].TipoLogradouro" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].TipoLogradouro" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].TipoLogradouro" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="ListaEnderecos[0].NomeLogradouro" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].NomeLogradouro" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].NomeLogradouro" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2">
+                    <label asp-for="ListaEnderecos[0].Numero" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].Numero" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].Numero" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2">
+                    <label asp-for="ListaEnderecos[0].Complemento" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].Complemento" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].Complemento" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label asp-for="ListaEnderecos[0].Cep" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].Cep" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].Cep" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2">
+                    <label asp-for="ListaEnderecos[0].Bairro" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].Bairro" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].Bairro" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2">
+                    <label asp-for="ListaEnderecos[0].Cidade" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].Cidade" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].Cidade" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2">
+                    <label asp-for="ListaEnderecos[0].Estado" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].Estado" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].Estado" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2">
+                    <label asp-for="ListaEnderecos[0].Pais" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].Pais" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].Pais" class="text-danger"></span>
+                </div>
+                <div class="col-lg-1">
+                    <label asp-for="ListaEnderecos[0].TipoEndereco" class="control-label"></label>
+                    <input asp-for="ListaEnderecos[0].TipoEndereco" class="form-control" />
+                    <span asp-validation-for="ListaEnderecos[0].TipoEndereco" class="text-danger"></span>
+                </div>
+            </div>
+            @*FIM ENDERECO*@
+
+
+            @*TELEFONE*@
+        <div class="form-group row">
+            <input asp-for="ListaTelefones[0].Id" hidden />
+            <div class="col-lg-1">
+                <label asp-for="ListaTelefones[0].DDI" class="control-label"></label>
+                <input asp-for="ListaTelefones[0].DDI" class="form-control" />
+                <span asp-validation-for="ListaTelefones[0].DDI" class="text-danger"></span>
+            </div>
+            <div class="col-lg-1">
+                <label asp-for="ListaTelefones[0].DDD" class="control-label"></label>
+                <input asp-for="ListaTelefones[0].DDD" class="form-control" />
+                <span asp-validation-for="ListaTelefones[0].DDD" class="text-danger"></span>
+            </div>
+            <div class="col-lg-6">
+                <label asp-for="ListaTelefones[0].Numero" class="control-label"></label>
+                <input asp-for="ListaTelefones[0].Numero" class="form-control" />
+                <span asp-validation-for="ListaTelefones[0].Numero" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4">
+                <label asp-for="ListaTelefones[0].Tipo" class="control-label"></label>
+                <input asp-for="ListaTelefones[0].Tipo" class="form-control" />
+                <span asp-validation-for="ListaTelefones[0].Tipo" class="text-danger"></span>
+            </div>
+        </div>
+            @*FIM TELEFONE*@
+
+            <div class="form-group">
+                <label asp-for="Setor" class="control-label"></label>
+                <input asp-for="Setor" class="form-control" />
+                <span asp-validation-for="Setor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cpf" class="control-label"></label>
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rg" class="control-label"></label>
+                <input asp-for="Rg" class="form-control" />
+                <span asp-validation-for="Rg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salario" class="control-label"></label>
+                <input asp-for="Salario" class="form-control" />
+                <span asp-validation-for="Salario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cargo" class="control-label"></label>
+                <input asp-for="Cargo" class="form-control" />
+                <span asp-validation-for="Cargo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Turno" class="control-label"></label>
+                <input asp-for="Turno" class="form-control" />
+                <span asp-validation-for="Turno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
