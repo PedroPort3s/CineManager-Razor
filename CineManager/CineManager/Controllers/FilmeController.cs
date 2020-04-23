@@ -9,137 +9,169 @@ using CineManager.Data;
 using CineManager.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace CineManager.Controllers {
+namespace CineManager.Controllers
+{
     [Authorize(Policy = "CineManeger")]
-    public class FilmeController : Controller {
+    public class FilmeController : Controller
+    {
         private readonly ApplicationDbContext _context;
 
-        public FilmeController(ApplicationDbContext context) {
+        public FilmeController(ApplicationDbContext context)
+        {
             _context = context;
         }
 
         // GET: Filme
-        public async Task<IActionResult> Index() {
+        public async Task<IActionResult> Index()
+        {
             InserirDados();
-            return View("Index", await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero).ToListAsync());
-        }
-
-        // GET: Filme/Create
-        public async Task<IActionResult> Create() {
-            ViewBag.ListaTipoFilmes = await _context.TipoFilmes.ToListAsync();
-            ViewBag.ListaGeneros = await _context.Generos.ToListAsync();
-            return View();
-        }
-
-        // POST: Filme/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] Filme filme) {
-            if (ModelState.IsValid) {
-                _context.Filme.Add(filme);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return RedirectToAction(nameof(Create));
+            return View(await _context.ListaFilmeGenTipo.Include(x => x.Filme).Include(x => x.Genero).Include(x => x.TipoFilme).ToListAsync());
         }
 
         // GET: Filme/Details/5
-        public async Task<IActionResult> Details(int? id) {
-            if (id == null) {
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
                 return NotFound();
             }
 
-            var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (filme == null) {
+            var filme = await _context.ListaFilmeGenTipo.Include(x => x.Filme).Include(x => x.Genero).Include(x => x.TipoFilme).
+                    FirstOrDefaultAsync(x => x.Id == id);
+            if (filme == null)
+            {
                 return NotFound();
             }
 
             return View(filme);
         }
 
+        // GET: Filme/Create
+        public IActionResult Create()
+        {
+            ViewBag.ListaTipoFilmes = _context.TipoFilmes.ToList();
+            ViewBag.ListaGeneros = _context.Generos.ToList();
+            return View();
+        }
+
+        // POST: Filme/Create    
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([FromForm] FilmeGenTipo filmeGenTipo)
+        {
+            if (ModelState.IsValid)
+            {
+                filmeGenTipo.Genero = await _context.Generos.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.GeneroId);
+                filmeGenTipo.TipoFilme = await _context.TipoFilmes.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.TipoFilmeId);
+                
+                _context.Add(filmeGenTipo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(filmeGenTipo);
+        }
+
         // GET: Filme/Edit/5
-        public async Task<IActionResult> Edit(int? id) {
-            if (id == null) {
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
                 return NotFound();
             }
 
-            var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero).
-                FirstOrDefaultAsync(x => x.Id == id);
-            if (filme == null) {
+            var filmeGenTipo = await _context.ListaFilmeGenTipo.Include(x => x.Filme).Include(x => x.Genero).Include(x => x.TipoFilme).
+                    FirstOrDefaultAsync(x => x.Id == id);
+            if (filmeGenTipo == null)
+            {
                 return NotFound();
             }
             ViewBag.ListaTipoFilmes = await _context.TipoFilmes.ToListAsync();
             ViewBag.ListaGeneros = await _context.Generos.ToListAsync();
-            return View(filme);
+            return View(filmeGenTipo);
         }
 
-        // POST: Filme/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Filme/Edit/5    
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [FromForm] Filme filme) {
-            if (id != filme.Id) {
+        public async Task<IActionResult> Edit(int id, [FromForm] FilmeGenTipo filmeGenTipo)
+        {
+            if (id != filmeGenTipo.Id)
+            {
                 return NotFound();
             }
 
-            if (ModelState.IsValid) {
-                try {
-                    _context.Update(filme);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    filmeGenTipo.Genero = await _context.Generos.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.Filme.GeneroId);
+                    filmeGenTipo.TipoFilme = await _context.TipoFilmes.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.Filme.TipoFilmeId);
+                    _context.Update(filmeGenTipo);
                     await _context.SaveChangesAsync();
-                } catch (DbUpdateConcurrencyException) {
-                    if (!FilmeExists(filme.Id)) {
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FilmeExists(filmeGenTipo.Id))
+                    {
                         return NotFound();
-                    } else {
+                    }
+                    else
+                    {
                         throw;
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(filme);
+            return View(filmeGenTipo);
         }
 
         // GET: Filme/Delete/5
-        public async Task<IActionResult> Delete(int? id) {
-            if (id == null) {
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
                 return NotFound();
             }
 
-            var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (filme == null) {
+            var filmeGenTipo = await _context.ListaFilmeGenTipo.Include(x => x.Filme).Include(x => x.Genero).Include(x => x.TipoFilme).
+                   FirstOrDefaultAsync(x => x.Id == id);
+            if (filmeGenTipo == null)
+            {
                 return NotFound();
             }
 
-            return View(filme);
+            return View(filmeGenTipo);
         }
 
         // POST: Filme/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id) {
-            var filme = await _context.Filme.Include(x => x.TipoFilme).Include(x => x.Genero)
-                .FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var filmeGenTipo = await _context.ListaFilmeGenTipo.Include(x => x.Filme).Include(x => x.Genero).Include(x => x.TipoFilme).
+                FirstOrDefaultAsync(x => x.Id == id);
 
-            if (filme == null) {
+            if (filmeGenTipo == null)
+            {
                 return NotFound();
             }
 
-            _context.Filme.Remove(filme);
+            _context.ListaFilmeGenTipo.Remove(filmeGenTipo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FilmeExists(int id) {
+
+        private bool FilmeExists(int id)
+        {
             return _context.Filme.Any(e => e.Id == id);
         }
 
-        public void InserirDados() {
+        public void InserirDados()
+        {
             Genero genero = _context.Generos.FirstOrDefault(x => x.Nome.Equals("Ação"));
-            if (genero == null) {
+            if (genero == null)
+            {
                 Genero obj1 = new Genero();
                 obj1.Nome = "Ação";
                 _context.Generos.Add(obj1);
@@ -179,4 +211,5 @@ namespace CineManager.Controllers {
             }
         }
     }
+
 }

@@ -11,7 +11,6 @@ namespace CineManager.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Tipo de Filme")]
         //Expressão regular que permite a entrada de números, letras (sem acentuação), traço e espaço.
         [RegularExpression(@"^[\w]+[\w\s-]*$", ErrorMessage = "O campo {0} não pode conter acentuação ou caracteres especiais.")]
