@@ -11,7 +11,7 @@ namespace CineManager.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        //[Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Nome")]
         [MaxLength(100, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
         [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]

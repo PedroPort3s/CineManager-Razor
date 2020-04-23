@@ -1,4 +1,4 @@
-﻿@model CineManager.Models.Filme
+﻿@model CineManager.Models.FilmeGenTipo
 
 @{
     ViewData["Title"] = "Detalhes";
@@ -11,37 +11,37 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
+            @Html.DisplayNameFor(model => model.Filme.Titulo)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
+            @Html.DisplayFor(model => model.Filme.Titulo)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Genero)
+            @Html.DisplayNameFor(model => model.Filme.Genero)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Genero.Nome)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Duracao)
+            @Html.DisplayNameFor(model => model.Filme.Duracao)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Duracao)
+            @Html.DisplayFor(model => model.Filme.Duracao)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lancamento)
+            @Html.DisplayNameFor(model => model.Filme.Lancamento)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lancamento)
+            @Html.DisplayFor(model => model.Filme.Lancamento)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EmCartazAte)
+            @Html.DisplayNameFor(model => model.Filme.EmCartazAte)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EmCartazAte)
+            @Html.DisplayFor(model => model.Filme.EmCartazAte)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoFilme)
+            @Html.DisplayNameFor(model => model.Filme.TipoFilme)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TipoFilme.NomeTipoFilme)

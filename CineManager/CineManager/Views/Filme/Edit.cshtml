@@ -1,4 +1,4 @@
-﻿@model CineManager.Models.Filme
+﻿@model CineManager.Models.FilmeGenTipo
 
 @{
     ViewData["Title"] = "Editar";
@@ -12,38 +12,39 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Genero.Id" hidden/>
+            <input asp-for="TipoFilme.Id" hidden/>
+            <input type="hidden" asp-for="Filme.Id" />
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="ListaGenero" />
-            <input type="hidden" asp-for="ListaTipoFilme" />
             <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
+                <label asp-for="Filme.Titulo" class="control-label"></label>
+                <input asp-for="Filme.Titulo" class="form-control" />
+                <span asp-validation-for="Filme.Titulo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Genero" class="control-label"></label>
-                <select asp-for="ListaGenero[0].Id " asp-items="@(new SelectList(ViewBag.ListaGeneros, "Id", "Nome"))"
+                <select asp-for="GeneroId " asp-items="@(new SelectList(ViewBag.ListaGeneros, "Id", "Nome"))"
                         class="form-control"></select>
                 <span asp-validation-for="Genero" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Duracao" class="control-label"></label>
-                <input asp-for="Duracao" class="form-control" />
-                <span asp-validation-for="Duracao" class="text-danger"></span>
+                <label asp-for="Filme.Duracao" class="control-label"></label>
+                <input asp-for="Filme.Duracao" class="form-control" />
+                <span asp-validation-for="Filme.Duracao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Lancamento" class="control-label"></label>
-                <input asp-for="Lancamento" class="form-control" />
-                <span asp-validation-for="Lancamento" class="text-danger"></span>
+                <label asp-for="Filme.Lancamento" class="control-label"></label>
+                <input asp-for="Filme.Lancamento" class="form-control" />
+                <span asp-validation-for="Filme.Lancamento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmCartazAte" class="control-label"></label>
-                <input asp-for="EmCartazAte" class="form-control" />
-                <span asp-validation-for="EmCartazAte" class="text-danger"></span>
+                <label asp-for="Filme.EmCartazAte" class="control-label"></label>
+                <input asp-for="Filme.EmCartazAte" class="form-control" />
+                <span asp-validation-for="Filme.EmCartazAte" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TipoFilme" class="control-label"></label>
-                <select asp-for="ListaTipoFilme[0].Id" asp-items="@(new SelectList(ViewBag.ListaTipoFilmes, "Id", "NomeTipoFilme"))"
+                <select asp-for="TipoFilmeId" asp-items="@(new SelectList(ViewBag.ListaTipoFilmes, "Id", "NomeTipoFilme"))"
                         class="form-control"></select>
                 <span asp-validation-for="TipoFilme" class="text-danger"></span>
             </div>

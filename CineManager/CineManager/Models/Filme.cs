@@ -10,8 +10,7 @@ namespace CineManager.Models {
 
         public Filme()
         {
-            ListaGenero = new List<Genero>();
-            ListaTipoFilme = new List<TipoFilme>();
+            ListaFilmeGenTipo = new List<FilmeGenTipo>();
         }
         public int Id { get; set; }
 
@@ -43,8 +42,7 @@ namespace CineManager.Models {
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EmCartazAte { get; set; }
 
-        public List<TipoFilme> ListaTipoFilme { get; set; }
-        public List<Genero> ListaGenero { get; set; }
+        public List<FilmeGenTipo> ListaFilmeGenTipo { get; set; }      
 
         [NotMapped]
         [Display(Name = "Tipo do filme")]
