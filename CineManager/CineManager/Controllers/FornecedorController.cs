@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CineManager.Data;
 using CineManager.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CineManager.Controllers
 {
-    [Authorize(Policy = "CineManeger")]
     public class FornecedorController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,8 +22,26 @@ namespace CineManager.Controllers
         // GET: Fornecedor
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Fornecedor.Include(x => x.Email).
-                Include(x => x.Telefone).Include(x => x.Endereco).ToListAsync());
+            return View(await _context.Fornecedor.Include(x => x.ListaTelefone).Include(x => x.ListaEndereco)
+                                .Include(x => x.ListaEmail).ToListAsync());
+        }
+
+        // GET: Fornecedor/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var fornecedor = await _context.Fornecedor.Include(x => x.ListaTelefone).Include(x => x.ListaEndereco)
+                                .Include(x => x.ListaEmail).FirstOrDefaultAsync(m => m.Id == id);
+            if (fornecedor == null)
+            {
+                return NotFound();
+            }
+
+            return View(fornecedor);
         }
 
         // GET: Fornecedor/Create
@@ -43,29 +59,13 @@ namespace CineManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                fornecedor.ListaEndereco.Add(fornecedor.Endereco);
+                fornecedor.ListaEmail.Add(fornecedor.Email);
+                fornecedor.ListaTelefone.Add(fornecedor.Telefone);
                 _context.Add(fornecedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(fornecedor);
-        }
-
-        // GET: Fornecedor/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var fornecedor = await _context.Fornecedor.Include(x => x.Email).
-                Include(x => x.Telefone).Include(x => x.Endereco)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (fornecedor == null)
-            {
-                return NotFound();
-            }
-
             return View(fornecedor);
         }
 
@@ -77,9 +77,8 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var fornecedor = await _context.Fornecedor.Include(x => x.Email).
-                Include(x => x.Telefone).Include(x => x.Endereco).
-                FirstOrDefaultAsync(x => x.Id == id);
+            var fornecedor = await _context.Fornecedor.Include(x => x.ListaTelefone).Include(x => x.ListaEndereco)
+                                .Include(x => x.ListaEmail).FirstOrDefaultAsync(m => m.Id == id);
             if (fornecedor == null)
             {
                 return NotFound();
@@ -130,9 +129,8 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var fornecedor = await _context.Fornecedor.Include(x => x.Email).
-                Include(x => x.Telefone).Include(x => x.Endereco)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var fornecedor = await _context.Fornecedor.Include(x => x.ListaTelefone).Include(x => x.ListaEndereco)
+                                .Include(x => x.ListaEmail).FirstOrDefaultAsync(m => m.Id == id);
             if (fornecedor == null)
             {
                 return NotFound();
@@ -146,8 +144,8 @@ namespace CineManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fornecedor = await _context.Fornecedor.Include(x => x.Email).
-                Include(x => x.Telefone).Include(x => x.Endereco).FirstOrDefaultAsync(x => x.Id == id);
+            var fornecedor = await _context.Fornecedor.Include(x => x.ListaTelefone).Include(x => x.ListaEndereco)
+                                .Include(x => x.ListaEmail).FirstOrDefaultAsync(m => m.Id == id);
             _context.Fornecedor.Remove(fornecedor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
