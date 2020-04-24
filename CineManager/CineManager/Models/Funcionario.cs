@@ -12,6 +12,7 @@ namespace CineManager.Models
             ListaEnderecos = new List<Endereco>();
             ListaTelefones = new List<Telefone>();
         }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
@@ -42,10 +43,9 @@ namespace CineManager.Models
 
         [Display(Name = "Salário")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [Range(100, 100000, ErrorMessage = "O campo {0} deve conter de {1} a {2}")]
-        [RegularExpression(@"^(\d{3,6})$", ErrorMessage = "O campo {0} deve conter de 3 a 6 dígitos")]
-        [Column(TypeName = "decimal(12,3)")]
-        public decimal Salario { get; set; }
+        [RegularExpression(@"^(\d{3,6}(\,?\d{1,2}))$", ErrorMessage = "deu ruim ainda "/*"O campo {0} deve conter de 3 a 8 dígitos"*/)]
+        [Column(TypeName = "varchar(12)")]
+        public string Salario { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Cargo")]
