@@ -44,7 +44,7 @@ namespace CineManager.Models
         [Display(Name = "Salário")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [RegularExpression(@"^(\d{3,6}(\,?\d{1,2}))$", ErrorMessage = "deu ruim ainda "/*"O campo {0} deve conter de 3 a 8 dígitos"*/)]
-        [Column(TypeName = "varchar(12)")]
+        [Column(TypeName = "varchar(12)")] 
         public string Salario { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
