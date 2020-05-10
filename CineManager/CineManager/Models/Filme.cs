@@ -16,8 +16,7 @@ namespace CineManager.Models {
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Título")]
-        [MaxLength(200, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres.")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres.")]
+        [RegularExpression(@"^(?=.{1,200}$).*", ErrorMessage = "O campo {0} deve conter entre 1 e 200 caracteres")]
         [Column(TypeName = "varchar(200)")]
         public string Titulo { get; set; }
 
