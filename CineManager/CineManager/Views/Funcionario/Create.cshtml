@@ -4,6 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
+
+
+@*<script src="~/js/consultaCep.js"></script>*@
+@*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+
+
+
 <h1>Criar</h1>
 
 <h4>Funcionario</h4>
@@ -44,22 +51,22 @@
             <div class="form-group row">
                 <div class="col-lg-3">
                     <label asp-for="Endereco.Cep" class="control-label"></label>
-                    <input asp-for="Endereco.Cep" class="form-control" />
+                    <input name="cep" asp-for="Endereco.Cep" class="form-control" />
                     <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
                     <label asp-for="Endereco.Bairro" class="control-label"></label>
-                    <input asp-for="Endereco.Bairro" class="form-control" />
+                    <input name="bairro" asp-for="Endereco.Bairro" class="form-control" />
                     <span asp-validation-for="Endereco.Bairro" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
                     <label asp-for="Endereco.Cidade" class="control-label"></label>
-                    <input asp-for="Endereco.Cidade" class="form-control" />
+                    <input name="endereco" asp-for="Endereco.Cidade" class="form-control" />
                     <span asp-validation-for="Endereco.Cidade" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
                     <label asp-for="Endereco.Estado" class="control-label"></label>
-                    <input asp-for="Endereco.Estado" class="form-control" />
+                    <input name="estado" asp-for="Endereco.Estado" class="form-control" />
                     <span asp-validation-for="Endereco.Estado" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
@@ -145,3 +152,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
