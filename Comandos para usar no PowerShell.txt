@@ -1,0 +1,28 @@
+Digitar os comandos em uma janela no PowerShell dentro do diretorio Cinemanager/Cinemanager/CineManager
+
+
+Autenticação com Google  
+
+dotnet user-secrets set "Authentication:Google:ClientId" "283924266270-msj1llkeofgmmmlv5dcl00tk46i4p583.apps.googleusercontent.com"
+ 
+
+Chave de segurança da API (Google) 
+
+dotnet user-secrets set "Authentication:Google:ClientSecret" "miAST3sFVQyk-XjVhLIeKB4U" 
+
+
+Autenticação com Facebook 
+
+dotnet user-secrets set "Authentication:Facebook:AppId" "227394331935952" 
+
+
+Chave de Segurança da API (Facebook) 
+
+dotnet user-secrets set "Authentication:Facebook:AppSecret" "404f78cd203b0e3c80c9522c38950a6e" 
+
+
+Provedor de e-mail: 
+
+dotnet user-secrets set KeySendGrid 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 
+
+dotnet user-secrets set UserSendGrid  apikey 
