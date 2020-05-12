@@ -79,7 +79,6 @@ namespace CineManager {
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             });
 
-
             // Problemas com o redirecionamento de falhas externas https://github.com/aspnet/Security/issues/1165
             //.AddMicrosoftAccount(ms => //Autenticação da Microsoft 
             // {

@@ -39,10 +39,10 @@ namespace CineManager.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "CEP")]
-        [MaxLength(8, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
+        [MaxLength(10, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
         [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
         [Column(TypeName = "varchar(8)")]
-        [RegularExpression(@"^(\d{8})$", ErrorMessage = "O campo {0} deve conter 8 dígitos")]
+        //[RegularExpression(@"^(\d{9})$", ErrorMessage = "O campo {0} deve conter 8 dígitos")]
         public string Cep { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
