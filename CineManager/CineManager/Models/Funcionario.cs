@@ -29,7 +29,7 @@ namespace CineManager.Models
 
         [Display(Name = "CPF")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [RegularExpression(@"^(\d{11})$", ErrorMessage = "O campo {0} deve conter 11 dígitos")]
+        //[RegularExpression(@"^(\d{14})$", ErrorMessage = "O campo {0} deve conter 11 dígitos")]
         [Column(TypeName = "bigint")]
         public long Cpf { get; set; }
 
