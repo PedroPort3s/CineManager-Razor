@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 namespace CineManager.Models {
     public class Filme {
 
-        public Filme()
-        {
-            ListaFilmeGenTipo = new List<FilmeGenTipo>();
-        }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
@@ -31,6 +27,7 @@ namespace CineManager.Models {
         [Display(Name = "Data de lançamento")]
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
+        //Verificar. DataFormatString não está funcionando corretamente
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Lancamento { get; set; }
 
@@ -38,10 +35,15 @@ namespace CineManager.Models {
         [Display(Name = "Em cartaz até")]
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
+        //Verificar. DataFormatString não está funcionando corretamente
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EmCartazAte { get; set; }
 
-        public List<FilmeGenTipo> ListaFilmeGenTipo { get; set; }      
+        public List<FilmeGenero> Generos { get; set; } = new List<FilmeGenero>();
+        public List<FilmeTipoFilme> TiposFilme { get; set; } = new List<FilmeTipoFilme>();
+
+        [NotMapped]
+        public string ListaGenerosJoin { get; set; }
 
         [NotMapped]
         [Display(Name = "Tipo do filme")]

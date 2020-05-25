@@ -14,8 +14,7 @@ namespace CineManager.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "E-Mail")]
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail em formato inválido.")]
-        [MaxLength(160, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
+        [RegularExpression(@"^(?=.{1,100}$).*", ErrorMessage = "O campo {0} deve conter entre 1 e 160 caracteres")]
         [Column(TypeName = "varchar(160)")]
         public string EnderecoEmail { get; set; }
     }
