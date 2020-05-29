@@ -42,17 +42,17 @@
                 </div>
                 <div class="col-lg-2">
                     <label asp-for="Funcionario.Endereco.Bairro" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Bairro" class="form-control" />
+                    <input asp-for="Funcionario.Endereco.Bairro" id="txtBairro"  class="form-control" />
                     <span asp-validation-for="Funcionario.Endereco.Bairro" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
                     <label asp-for="Funcionario.Endereco.Cidade" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Cidade" class="form-control" />
+                    <input asp-for="Funcionario.Endereco.Cidade" id="txtCidade" class="form-control" />
                     <span asp-validation-for="Funcionario.Endereco.Cidade" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
                     <label asp-for="Funcionario.Endereco.Estado" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Estado" class="form-control" />
+                    <input asp-for="Funcionario.Endereco.Estado" id="txtEstado" class="form-control" />
                     <span asp-validation-for="Funcionario.Endereco.Estado" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-lg-6">
                     <label asp-for="Funcionario.Endereco.NomeLogradouro" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.NomeLogradouro" class="form-control" />
+                    <input asp-for="Funcionario.Endereco.NomeLogradouro" id="txtEndereco" class="form-control" />
                     <span asp-validation-for="Funcionario.Endereco.NomeLogradouro" class="text-danger"></span>
                 </div>
                 <div class="col-lg-2">
@@ -159,6 +159,28 @@
             $("#txtDDD").mask('(00)', { placeholder: "(__)" });
         });
     </script>
+
+    @*<script type="text/javascript">
+        jQuery(function ($) {
+            $("input[name='cep']").change(function () {
+                var cep_code = $(this).val();
+                if (cep_code.length <= 0) return;
+                $.get("https://apps.widenet.com.br/busca-cep/api/cep.json", { code: cep_code }, function (result) {
+                    if (result.status == 200) {
+                        $("#txtCep").val(result.code);
+                        $("#txtEstado").val(result.state);
+                        $("txtCidade").val(result.city);
+                        $("txtBairro").val(result.district);
+                        $("txtEndereco").val(result.address);
+                    }
+                    else {
+                        alert(result.message || "Houve um erro.");
+                        return;
+                    }
+                });
+            });
+        });
+    </script>*@
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
