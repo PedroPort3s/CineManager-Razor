@@ -69,14 +69,16 @@ namespace CineManager.Controllers
                     funcionarioVm.Funcionario.Cpf = Convert.ToInt64(RetirarCaracteres.RetirarMascara(funcionarioVm.cpf));
 
                     funcionarioVm.Funcionario.Telefone = new Telefone();
+
                     funcionarioVm.Funcionario.Telefone.Numero = Convert.ToInt64(RetirarCaracteres.RetirarMascara(funcionarioVm.telefone));
                     funcionarioVm.Funcionario.Telefone.DDD = Convert.ToInt32(RetirarCaracteres.RetirarMascara(funcionarioVm.ddd));
+                    funcionarioVm.Funcionario.Telefone.DDI = "+55";
 
                     if (RetirarCaracteres.RetirarMascara(funcionarioVm.Funcionario.Telefone.Numero.ToString()).Length == 9)
                     {
                         funcionarioVm.Funcionario.Telefone.Tipo = "Celular";
                     }
-                    else
+                    else if (RetirarCaracteres.RetirarMascara(funcionarioVm.Funcionario.Telefone.Numero.ToString()).Length == 8)
                     {
                         funcionarioVm.Funcionario.Telefone.Tipo = "Fixo";
                     }
@@ -92,9 +94,9 @@ namespace CineManager.Controllers
                     throw new Exception("Teste Sweet Alert");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                FuncaoSweetAlert.RetornarMsgAlertaComJS(ex.Message);
+                return View();
             }
 
             return View(funcionarioVm);
