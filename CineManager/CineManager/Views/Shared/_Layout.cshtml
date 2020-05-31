@@ -11,10 +11,14 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
+    <link href="~/Template/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet" />
+
+    <link href="~/Template/dist/css/style.css" rel="stylesheet" />
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CineManager</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -46,19 +50,176 @@
                     </ul>
                 </div>
             </div>
+        </nav>*@
+    <header class="topbar" data-navbarbg="skin5">
+        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+            <div class="navbar-header bg-warning" data-logobg="skin5">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <a class="navbar-brand" href="index.html">
+                    <!-- Logo icon -->
+                    <b class="logo-icon">
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Dark Logo icon -->
+                        <!-- <img src="../../assets/images/logo-icon.png" alt="homepage" class="dark-logo" /> -->
+                        <!-- Light Logo icon -->
+                        @*<img src="../../assets/images/logo-cm-ps.png" alt="homepage" class="light-logo" />*@
+                        <img src="~/Template/assets/images/logo-cm-ps.png" alt="homepage" class="light-logo" />
+                    </b>
+                    <!--End Logo icon -->
+                    <!-- Logo text -->
+                    <span class="logo-text">
+                        <!-- dark Logo text -->
+                        <!-- <img src="../../assets/images/logo-text.png" alt="homepage" class="dark-logo" /> -->
+                        <!-- Light Logo text -->
+                        <!-- <img src="../../assets/images/logo-light-text.png" class="light-logo" alt="homepage" /> -->
+                    </span>
+                </a>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <!-- This is for the sidebar toggle which is visible on mobile only -->
+                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse collapse bg-warning" id="navbarSupportedContent" data-navbarbg="skin5">
+                <!-- ============================================================== -->
+                <!-- toggle and nav items -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Search -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav float-left mr-auto">
+                    <!-- <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                    <form class="app-search position-absolute">
+                        <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
+                    </form> -->
+                    </li>
+                </ul>
+                <!-- ============================================================== -->
+                <!-- Right side toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav float-right">
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/Template/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+
+
+                        <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                            @*<a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>Pefil</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i>Configurações da Conta</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>*@
+                            @*<a class="dropdown-item" href="javascript:void(0)"><partial name="_LoginPartial" /></a>*@
+                            <partial name="_LoginPartial" />
+
+
+                            <!-- <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a> -->
+                            <!-- <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a> -->
+                        </div>
+                    </li>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                </ul>
+            </div>
         </nav>
     </header>
-    <div class="container">
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar" data-sidebarbg="skin6">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <!-- User Profile-->
+                    <li>
+                        <!-- User Profile-->
+                        <div class="user-profile d-flex no-block dropdown m-t-20">
+                            <!-- <div class="user-pic"><img src="../../assets/images/users/1.jpg" alt="users" class="rounded-circle" width="40" /></div> -->
+                            <div class="user-content hide-menu m-l-10">
+                                <!-- <a href="javascript:void(0)" class="" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <h5 class="m-b-0 user-name font-medium">Steave Jobs <i class="fa fa-angle-down"></i></h5>
+                                    <span class="op-5 user-email">varun@gmail.com</span>
+                                </a> -->
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Userdd">
+                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> Perfil</a>
+                                    <!-- <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a> -->
+                                    <!-- <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a> -->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i>Configurações da Conta</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    @*<ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Filme" asp-action="Index">Filmes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Sessao" asp-action="Index">Sessões</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionários</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Fornecedor" asp-action="Index">Fornecedores</a>
+                            </li>
+                        </ul>*@
+
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" style="color:#f0ad4e"></i><span class="hide-menu">Home</span></a></li>
+
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Filme" asp-action="Index"><i class="fa fa-film" style="color:#f0ad4e"></i><span class="hide-menu">Filmes</span></a></li>
+
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Salas" asp-action="Index"><i class="fa fa-list" style="color:#f0ad4e"></i><span class="hide-menu">Salas</span></a></li>
+
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Sessao" asp-action="Index"><i class="fa fa-calendar" style="color:#f0ad4e"></i><span class="hide-menu">Sessões</span></a></li>
+
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Funcionario" asp-action="Index"><i class="fa fa-users" style="color:#f0ad4e"></i><span class="hide-menu">Funcionários</span></a></li>
+
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e"></i><span class="hide-menu">Fornecedores</span></a></li>
+
+                </ul>
+
+            </nav>
+        </div>
+
+
+    </aside>
+
+    @*</header>*@
+
+
+    <div class="container-fluid">
         <main role="main" class="pb-5 pt-5">
             @RenderBody()
         </main>
     </div>
 
     @*<footer class="footer text-muted">
-        <div class="container">
-            &copy; 2020 - CineManager
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; 2020 - CineManager
+            </div>
+        </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -66,6 +227,19 @@
     <script src="~/lib/jquery-mask-plugin/src/jquery.mask.js" type="text/javascript" asp-append-version="true"></script>
     <script src="~/js/consultaCep.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" type="text/javascript" asp-append-version="true"></script>
+
+    <script src="~/Template/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+
+    <script src="~/Template/dist/js/app-style-switcher.js"></script>
+
+    <script src="~/Template/dist/js/custom.js"></script>
+    <script src="~/Template/dist/js/sidebarmenu.js"></script>
+    <script src="~/Template/dist/js/waves.js"></script>
+
+    <script src="~/Template/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="~/Template/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="~/Template/dist/js/pages/dashboards/dashboard1.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 
