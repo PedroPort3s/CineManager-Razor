@@ -6,22 +6,22 @@
 }
 <div class="container">
     <div class="w3l-login-form">
-        <img src="~/images/logo-cm.png" />        
+        <img src="~/images/logo-cm.png" />
         <hr />
         <form id="account" method="POST">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="w3l-form-group">
                 <label asp-for="Input.Email"></label>
                 <div class="group">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-user" style="color:#f0ad4e;"></i>
                     <input asp-for="Input.Email" placeholder="E-mail" />
                 </div>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span asp-validation-for="Input.Email"></span>
             </div>
             <div class="w3l-form-group">
                 <label asp-for="Input.Password"></label>
                 <div class="group">
-                    <i class="fas fa-unlock"></i>
+                    <i class="fas fa-unlock" style="color:#f0ad4e;"></i>
                     <input asp-for="Input.Password" placeholder="Senha" />
                 </div>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -36,14 +36,14 @@
             </div>
             <div class="form-group">
                 <p>
-                    <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
+                    <a id="forgot-password" style="color:#f0ad4e;" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
                 </p>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>            
+                <button type="submit" class="btn btn" style="background-color:#f0ad4e;">Login</button>
+            </div>
             <hr />
-            <p class=" w3l-register-p">Ainda não tem uma conta?&nbsp;<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar como novo usuário</a></p>
+            <p class=" w3l-register-p">Ainda não tem uma conta?&nbsp;<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"style="color:#f0ad4e;">Registrar como novo usuário</a></p>
 
         </form>
         <hr />
@@ -59,11 +59,12 @@
                     }
                     else
                     {
-            <p class=" w3l-register-p">Use outro serviço para login.</p>
+                        <p class=" w3l-register-p">Use outro serviço para login.</p>
                         <p>
                             @foreach (var provider in Model.ExternalLogins)
                             {
-                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Login usando sua @provider.DisplayName conta">@provider.DisplayName</button><br />
+                                <button type="submit" class="btn btn" style="background-color:#f0ad4e;" name="provider" value="@provider.Name" title="Login usando sua @provider.DisplayName conta">@provider.DisplayName</button>
+                                <br />
                             }
                         </p>
                     }

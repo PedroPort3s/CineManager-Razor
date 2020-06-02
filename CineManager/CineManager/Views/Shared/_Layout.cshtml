@@ -88,78 +88,87 @@
         </nav>
     </header>
 
-    <aside class="left-sidebar" data-sidebarbg="skin6">
-        <div class="scroll-sidebar">
-            <nav class="sidebar-nav">
-                <ul id="sidebarnav">
-                    <li>
-                        <div class="user-profile d-flex no-block dropdown m-t-20">
-                            <div class="user-content hide-menu m-l-10">
+    @*<div class="wrapper">*@
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Userdd">
-                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> Perfil</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i>Configurações da Conta</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    @*<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" style="color:#f0ad4e"></i><span class="hide-menu">Home</span></a></li>
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Filme" asp-action="Index"><i class="fa fa-film" style="color:#f0ad4e"></i><span class="hide-menu">Filmes</span></a></li>
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Salas" asp-action="Index"><i class="fa fa-list" style="color:#f0ad4e"></i><span class="hide-menu">Salas</span></a></li>
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Sessao" asp-action="Index"><i class="fa fa-calendar" style="color:#f0ad4e"></i><span class="hide-menu">Sessões</span></a></li>
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Funcionario" asp-action="Index"><i class="fa fa-users" style="color:#f0ad4e"></i><span class="hide-menu">Funcionários</span></a></li>
-
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e"></i><span class="hide-menu">Fornecedores</span></a></li>*@
-
-
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" style="color:#f0ad4e; font-size:30px;"></i> Home</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Filme" asp-action="Index"><i class="fa fa-film" style="color:#f0ad4e; font-size:30px;"></i> Filmes</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Salas" asp-action="Index"><i class="fa fa-list" style="color:#f0ad4e; font-size:30px;"></i> Salas</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Sessao" asp-action="Index"><i class="fa fa-calendar" style="color:#f0ad4e; font-size:30px;"></i> Sessões</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Funcionario" asp-action="Index"><i class="fa fa-users" style="color:#f0ad4e; font-size:30px;"></i> Funcionários</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e; font-size:30px;"></i> Fornecedores</a>
-                    </li>
-
-
-                </ul>
-
-            </nav>
-        </div>
-
-
-    </aside>
+    @*<aside class="left-sidebar" data-sidebarbg="skin6">*@
 
     @*</header>*@
+    @*</div>*@
 
-    <div class="page-wrapper">
 
-        <div class="container-fluid">
-            <div class="row form-group">
-                    <div class="d-flex justify-content-center">
-                            @RenderBody()
+
+    <table width="100%">
+        <tr>
+            <td width="20%">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar -->
+                    <nav id="sidebar-nav">
+                        <ul id="sidebarnav" style="list-style-type: none;">
+                            @*<li>
+                                    <div class="user-profile d-flex no-block dropdown m-t-20">
+                                        <div class="user-content hide-menu m-l-10">
+
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Userdd">
+                                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> Perfil</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i>Configurações da Conta</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>*@
+
+                            @*<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" style="color:#f0ad4e"></i><span class="hide-menu">Home</span></a></li>
+
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Filme" asp-action="Index"><i class="fa fa-film" style="color:#f0ad4e"></i><span class="hide-menu">Filmes</span></a></li>
+
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Salas" asp-action="Index"><i class="fa fa-list" style="color:#f0ad4e"></i><span class="hide-menu">Salas</span></a></li>
+
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Sessao" asp-action="Index"><i class="fa fa-calendar" style="color:#f0ad4e"></i><span class="hide-menu">Sessões</span></a></li>
+
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Funcionario" asp-action="Index"><i class="fa fa-users" style="color:#f0ad4e"></i><span class="hide-menu">Funcionários</span></a></li>
+
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e"></i><span class="hide-menu">Fornecedores</span></a></li>*@
+
+
+                            <li class="sidebar-item">
+                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" style="color:#f0ad4e; font-size:30px;"></i> Home</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Filme" asp-action="Index"><i class="fa fa-film" style="color:#f0ad4e; font-size:30px;"></i> Filmes</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Salas" asp-action="Index"><i class="fa fa-list" style="color:#f0ad4e; font-size:30px;"></i> Salas</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Sessao" asp-action="Index"><i class="fa fa-calendar" style="color:#f0ad4e; font-size:30px;"></i> Sessões</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Funcionario" asp-action="Index"><i class="fa fa-users" style="color:#f0ad4e; font-size:30px;"></i> Funcionários</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e; font-size:30px;"></i> Fornecedores</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                @*</aside>*@
+            </td>
+
+            <td width="90%">
+                <div class="container-fluid">
+                    <div>
+                        @RenderBody()
                     </div>
-            </div>
-        </div>
-    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+
 
     @*<footer class="footer text-muted">
             <div class="container">

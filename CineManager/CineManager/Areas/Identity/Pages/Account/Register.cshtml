@@ -13,7 +13,7 @@
             <div class="w3l-form-group">
                 <label asp-for="Input.Email"></label>
                 <div class="group">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-user" style="color:#f0ad4e;"></i>
                     <input asp-for="Input.Email" placeholder="E-mail" />
                 </div>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -21,7 +21,7 @@
             <div class="w3l-form-group">
                 <label asp-for="Input.Password"></label>
                 <div class="group">
-                    <i class="fas fa-unlock"></i>
+                    <i class="fas fa-unlock "style="color:#f0ad4e;"></i>
                     <input asp-for="Input.Password" placeholder="Senha" />
                 </div>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -29,14 +29,14 @@
             <div class="w3l-form-group">
                 <label asp-for="Input.ConfirmPassword"></label>
                 <div class="group">
-                    <i class="fas fa-unlock"></i>
+                    <i class="fas fa-unlock" style="color:#f0ad4e;"></i>
                     <input asp-for="Input.ConfirmPassword" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn" style="background-color:#f0ad4e;">Login</button>
 
         </form>
         <hr />
@@ -56,7 +56,7 @@
                         <p>
                             @foreach (var provider in Model.ExternalLogins)
                             {
-                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Login usando sua @provider.DisplayName conta">@provider.DisplayName</button><br />
+                                <button type="submit" class="btn btn" style="background-color:#f0ad4e;" name="provider" value="@provider.Name" title="Login usando sua @provider.DisplayName conta">@provider.DisplayName</button><br />
                             }
                         </p>
                     }
