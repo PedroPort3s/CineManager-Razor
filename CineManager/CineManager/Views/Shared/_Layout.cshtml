@@ -132,25 +132,27 @@
 
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e"></i><span class="hide-menu">Fornecedores</span></a></li>*@
 
-
-                            <li class="sidebar-item">
-                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" style="color:#f0ad4e; font-size:30px;"></i> Home</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Filme" asp-action="Index"><i class="fa fa-film" style="color:#f0ad4e; font-size:30px;"></i> Filmes</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Salas" asp-action="Index"><i class="fa fa-list" style="color:#f0ad4e; font-size:30px;"></i> Salas</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Sessao" asp-action="Index"><i class="fa fa-calendar" style="color:#f0ad4e; font-size:30px;"></i> Sessões</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Funcionario" asp-action="Index"><i class="fa fa-users" style="color:#f0ad4e; font-size:30px;"></i> Funcionários</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e; font-size:30px;"></i> Fornecedores</a>
-                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="sidebar-item">
+                                    <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" style="color:#f0ad4e; font-size:30px;"></i> Home</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Filme" asp-action="Index"><i class="fa fa-film" style="color:#f0ad4e; font-size:30px;"></i> Filmes</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Salas" asp-action="Index"><i class="fa fa-list" style="color:#f0ad4e; font-size:30px;"></i> Salas</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Sessao" asp-action="Index"><i class="fa fa-calendar" style="color:#f0ad4e; font-size:30px;"></i> Sessões</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Funcionario" asp-action="Index"><i class="fa fa-users" style="color:#f0ad4e; font-size:30px;"></i> Funcionários</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="nav-link text-dark" style="font-size:15px; font-weight: bold;" asp-area="" asp-controller="Fornecedor" asp-action="Index"><i class="fa fa-industry" style="color:#f0ad4e; font-size:30px;"></i> Fornecedores</a>
+                                </li>
+                            }
                         </ul>
                     </nav>
                 </div>
