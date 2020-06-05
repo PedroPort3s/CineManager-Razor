@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using CineManager.Data;
 using CineManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using PdfSharpCore.Drawing;
+using System.IO;
 
 namespace CineManager.Controllers
 {
-    [Authorize(Policy = "CineManeger")]
     public class FilmeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -63,7 +64,7 @@ namespace CineManager.Controllers
             {
                 filmeGenTipo.Genero = await _context.Generos.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.GeneroId);
                 filmeGenTipo.TipoFilme = await _context.TipoFilmes.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.TipoFilmeId);
-                
+
                 _context.Add(filmeGenTipo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -210,6 +211,88 @@ namespace CineManager.Controllers
                 _context.SaveChanges();
             }
         }
-    }
 
+
+        public FileResult GerarPdf()
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFormatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Arial", 10);
+                var fonteDescricao = new PdfSharpCore.Drawing.XFont("Arial", 8, PdfSharpCore.Drawing.XFontStyle.BoldItalic);
+                var titulodetalhes = new PdfSharpCore.Drawing.XFont("Arial", 14, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalheDescricao = new PdfSharpCore.Drawing.XFont("Arial", 7);
+
+                var logo = @"C:\Users\pedri\Desktop\CineManager\CineManager\CineManager\CineManager\wwwroot\logo-cm-ps.png";
+
+                var qtdPaginas = doc.PageCount;
+                textFormatter.DrawString(qtdPaginas.ToString(), new PdfSharpCore.Drawing.XFont("Arial", 10), corFonte,
+                    new PdfSharpCore.Drawing.XRect(578, 825, page.Width, page.Height));
+
+                XImage imagem = XImage.FromFile(logo);
+                graphics.DrawImage(imagem, 20, 5, 300, 50);
+
+
+                textFormatter.DrawString("Filmes que ja estiveram disponiveis e estarão futuramente", fonteDescricao, corFonte,
+                    new PdfSharpCore.Drawing.XRect(20, 75, page.Width, page.Height));
+
+                var tituloDetalhes = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                tituloDetalhes.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                tituloDetalhes.DrawString("Detalhes", titulodetalhes, corFonte, new PdfSharpCore.Drawing.XRect(0, 120, page.Width, page.Height));
+
+
+                var alturaTituloDetalhesY = 140;
+                var detalhes = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+
+                //titulo
+                detalhes.DrawString("Filme", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(20, alturaTituloDetalhesY, page.Width, page.Height));
+
+                //duração
+                detalhes.DrawString("Duração", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(220, alturaTituloDetalhesY, page.Width, page.Height));
+
+
+                //lançamento
+                detalhes.DrawString("Lançamento", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(290, alturaTituloDetalhesY, page.Width, page.Height));
+
+                //em cartaz
+                detalhes.DrawString("Em cartaz até", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(430, alturaTituloDetalhesY, page.Width, page.Height));
+
+                List<FilmeGenTipo> listaFilmes = _context.ListaFilmeGenTipo.Include(x => x.Filme).Include(x => x.Genero).Include(x => x.TipoFilme).ToList();
+
+
+                var alturarDatalhesItens = 160;
+                foreach (FilmeGenTipo f in listaFilmes)
+                {
+                    //f.Filme.Duracao
+                    textFormatter.DrawString(f.Filme.Titulo.ToString(), fonteDetalheDescricao, corFonte,
+                        new PdfSharpCore.Drawing.XRect(15, alturarDatalhesItens, page.Width, page.Height));  
+                    textFormatter.DrawString(f.Filme.Duracao.ToString(), fonteDetalheDescricao, corFonte,
+                        new PdfSharpCore.Drawing.XRect(215, alturarDatalhesItens, page.Width, page.Height));               
+                    textFormatter.DrawString(f.Filme.Lancamento.ToString(), fonteDetalheDescricao, corFonte,
+                        new PdfSharpCore.Drawing.XRect(290, alturarDatalhesItens, page.Width, page.Height));             
+                    textFormatter.DrawString(f.Filme.EmCartazAte.ToString(), fonteDetalheDescricao, corFonte,
+                        new PdfSharpCore.Drawing.XRect(400, alturarDatalhesItens, page.Width, page.Height));
+
+                }
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+
+                    doc.Save(stream, false);
+
+                    var nomeArquivo = "relatorioFilmes.pdf";
+
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+
+            }
+        }
+    }
 }
