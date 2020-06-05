@@ -221,26 +221,26 @@ namespace CineManager.Controllers
                 page.Size = PdfSharpCore.PageSize.A4;
                 page.Orientation = PdfSharpCore.PageOrientation.Portrait;
 
-                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
-                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var graphics = XGraphics.FromPdfPage(page);
+                var corFonte = XBrushes.Black;
                 var textFormatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
-                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Arial", 10);
-                var fonteDescricao = new PdfSharpCore.Drawing.XFont("Arial", 8, PdfSharpCore.Drawing.XFontStyle.BoldItalic);
-                var titulodetalhes = new PdfSharpCore.Drawing.XFont("Arial", 14, PdfSharpCore.Drawing.XFontStyle.Bold);
-                var fonteDetalheDescricao = new PdfSharpCore.Drawing.XFont("Arial", 7);
+                var fonteOrganizacao = new XFont("Arial", 10);
+                var fonteDescricao = new XFont("Arial", 12, XFontStyle.BoldItalic);
+                var titulodetalhes = new XFont("Arial", 14, XFontStyle.Bold);
+                var fonteDetalheDescricao = new XFont("Arial", 7);
 
                 var logo = @"C:\Users\pedri\Desktop\CineManager\CineManager\CineManager\CineManager\wwwroot\logo-cm-ps.png";
 
                 var qtdPaginas = doc.PageCount;
-                textFormatter.DrawString(qtdPaginas.ToString(), new PdfSharpCore.Drawing.XFont("Arial", 10), corFonte,
-                    new PdfSharpCore.Drawing.XRect(578, 825, page.Width, page.Height));
+
+                textFormatter.DrawString(qtdPaginas.ToString(), new XFont("Arial", 10), corFonte,
+                    new XRect(578, 825, page.Width, page.Height));
 
                 XImage imagem = XImage.FromFile(logo);
                 graphics.DrawImage(imagem, 20, 5, 300, 50);
 
-
                 textFormatter.DrawString("Filmes que ja estiveram disponiveis e estarão futuramente", fonteDescricao, corFonte,
-                    new PdfSharpCore.Drawing.XRect(20, 75, page.Width, page.Height));
+                    new XRect(20, 75, page.Width, page.Height));
 
                 var tituloDetalhes = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
                 tituloDetalhes.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -267,18 +267,19 @@ namespace CineManager.Controllers
 
 
                 var alturarDatalhesItens = 160;
+                
                 foreach (FilmeGenTipo f in listaFilmes)
                 {
-                    //f.Filme.Duracao
                     textFormatter.DrawString(f.Filme.Titulo.ToString(), fonteDetalheDescricao, corFonte,
-                        new PdfSharpCore.Drawing.XRect(15, alturarDatalhesItens, page.Width, page.Height));  
+                        new XRect(15, alturarDatalhesItens, page.Width, page.Height));
                     textFormatter.DrawString(f.Filme.Duracao.ToString(), fonteDetalheDescricao, corFonte,
-                        new PdfSharpCore.Drawing.XRect(215, alturarDatalhesItens, page.Width, page.Height));               
+                        new XRect(220, alturarDatalhesItens, page.Width, page.Height));
                     textFormatter.DrawString(f.Filme.Lancamento.ToString(), fonteDetalheDescricao, corFonte,
-                        new PdfSharpCore.Drawing.XRect(290, alturarDatalhesItens, page.Width, page.Height));             
+                        new XRect(290, alturarDatalhesItens, page.Width, page.Height));
                     textFormatter.DrawString(f.Filme.EmCartazAte.ToString(), fonteDetalheDescricao, corFonte,
-                        new PdfSharpCore.Drawing.XRect(400, alturarDatalhesItens, page.Width, page.Height));
+                        new XRect(420, alturarDatalhesItens, page.Width, page.Height));
 
+                    alturarDatalhesItens += 20;
                 }
 
                 using (MemoryStream stream = new MemoryStream())
@@ -291,7 +292,6 @@ namespace CineManager.Controllers
 
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
-
             }
         }
     }
