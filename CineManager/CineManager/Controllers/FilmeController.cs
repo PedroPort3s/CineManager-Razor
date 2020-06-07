@@ -336,11 +336,11 @@ namespace CineManager.Controllers {
         }
 
         public void InserirDados() {
-            Genero genero = _context.Genero.FirstOrDefault(x => x.Nome.Equals("Ação"));
+            Genero genero = _context.Generos.FirstOrDefault(x => x.Nome.Equals("Ação"));
             if (genero == null) {
                 Genero obj1 = new Genero();
                 obj1.Nome = "Ação";
-                _context.Genero.Add(obj1);
+                _context.Generos.Add(obj1);
 
                 Genero obj2 = new Genero();
                 obj2.Nome = "Animação";
