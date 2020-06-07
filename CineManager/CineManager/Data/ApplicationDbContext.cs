@@ -17,9 +17,10 @@ namespace CineManager.Data {
         public DbSet<Sessao> Sessao { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
-        public DbSet<TipoFilme> TipoFilmes { get; set; }
-        public DbSet<Genero> Generos { get; set; }
+        public DbSet<TipoFilme> TipoFilme { get; set; }
+        public DbSet<Genero> Genero { get; set; }
         public DbSet<Telefone> Telefone { get; set; }
-        public DbSet<FilmeGenTipo> ListaFilmeGenTipo { get; set; }
+        public DbSet<Email> Email { get; set; }
+        public DbSet<FilmeGenero> FilmeGenero { get; set; }
     }
 }

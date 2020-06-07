@@ -1,4 +1,4 @@
-﻿@model CineManager.Models.FilmeGenTipo
+﻿@model CineManager.Models.Filme
 
 @{
     ViewData["Title"] = "Detalhes";
@@ -11,37 +11,57 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.Titulo)
+            @Html.DisplayNameFor(model => model.Titulo)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.Titulo)
+            @Html.DisplayFor(model => model.Titulo)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.Genero)
+            @Html.DisplayNameFor(model => model.Genero)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Genero.Nome)
+            <table class="table table-bordered">
+                @for(int i = 0; i < Model.ListaGeneros.Count; i+=3) {
+                    <tr>
+                        <td>
+                            @if(i < Model.ListaGeneros.Count) {
+                                @Model.ListaGeneros[i].Genero.Nome
+                            }
+                        </td>
+                        <td>
+                            @if (i+1 < Model.ListaGeneros.Count) {
+                                @Model.ListaGeneros[i+1].Genero.Nome
+                            }
+                        </td>
+                        <td>
+                            @if (i+2 < Model.ListaGeneros.Count) {
+                                @Model.ListaGeneros[i+2].Genero.Nome
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.Duracao)
+            @Html.DisplayNameFor(model => model.Duracao)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.Duracao)
+            @Html.DisplayFor(model => model.Duracao)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.Lancamento)
+            @Html.DisplayNameFor(model => model.Lancamento)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.Lancamento)
+            @Html.DisplayFor(model => model.Lancamento)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.EmCartazAte)
+            @Html.DisplayNameFor(model => model.EmCartazAte)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.EmCartazAte)
+            @Html.DisplayFor(model => model.EmCartazAte)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.TipoFilme)
+            @Html.DisplayNameFor(model => model.TipoFilme)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TipoFilme.NomeTipoFilme)

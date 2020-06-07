@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 namespace CineManager.Models {
     public class Filme {
 
-        public Filme()
-        {
-            ListaFilmeGenTipo = new List<FilmeGenTipo>();
-        }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
@@ -42,7 +38,15 @@ namespace CineManager.Models {
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EmCartazAte { get; set; }
 
-        public List<FilmeGenTipo> ListaFilmeGenTipo { get; set; }      
+        public List<FilmeGenero> ListaGeneros { get; set; } = new List<FilmeGenero>();
+        public List<FilmeTipo> ListaTipoFilmes { get; set; } = new List<FilmeTipo>();
+
+        [NotMapped]
+        public string filmeGenExcluir { get; set; }
+
+        [NotMapped]
+        [Required(ErrorMessage = "Selecione ao menos um genero")]
+        public List<int> idGeneros { get; set; }
 
         [NotMapped]
         [Display(Name = "Tipo do filme")]

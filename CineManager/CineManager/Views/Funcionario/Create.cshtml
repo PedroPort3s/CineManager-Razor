@@ -1,4 +1,4 @@
-﻿@model CineManager.ViewModels.FuncionarioViewModel
+﻿@model CineManager.Models.Funcionario
 
 @{
     ViewData["Title"] = "Create";
@@ -15,125 +15,77 @@
 
             <div class="form-group row">
                 <div class="col-lg-6">
-                    <label asp-for="Funcionario.NomeCompleto" class="control-label"></label>
-                    <input asp-for="Funcionario.NomeCompleto" class="form-control" />
-                    <span asp-validation-for="Funcionario.NomeCompleto" class="text-danger"></span>
+                    <label asp-for="NomeCompleto" class="control-label"></label>
+                    <input asp-for="NomeCompleto" class="form-control" />
+                    <span asp-validation-for="NomeCompleto" class="text-danger"></span>
                 </div>
                 <div class="col-lg-3">
-                    <label asp-for="cpf" class="control-label"></label>
-                    <input asp-for="cpf" id="txtCpf" class="form-control" />
-                    <span asp-validation-for="cpf" class="text-danger"></span>
+                    <label asp-for="Cpf" class="control-label"></label>
+                    <input asp-for="Cpf" id="txtCpf" class="form-control" />
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
                 </div>
                 <div class="col-lg-3">
-                    <label asp-for="Funcionario.Rg" class="control-label"></label>
-                    <input asp-for="Funcionario.Rg" class="form-control" />
-                    <span asp-validation-for="Funcionario.Rg" class="text-danger"></span>
+                    <label asp-for="Rg" class="control-label"></label>
+                    <input asp-for="Rg" class="form-control" />
+                    <span asp-validation-for="Rg" class="text-danger"></span>
                 </div>
             </div>
+            @if (Model.NomeCompleto != null) {
 
-            @*ENDERECO*@
-            <h4>Endereço</h4>
-            <hr>
-            <div class="form-group row">
-                <div class="col-lg-3">
-                    <label asp-for="Funcionario.Endereco.Cep" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Cep" id="txtCep" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.Cep" class="text-danger"></span>
-                </div>
-                <div class="col-lg-2">
-                    <label asp-for="Funcionario.Endereco.Bairro" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Bairro" id="txtBairro"  class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.Bairro" class="text-danger"></span>
-                </div>
-                <div class="col-lg-2">
-                    <label asp-for="Funcionario.Endereco.Cidade" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Cidade" id="txtCidade" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.Cidade" class="text-danger"></span>
-                </div>
-                <div class="col-lg-2">
-                    <label asp-for="Funcionario.Endereco.Estado" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Estado" id="txtEstado" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.Estado" class="text-danger"></span>
-                </div>
-                <div class="col-lg-2">
-                    <label asp-for="Funcionario.Endereco.Pais" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Pais" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.Pais" class="text-danger"></span>
-                </div>
-                <div class="col-lg-1">
-                    <label asp-for="Funcionario.Endereco.TipoEndereco" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.TipoEndereco" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.TipoEndereco" class="text-danger"></span>
-                </div>
-            </div>
+                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                    <thead>
+                        <tr>
+                            <th>Nome do logradouro</th>
+                            <th>Numero</th>
+                            <th>CEP</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            <div class="form-group row ">
-                <div class="col-lg-2">
-                    <label asp-for="Funcionario.Endereco.TipoLogradouro" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.TipoLogradouro" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.TipoLogradouro" class="text-danger"></span>
-                </div>
-                <div class="col-lg-6">
-                    <label asp-for="Funcionario.Endereco.NomeLogradouro" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.NomeLogradouro" id="txtEndereco" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.NomeLogradouro" class="text-danger"></span>
-                </div>
-                <div class="col-lg-2">
-                    <label asp-for="Funcionario.Endereco.Numero" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Numero" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.Numero" class="text-danger"></span>
-                </div>
-                <div class="col-lg-2">
-                    <label asp-for="Funcionario.Endereco.Complemento" class="control-label"></label>
-                    <input asp-for="Funcionario.Endereco.Complemento" class="form-control" />
-                    <span asp-validation-for="Funcionario.Endereco.Complemento" class="text-danger"></span>
-                </div>
-            </div>
-            @*FIM ENDERECO*@
+                        @foreach (Endereco item in Model.ListaEnderecos) {
+                            <tr>
+                                <td>@item.NomeLogradouro</td>
+                                <td>@item.Numero</td>
+                                <td>@item.Cep</td>
+                                <td>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
+            }
 
-            @*TELEFONE*@
-            <h4>Contato</h4>
-            <hr>
-            <div class="form-group row">
-                <div class="col-lg-1">
-                    <label asp-for="ddd" class="control-label"></label>
-                    <input asp-for="ddd" id="txtDDD" class="form-control" />
-                    <span asp-validation-for="ddd" class="text-danger"></span>
-                </div>
-                <div class="col-lg-6">
-                    <label asp-for="telefone" class="control-label"></label>
-                    <input asp-for="telefone" id="txtNum" class="form-control" />
-                    <span asp-validation-for="telefone" class="text-danger"></span>
-                </div>
-            </div>
-            @*FIM TELEFONE*@
+            @if (Model.ListaEnderecos.Count != 0) {
+                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                    <thead>
+                        <tr>
+                            <th>DDD</th>
+                            <th>Numero</th>
+                            <th>Telefone/Celular</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            <h4>Funcionário</h4>
-            <hr>
-            <div class="form-group row">
-                <div class="col-lg-3">
-                    <label asp-for="Funcionario.Salario" class="control-label"></label>
-                    <input asp-for="Funcionario.Salario" class="form-control" />
-                    <span asp-validation-for="Funcionario.Salario" class="text-danger"></span>
-                </div>
-                <div class="col-lg-3">
-                    <label asp-for="Funcionario.Setor" class="control-label"></label>
-                    <input asp-for="Funcionario.Setor" class="form-control" />
-                    <span asp-validation-for="Funcionario.Setor" class="text-danger"></span>
-                </div>
-
-                <div class="col-lg-3">
-                    <label asp-for="Funcionario.Cargo" class="control-label"></label>
-                    <input asp-for="Funcionario.Cargo" class="form-control" />
-                    <span asp-validation-for="Funcionario.Cargo" class="text-danger"></span>
-                </div>
-
-                <div class="col-lg-3">
-                    <label asp-for="Funcionario.Turno" class="control-label"></label>
-                    <input asp-for="Funcionario.Turno" class="form-control" />
-                    <span asp-validation-for="Funcionario.Turno" class="text-danger"></span>
-                </div>
-            </div>
+                        @foreach (Telefone item in Model.ListaTelefones) {
+                            <tr>
+                                <td>@item.DDD</td>
+                                <td>@item.Numero</td>
+                                <td>@item.Tipo</td>
+                                <td>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="btn btn-primary p-1" asp-action="AdicionarTel">Adicionar novo Telefone</a>
+            }
 
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />

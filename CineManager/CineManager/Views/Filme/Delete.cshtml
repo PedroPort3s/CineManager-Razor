@@ -1,4 +1,4 @@
-﻿@model CineManager.Models.FilmeGenTipo
+﻿@model CineManager.Models.Filme
 
 @{
     ViewData["Title"] = "Excluir";
@@ -12,10 +12,10 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.Titulo)
+            @Html.DisplayNameFor(model => model.Titulo)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.Titulo)
+            @Html.DisplayFor(model => model.Titulo)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Genero)
@@ -24,22 +24,22 @@
             @Html.DisplayFor(model => model.Genero.Nome)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.Duracao)
+            @Html.DisplayNameFor(model => model.Duracao)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.Duracao)
+            @Html.DisplayFor(model => model.Duracao)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.Lancamento)
+            @Html.DisplayNameFor(model => model.Lancamento)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.Lancamento)
+            @Html.DisplayFor(model => model.Lancamento)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Filme.EmCartazAte)
+            @Html.DisplayNameFor(model => model.EmCartazAte)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Filme.EmCartazAte)
+            @Html.DisplayFor(model => model.EmCartazAte)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TipoFilme)

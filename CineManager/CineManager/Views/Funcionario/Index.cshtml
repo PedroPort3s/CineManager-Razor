@@ -44,10 +44,39 @@
                 @Html.DisplayFor(modelItem => item.NomeCompleto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ListaEnderecos[0].NomeLogradouro)
-            </td>
+                <table class="table table-info">
+                    <thead>
+                        <tr>
+                            <th>Endereço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Endereco end in item.ListaEnderecos) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => end.NomeLogradouro) @Html.DisplayFor(modelItem => end.Numero)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>            </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ListaTelefones[0].Numero)
+                <table class="table table-info">
+                    <thead>
+                        <tr>
+                            <th>Telefone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Telefone tel in item.ListaTelefones) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => tel.DDD) @Html.DisplayFor(modelItem => tel.Numero)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Setor)
