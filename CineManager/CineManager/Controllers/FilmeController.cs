@@ -47,7 +47,6 @@ namespace CineManager.Controllers {
         // GET: Filme/Create
         public IActionResult Create()
         {
-            //ViewBag.ListaTipoFilmes = _context.TipoFilmes.ToList();
             List<Genero> listaGeneros = _context.Generos.ToList();
             List<TipoFilme> listaTipos = _context.TipoFilmes.ToList();
             ViewBag.ListaTipos = listaTipos;
@@ -102,8 +101,7 @@ namespace CineManager.Controllers {
 
             var filme = _context.Filme.Include(x => x.Generos).ThenInclude(gen => gen.Genero).
                 Include(x => x.TiposFilme).ThenInclude(x =>x.TipoFilme).FirstOrDefault(x => x.Id == id);
-            //var filme = _context.Filme.Include(x => x.Generos).ThenInclude(gen => gen.Genero).
-            //    Include(x => x.TiposFilme).FirstOrDefault(x => x.Id == id);
+
 
             if (filme == null)
             {
@@ -117,7 +115,7 @@ namespace CineManager.Controllers {
             }
 
             var tiposSelecionados = new List<int>();
-            //serasse ta certo esse tiposfilme
+
             foreach (var tipo in filme.TiposFilme)
             {
                 tiposSelecionados.Add(tipo.TipoFilme.Id);
@@ -176,8 +174,6 @@ namespace CineManager.Controllers {
                             _context.Remove(filmeTipo);
                         }
                     }
-
-                    //Se editar um filme e não abrir as modais e clicar em salvar, estoura excessão. Precisa tratar!!!
 
                     foreach (var tipo in filme.ListaTiposJoin.Split(','))
                     {
