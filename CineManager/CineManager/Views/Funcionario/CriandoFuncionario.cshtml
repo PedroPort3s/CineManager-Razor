@@ -1,0 +1,187 @@
+﻿@model CineManager.Models.Funcionario
+
+@{
+    ViewData["Title"] = "CriandoFuncionario";
+}
+
+<h1>CriandoFuncionario</h1>
+
+<h4>Funcionario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-">
+        <form asp-action="CriandoFuncionario">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.NomeCompleto == null) {
+
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="NomeCompleto" class="control-label"></label>
+                        <input asp-for="NomeCompleto" class="form-control" />
+                        <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3">
+                        <label asp-for="Cpf" class="control-label"></label>
+                        <input asp-for="Cpf" id="txtCpf" class="form-control" />
+                        <span asp-validation-for="Cpf" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3">
+                        <label asp-for="Rg" class="control-label"></label>
+                        <input asp-for="Rg" class="form-control" />
+                        <span asp-validation-for="Rg" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Salario" class="control-label"></label>
+                    <input asp-for="Salario" class="form-control" />
+                    <span asp-validation-for="Salario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Setor" class="control-label"></label>
+                    <input asp-for="Setor" class="form-control" />
+                    <span asp-validation-for="Setor" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cargo" class="control-label"></label>
+                    <input asp-for="Cargo" class="form-control" />
+                    <span asp-validation-for="Cargo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Turno" class="control-label"></label>
+                    <input asp-for="Turno" class="form-control" />
+                    <span asp-validation-for="Turno" class="text-danger"></span>
+                </div>
+            } else {
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label asp-for="NomeCompleto" class="control-label"></label>
+                        <input readonly asp-for="NomeCompleto" class="form-control" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label asp-for="Cpf" class="control-label"></label>
+                        <input readonly asp-for="Cpf" id="txtCpf" class="form-control" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label asp-for="Rg" class="control-label"></label>
+                        <input readonly asp-for="Rg" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-3">
+                        <label asp-for="Salario" class="control-label"></label>
+                        <input readonly asp-for="Salario" class="form-control" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label asp-for="Setor" class="control-label"></label>
+                        <input readonly asp-for="Setor" class="form-control" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label asp-for="Cargo" class="control-label"></label>
+                        <input readonly asp-for="Cargo" class="form-control" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label asp-for="Turno" class="control-label"></label>
+                        <input readonly asp-for="Turno" class="form-control" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.NomeCompleto != null) {
+
+                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                    <thead>
+                        <tr>
+                            <th>Nome do logradouro</th>
+                            <th>Numero</th>
+                            <th>CEP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListaEndereco.Count != 0) {
+                            if (Model.ListaEndereco.Count == 1) {
+                                <tr>
+                                    <td>@Model.ListaEndereco[0].NomeLogradouro</td>
+                                    <td>@Model.ListaEndereco[0].Numero</td>
+                                    <td>@Model.ListaEndereco[0].Cep</td>
+                                    <td>
+                                        <a class="btn btn-primary p-1" asp-action="EditandoEnd" asp-route-id="@Model.ListaEndereco[0].Id">Editar</a> |
+                                    </td>
+                                </tr>
+                            } else if (Model.ListaEndereco.Count > 1) {
+                                @for (int i = 0; i < Model.ListaEndereco.Count; i++) {
+                                    <tr>
+                                        <td>@Model.ListaEndereco[i].NomeLogradouro</td>
+                                        <td>@Model.ListaEndereco[i].Numero</td>
+                                        <td>@Model.ListaEndereco[i].Cep</td>
+                                        <td>
+                                            <a class="btn btn-danger p-1" asp-action="DeletarEnd" asp-route-id="@Model.ListaEndereco[i].Id">Excluir</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+                <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
+            }
+
+            @if (Model.ListaEndereco.Count != 0) {
+                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                    <thead>
+                        <tr>
+                            <th>DDD</th>
+                            <th>Numero</th>
+                            <th>Telefone/Celular</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListaTelefone.Count != 0) {
+                            if (Model.ListaTelefone.Count == 1) {
+                                <tr>
+                                    <td>@Model.ListaTelefone[0].DDD</td>
+                                    <td>@Model.ListaTelefone[0].Numero</td>
+                                    <td>@Model.ListaTelefone[0].Tipo</td>
+                                    <td>
+                                        <a class="btn btn-primary p-1" asp-action="EditandoTel" asp-route-id="@Model.ListaEndereco[0].Id">Editar</a>
+                                    </td>
+                                </tr>
+                            } else if (Model.ListaTelefone.Count > 1) {
+                                @for (int i = 0; i < Model.ListaTelefone.Count; i++) {
+                                    <tr>
+                                        <td>@Model.ListaTelefone[i].DDD</td>
+                                        <td>@Model.ListaTelefone[i].Numero</td>
+                                        <td>@Model.ListaTelefone[i].Tipo</td>
+                                        <td>
+                                            <a class="btn btn-danger p-1" asp-action="DeletarTel" asp-route-id="@Model.ListaTelefone[i].Id">Excluir</a> |
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="btn btn-primary p-1" asp-action="AdicionarTel">Adicionar novo Telefone</a>
+            }
+            <div class="form-group">
+                @if (Model.NomeCompleto == null) {
+                    <input type="submit" value="Prosseguir" class="btn btn-primary" />
+                } else if (Model.ListaEndereco.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
+                } else if (Model.ListaTelefone.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="AdicionarTel">Adicionar novo Telefone</a>
+                } else {
+                    <a class="btn btn-primary p-1" asp-action="CadastrarFuncionario">Finalizar Cadastro</a>
+                }
+                <a asp-action="Cancelar" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

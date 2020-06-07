@@ -1,118 +1,117 @@
 ﻿@model CineManager.Models.Fornecedor
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Detalhes</h1>
+<h1>Criar</h1>
 
-<div>
-    <h4>Fornecedor</h4>
-    <hr />
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="NomeDaEmpresa" class="control-label"></label>
-        <input readonly asp-for="NomeDaEmpresa" class="form-control" />
-        <span asp-validation-for="NomeDaEmpresa" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="NomeResponsavel" class="control-label"></label>
-        <input readonly asp-for="NomeResponsavel" class="form-control" />
-        <span asp-validation-for="NomeResponsavel" class="text-danger"></span>
-    </div>
+<h4>Fornecedor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="NomeDaEmpresa" class="control-label"></label>
+                <input readonly asp-for="NomeDaEmpresa" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NomeResponsavel" class="control-label"></label>
+                <input readonly asp-for="NomeResponsavel" class="form-control" />
+            </div>
+            @if (Model.NomeDaEmpresa != null) {
 
-    <div class="form-group row">
-        <div class="col-lg-2">
-            <label asp-for="ListaEndereco[0].TipoLogradouro" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].TipoLogradouro" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].TipoLogradouro" class="text-danger"></span>
-        </div>
-        <div class="col-lg-6">
-            <label asp-for="ListaEndereco[0].NomeLogradouro" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].NomeLogradouro" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].NomeLogradouro" class="text-danger"></span>
-        </div>
-        <div class="col-lg-2">
-            <label asp-for="ListaEndereco[0].Numero" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].Numero" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].Numero" class="text-danger"></span>
-        </div>
-        <div class="col-lg-2">
-            <label asp-for="ListaEndereco[0].Complemento" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].Complemento" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].Complemento" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row pt-3">
-        <div class="col-lg-3">
-            <label asp-for="ListaEndereco[0].Cep" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].Cep" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].Cep" class="text-danger"></span>
-        </div>
-        <div class="col-lg-2">
-            <label asp-for="ListaEndereco[0].Bairro" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].Bairro" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].Bairro" class="text-danger"></span>
-        </div>
-        <div class="col-lg-2">
-            <label asp-for="ListaEndereco[0].Cidade" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].Cidade" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].Cidade" class="text-danger"></span>
-        </div>
-        <div class="col-lg-2">
-            <label asp-for="ListaEndereco[0].Estado" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].Estado" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].Estado" class="text-danger"></span>
-        </div>
-        <div class="col-lg-2">
-            <label asp-for="ListaEndereco[0].Pais" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].Pais" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].Pais" class="text-danger"></span>
-        </div>
-        <div class="col-lg-1">
-            <label asp-for="ListaEndereco[0].TipoEndereco" class="control-label"></label>
-            <input readonly asp-for="ListaEndereco[0].TipoEndereco" class="form-control" />
-            <span asp-validation-for="ListaEndereco[0].TipoEndereco" class="text-danger"></span>
-        </div>
-    </div>
+                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                    <thead>
+                        <tr>
+                            <th>Nome do logradouro</th>
+                            <th>Numero</th>
+                            <th>CEP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListaEndereco.Count != 0) {
+                            if (Model.ListaEndereco.Count == 1) {
+                                <tr>
+                                    <td>@Model.ListaEndereco[0].NomeLogradouro</td>
+                                    <td>@Model.ListaEndereco[0].Numero</td>
+                                    <td>@Model.ListaEndereco[0].Cep</td>
+                                </tr>
+                            } else if (Model.ListaEndereco.Count > 1) {
+                                @for (int i = 0; i < Model.ListaEndereco.Count; i++) {
+                                    <tr>
+                                        <td>@Model.ListaEndereco[i].NomeLogradouro</td>
+                                        <td>@Model.ListaEndereco[i].Numero</td>
+                                        <td>@Model.ListaEndereco[i].Cep</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
 
-    @*TELEFONE*@
-    <div class="form-group row">
-        <div class="col-lg-1">
-            <label asp-for="ListaTelefone[0].DDI" class="control-label"></label>
-            <input readonly asp-for="ListaTelefone[0].DDI" class="form-control" />
-            <span asp-validation-for="ListaTelefone[0].DDI" class="text-danger"></span>
-        </div>
-        <div class="col-lg-1">
-            <label asp-for="ListaTelefone[0].DDD" class="control-label"></label>
-            <input readonly asp-for="ListaTelefone[0].DDD" class="form-control" />
-            <span asp-validation-for="ListaTelefone[0].DDD" class="text-danger"></span>
-        </div>
-        <div class="col-lg-6">
-            <label asp-for="ListaTelefone[0].Numero" class="control-label"></label>
-            <input readonly asp-for="ListaTelefone[0].Numero" class="form-control" />
-            <span asp-validation-for="ListaTelefone[0].Numero" class="text-danger"></span>
-        </div>
-        <div class="col-lg-4">
-            <label asp-for="ListaTelefone[0].Tipo" class="control-label"></label>
-            <input readonly asp-for="ListaTelefone[0].Tipo" class="form-control" />
-            <span asp-validation-for="ListaTelefone[0].Tipo" class="text-danger"></span>
-        </div>
-    </div>
-    @*FIM TELEFONE*@
+            @if (Model.ListaEndereco.Count != 0) {
+                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                    <thead>
+                        <tr>
+                            <th>DDD</th>
+                            <th>Numero</th>
+                            <th>Telefone/Celular</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListaTelefone.Count != 0) {
+                            if (Model.ListaTelefone.Count == 1) {
+                                <tr>
+                                    <td>@Model.ListaTelefone[0].DDD</td>
+                                    <td>@Model.ListaTelefone[0].Numero</td>
+                                    <td>@Model.ListaTelefone[0].Tipo</td>
+                                </tr>
+                            } else if (Model.ListaTelefone.Count > 1) {
+                                @for (int i = 0; i < Model.ListaTelefone.Count; i++) {
+                                    <tr>
+                                        <td>@Model.ListaTelefone[i].DDD</td>
+                                        <td>@Model.ListaTelefone[i].Numero</td>
+                                        <td>@Model.ListaTelefone[i].Tipo</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
 
-    @*EMAIL*@
-    <div class="form-group row">
-        <div class="col-lg-12">
-            <label asp-for="ListaEmail[0].EnderecoEmail" class="control-label"></label>
-            <input readonly asp-for="ListaEmail[0].EnderecoEmail" class="form-control" />
-            <span asp-validation-for="ListaEmail[0].EnderecoEmail" class="text-danger"></span>
+            @if (Model.ListaTelefone.Count != 0) {
+                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListaEmail.Count != 0) {
+                            if (Model.ListaEmail.Count == 1) {
+
+                                <tr>
+                                    <td>@Model.ListaEmail[0].EnderecoEmail</td>
+                                </tr>
+                            } else if (Model.ListaEmail.Count > 1) {
+                                for (int i = 0; i < Model.ListaEmail.Count; i++) {
+                                    <tr>
+                                        <td>@Model.ListaEmail[i].EnderecoEmail</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+        <div class="form-group">
+            <a asp-action="Index" class="btn btn-secondary">Voltar</a>
         </div>
     </div>
-    @*FIM EMAIL*@
-</div>
-<div>
-    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-    <a class="btn btn-secondary" asp-action="Index">Voltar</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

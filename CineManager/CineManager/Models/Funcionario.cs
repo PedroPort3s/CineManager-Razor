@@ -9,8 +9,8 @@ namespace CineManager.Models
     public class Funcionario
     {
         public Funcionario() {
-            ListaEnderecos = new List<Endereco>();
-            ListaTelefones = new List<Telefone>();
+            ListaEndereco = new List<Endereco>();
+            ListaTelefone = new List<Telefone>();
         }
 
         public int Id { get; set; }
@@ -57,8 +57,8 @@ namespace CineManager.Models
         [Column(TypeName = "varchar(100)")]
         public string Turno { get; set; }
 
-        public List<Telefone> ListaTelefones { get; set; }
-        public List<Endereco> ListaEnderecos { get; set; }
+        public List<Telefone> ListaTelefone { get; set; }
+        public List<Endereco> ListaEndereco { get; set; }
 
         [NotMapped]
         public Telefone Telefone { get; set; }

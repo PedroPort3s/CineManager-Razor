@@ -12,21 +12,17 @@ using CineManager.Areas.Identity.Pages.Account.Manage;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace CineManager.Controllers
-{
-    //[Authorize(Policy = "CineManeger")]
-    public class FilmeController : Controller
-    {
+namespace CineManager.Controllers {
+    [Authorize(Policy = "CineManeger")]
+    public class FilmeController : Controller {
         private readonly ApplicationDbContext _context;
 
-        public FilmeController(ApplicationDbContext context)
-        {
+        public FilmeController(ApplicationDbContext context) {
             _context = context;
         }
 
         // GET: Filme
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             InserirDados();
 
             return View(await _context.Filme.Include(x => x.Generos).
@@ -34,17 +30,14 @@ namespace CineManager.Controllers
         }
 
         // GET: Filme/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var filme = await _context.Filme.Include(x => x.Generos).ThenInclude(x => x.Genero).Include(x => x.TiposFilme).ThenInclude(x =>x.TipoFilme).
                     FirstOrDefaultAsync(x => x.Id == id);
-            if (filme == null)
-            {
+            if (filme == null) {
                 return NotFound();
             }
 
@@ -201,9 +194,7 @@ namespace CineManager.Controllers
                     if (!FilmeExists(filme.Id))
                     {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -213,10 +204,8 @@ namespace CineManager.Controllers
         }
 
         // GET: Filme/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
@@ -346,14 +335,12 @@ namespace CineManager.Controllers
             return _context.Filme.Any(e => e.Id == id);
         }
 
-        public void InserirDados()
-        {
-            Genero genero = _context.Generos.FirstOrDefault(x => x.Nome.Equals("Ação"));
-            if (genero == null)
-            {
+        public void InserirDados() {
+            Genero genero = _context.Genero.FirstOrDefault(x => x.Nome.Equals("Ação"));
+            if (genero == null) {
                 Genero obj1 = new Genero();
                 obj1.Nome = "Ação";
-                _context.Generos.Add(obj1);
+                _context.Genero.Add(obj1);
 
                 Genero obj2 = new Genero();
                 obj2.Nome = "Animação";

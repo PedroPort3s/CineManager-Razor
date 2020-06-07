@@ -12,18 +12,22 @@
     <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NomeDaEmpresa" class="control-label"></label>
-                <input asp-for="NomeDaEmpresa" class="form-control" />
-                <span asp-validation-for="NomeDaEmpresa" class="text-danger"></span>
-            </div>
             @if (Model.NomeDaEmpresa == null) {
                 <div class="form-group">
                     <label asp-for="NomeResponsavel" class="control-label"></label>
                     <input asp-for="NomeResponsavel" class="form-control" />
                     <span asp-validation-for="NomeResponsavel" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <label asp-for="NomeDaEmpresa" class="control-label"></label>
+                    <input asp-for="NomeDaEmpresa" class="form-control" />
+                    <span asp-validation-for="NomeDaEmpresa" class="text-danger"></span>
+                </div>
             } else {
+                <div class="form-group">
+                    <label asp-for="NomeDaEmpresa" class="control-label"></label>
+                    <input readonly asp-for="NomeDaEmpresa" class="form-control" />
+                </div>
                 <div class="form-group">
                     <label asp-for="NomeResponsavel" class="control-label"></label>
                     <input readonly asp-for="NomeResponsavel" class="form-control" />
@@ -56,7 +60,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a class="btn btn-primary p-1" asp-action="CreateEndereco">Adicionar novo endereço</a>
+                <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
             }
 
             @if (Model.ListaEndereco.Count != 0) {
@@ -84,7 +88,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a class="btn btn-primary p-1" asp-action="CreateTelefone">Adicionar novo Telefone</a>
+                <a class="btn btn-primary p-1" asp-action="AdicionarTel">Adicionar novo Telefone</a>
             }
 
             @if (Model.ListaTelefone.Count != 0) {
@@ -108,23 +112,23 @@
                         </tr>
                     </tbody>
                 </table>
-                <a class="btn btn-primary p-1" asp-action="CreateEmail">Adicionar novo Email</a>
+                <a class="btn btn-primary p-1" asp-action="AdicionarEmail">Adicionar novo Email</a>
             }
 
-        <div class="form-group">
-            @if (Model.NomeDaEmpresa == null) {
-                <input type="submit" value="Prosseguir" class="btn btn-primary" />
-            } else if (Model.ListaEndereco.Count == 0) {
-                <a class="btn btn-primary p-1" asp-action="CreateEndereco">Adicionar novo endereço</a>
-            } else if (Model.ListaTelefone.Count == 0) {
-                <a class="btn btn-primary p-1" asp-action="CreateTelefone">Adicionar novo Telefone</a>
-            } else if (Model.ListaEmail.Count == 0) {
-                <a class="btn btn-primary p-1" asp-action="CreateEmail">Adicionar novo Email</a>
-            } else {
-                <a class="btn btn-primary p-1" asp-action="AdicionarFornecedor">Finalizar Cadastro</a>
-            }
-            <a asp-action="CancelarCadastro" class="btn btn-secondary">Voltar</a>
-        </div>
+            <div class="form-group">
+                @if (Model.NomeDaEmpresa == null) {
+                    <input type="submit" value="Prosseguir" class="btn btn-primary" />
+                } else if (Model.ListaEndereco.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="CreateEndereco">Adicionar novo endereço</a>
+                } else if (Model.ListaTelefone.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="CreateTelefone">Adicionar novo Telefone</a>
+                } else if (Model.ListaEmail.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="CreateEmail">Adicionar novo Email</a>
+                } else {
+                    <a class="btn btn-primary p-1" asp-action="AdicionarFornecedor">Finalizar Cadastro</a>
+                }
+                <a asp-action="CancelarCadastro" class="btn btn-secondary">Voltar</a>
+            </div>
         </form>
     </div>
 </div>
