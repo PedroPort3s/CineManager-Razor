@@ -4,66 +4,75 @@
 @{
     ViewData["Title"] = "Login";
 }
-
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h4>Use uma conta local para login</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+<div class="container">
+    <div class="w3l-login-form">
+        <img src="~/images/logo-cm.png" />        
+        <hr />
+        <form id="account" method="POST">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="w3l-form-group">
+                <label asp-for="Input.Email"></label>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input asp-for="Input.Email" placeholder="E-mail" />
                 </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="w3l-form-group">
+                <label asp-for="Input.Password"></label>
+                <div class="group">
+                    <i class="fas fa-unlock"></i>
+                    <input asp-for="Input.Password" placeholder="Senha" />
                 </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="Input.RememberMe">
+                        <input asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar como novo usuário</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use outro serviço para login</h4>
+            </div>
+            <div class="form-group">
+                <p>
+                    <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
+                </p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
             <hr />
-            @{
-                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                    <div>
+            <p class=" w3l-register-p">Ainda não tem uma conta?&nbsp;<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar como novo usuário</a></p>
+
+        </form>
+        <hr />
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-vertical">
+            <div class="form-group">
+                @{ if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
+                        <div>
+                            <p>
+                                Não há serviços de autenticação externos configurados
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+            <p class=" w3l-register-p">Use outro serviço para login.</p>
                         <p>
                             @foreach (var provider in Model.ExternalLogins)
                             {
-                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Login usando sua @provider.DisplayName conta">@provider.DisplayName</button>
+                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Login usando sua @provider.DisplayName conta">@provider.DisplayName</button><br />
                             }
                         </p>
-                    </div>
-                </form>
-            }
-        </section>
+                    }
+                }
+            </div>
+        </form>
     </div>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
