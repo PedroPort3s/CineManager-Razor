@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CineManager.Data;
 using CineManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Routing;
 
 namespace CineManager.Controllers
 {
@@ -20,6 +21,8 @@ namespace CineManager.Controllers
         {
             _context = context;
         }
+
+        public static Fornecedor FornecedorEstatico { get; set; }
 
         // GET: Fornecedor
         public async Task<IActionResult> Index()
@@ -49,7 +52,10 @@ namespace CineManager.Controllers
         // GET: Fornecedor/Create
         public IActionResult Create()
         {
-            return View();
+            if(FornecedorEstatico == null) {
+                FornecedorEstatico = new Fornecedor();
+            }
+            return View(FornecedorEstatico);
         }
 
         // POST: Fornecedor/Create
@@ -57,18 +63,84 @@ namespace CineManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] Fornecedor fornecedor)
+        public IActionResult Create([FromForm] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
-                fornecedor.ListaEndereco.Add(fornecedor.Endereco);
-                fornecedor.ListaEmail.Add(fornecedor.Email);
-                fornecedor.ListaTelefone.Add(fornecedor.Telefone);
-                _context.Add(fornecedor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                FornecedorEstatico = fornecedor;
+                return RedirectToAction("Create");
             }
             return View(fornecedor);
+        }
+
+        [HttpGet]
+        public IActionResult CreateEndereco() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateEndereco([FromForm] Endereco end) {
+            if(ModelState.IsValid) {
+                FornecedorEstatico.ListaEndereco.Add(end);
+                return RedirectToAction("Create");
+            }
+            return View(end);
+        }
+
+        [HttpGet]
+        public IActionResult CreateTelefone() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateTelefone([FromForm] Telefone tel) {
+            if (ModelState.IsValid) {
+                FornecedorEstatico.ListaTelefone.Add(tel);
+                return RedirectToAction("Create");
+            }
+            return View(tel);
+        }
+        
+        [HttpGet]
+        public IActionResult CreateEmail() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateEmail([FromForm] Email email) {
+            if (ModelState.IsValid) {
+                FornecedorEstatico.ListaEmail.Add(email);
+                return RedirectToAction("Create");
+            }
+            return View(email);
+        }
+
+        [HttpGet]
+        public IActionResult CadastrarFornecedor() {
+            _context.Fornecedor.Add(FornecedorEstatico);
+            FornecedorEstatico = new Fornecedor();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewTelefone() {
+            ViewBag.listaEnd = FornecedorEstatico.ListaEndereco;
+            ViewBag.MostrarContinuar = (FornecedorEstatico.ListaEndereco.Count > 0);
+            return View("AddEndereco");
+        }
+
+        [HttpGet]
+        public IActionResult CancelarCadastro() {
+            FornecedorEstatico = new Fornecedor();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AdicionarFornecedor() {
+            Fornecedor forn = FornecedorEstatico;
+            _context.Fornecedor.Add(forn);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // GET: Fornecedor/Edit/5

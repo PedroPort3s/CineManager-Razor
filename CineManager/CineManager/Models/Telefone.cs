@@ -14,14 +14,10 @@ namespace CineManager.Models {
         public string Tipo { get; set; }
 
         [Display(Name = "DDD")]
-        [MaxLength(4, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
         [Column(TypeName = "int")]
         public int DDD { get; set; }
 
         [Display(Name = "Número")]
-        [MaxLength(10, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
-        [MinLength(8, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
         [Column(TypeName = "bigint")]
         public long Numero { get; set; }
         

@@ -18,15 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.NomeResponsavel)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Endereco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
+            <th>Telefones</th>
+            <th>Endereços</th>
+            <th>Emails</th>
             <th></th>
         </tr>
     </thead>
@@ -40,13 +34,60 @@
                     @Html.DisplayFor(modelItem => item.NomeResponsavel)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ListaTelefone[0].Numero)
+                    <table class="table table-info">
+                        <thead>
+                            <tr>
+                                <th>Telefone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Telefone tel in item.ListaTelefone) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => tel.DDD) @Html.DisplayFor(modelItem => tel.Numero)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ListaEndereco[0].NomeLogradouro)
+                    <table class="table table-info">
+                        <thead>
+                            <tr>
+                                <th>Endereço</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Endereco end in item.ListaEndereco) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => end.NomeLogradouro) @Html.DisplayFor(modelItem => end.Numero)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ListaEmail[0].EnderecoEmail)
+                    <table class="table table-info">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Email
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Email email in item.ListaEmail) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => email.EnderecoEmail)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </td>
 
                 <td>

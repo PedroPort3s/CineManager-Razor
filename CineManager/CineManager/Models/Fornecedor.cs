@@ -6,10 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace CineManager.Models
-{
-    public class Fornecedor
-    {
+namespace CineManager.Models {
+    public class Fornecedor {
         public int Id { get; set; }
 
         public Fornecedor() {
