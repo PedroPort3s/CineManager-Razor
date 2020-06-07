@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<CineManager.Models.FilmeGenTipo>
+@model IEnumerable<CineManager.Models.Filme>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,24 +14,17 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Filme.Titulo)
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>       
+            <th>
+                @Html.DisplayNameFor(model => model.Duracao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Filme.Genero)
+                @Html.DisplayNameFor(model => model.Lancamento)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Filme.Duracao)
+                @Html.DisplayNameFor(model => model.EmCartazAte)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Filme.Lancamento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Filme.EmCartazAte)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Filme.TipoFilme)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -39,22 +32,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Filme.Titulo)
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>     
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Genero.Nome)
+                    @Html.DisplayFor(modelItem => item.Lancamento)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Filme.Duracao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Filme.Lancamento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Filme.EmCartazAte)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoFilme.NomeTipoFilme)
+                    @Html.DisplayFor(modelItem => item.EmCartazAte)
                 </td>
                 <td>
                     <a class="btn btn-primary p-1" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |

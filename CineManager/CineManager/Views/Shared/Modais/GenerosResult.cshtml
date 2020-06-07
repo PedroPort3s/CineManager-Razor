@@ -1,0 +1,44 @@
+﻿@model Filme
+
+@{
+    ViewData["Title"] = "Gêneros do Filme";
+}
+<!--Modal Generos-->
+<div class="modal fade bd-example-modal-lg" id="ShowModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="selectGeneros">Selecione os Gêneros</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 form-group">
+                    <fieldset>
+                        <legend><b>Gêneros</b></legend>
+                        <table id="tableModalGenero" class="checkbox" border="0">
+
+                            @foreach (var genero in ViewBag._ListaGeneros)
+                            {
+                                <tr>
+                                    <td>
+                                        <span id="@genero.Id" val="@genero.Nome">
+                                            <input id="cbxGenero_@genero.Id" type="checkbox" name="cbxGeneros" value="@genero.Id" />
+                                            <label for="cbxGenero_@genero.Id">@genero.Nome</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="genSave" onclick="ArmazenarGeneros()" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -4,19 +4,25 @@
     ViewData["Title"] = "Confirmação de Registro";
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-        <p>
-            Atualmente, este aplicativo não possui um remetente de email real registrado. Consulte <a href="https://aka.ms/aspaccountconf"> estes documentos </a> para saber como configurar um remetente de email real.
-            Normalmente, isso seria enviado por e-mail: <a id="confirm-link" href="@Model.EmailConfirmationUrl"> Clique aqui para confirmar sua conta </a>
-        </p>
-    }
-    else
-    {
-        <p>
-            Verifique seu e-mail para confirmar sua conta.
-        </p>
-    }
-}
+    <div class="w3l-login-form">
+        <h2>@ViewData["Title"]</h2>
+
+        @{
+            if (@Model.DisplayConfirmAccountLink)
+            {
+                <p>
+                    Atualmente, este aplicativo não possui um remetente de email real registrado. Consulte <a href="https://aka.ms/aspaccountconf"> estes documentos </a> para saber como configurar um remetente de email real.
+                    Normalmente, isso seria enviado por e-mail: <a id="confirm-link" href="@Model.EmailConfirmationUrl"> Clique aqui para confirmar sua conta </a>
+                </p>
+            }
+            else
+            {
+                <p>
+                    Verifique seu e-mail para confirmar sua conta.
+                </p>
+            }
+        }
+    </div>
+
+
+

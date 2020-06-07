@@ -6,10 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace CineManager.Models
-{
-    public class Fornecedor
-    {
+namespace CineManager.Models {
+    public class Fornecedor {
         public int Id { get; set; }
 
         public Fornecedor() {
@@ -20,15 +18,13 @@ namespace CineManager.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Nome da empresa")]
-        [MaxLength(100, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
+        [RegularExpression(@"^(?=.{1,100}$).*", ErrorMessage = "O campo {0} deve conter entre 1 e 100 caracteres.")]
         [Column(TypeName = "varchar(100)")]
         public string NomeDaEmpresa { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Nome do responsável")]
-        [MaxLength(300, ErrorMessage = "O campo {0} deve conter no máximo {1} caracteres")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve conter no mínimo {1} caracteres")]
+        [RegularExpression(@"^(?=.{1,300}$).*", ErrorMessage = "O campo {0} deve conter entre 1 e 300 caracteres.")]
         [Column(TypeName = "varchar(300)")]
         public string NomeResponsavel { get; set; }
 

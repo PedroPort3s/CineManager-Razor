@@ -8,16 +8,11 @@ using System.Threading.Tasks;
 namespace CineManager.Models {
     public class Filme {
 
-        public Filme()
-        {
-            ListaFilmeGenTipo = new List<FilmeGenTipo>();
-        }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Título")]
-        [MaxLength(200, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres.")]
-        [MinLength(1, ErrorMessage = "O campo {0} deve ter no minimo {1} caracteres.")]
+        [RegularExpression(@"^(?=.{1,200}$).*", ErrorMessage = "O campo {0} deve conter entre 1 e 200 caracteres")]
         [Column(TypeName = "varchar(200)")]
         public string Titulo { get; set; }
 
@@ -32,6 +27,7 @@ namespace CineManager.Models {
         [Display(Name = "Data de lançamento")]
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
+        //Verificar. DataFormatString não está funcionando corretamente
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Lancamento { get; set; }
 
@@ -39,10 +35,24 @@ namespace CineManager.Models {
         [Display(Name = "Em cartaz até")]
         [DataType(DataType.Date)]
         [Column(TypeName = "datetime")]
+        //Verificar. DataFormatString não está funcionando corretamente
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EmCartazAte { get; set; }
 
-        public List<FilmeGenTipo> ListaFilmeGenTipo { get; set; }      
+        public List<FilmeGenero> Generos { get; set; } = new List<FilmeGenero>();
+        public List<FilmeTipoFilme> TiposFilme { get; set; } = new List<FilmeTipoFilme>();
+
+        [NotMapped]
+        public string ListaGenerosJoin { get; set; }
+
+        [NotMapped]
+        public string ListaTiposJoin { get; set; }
+
+        [NotMapped]
+        public string ListaGenerosJoinPreserve { get; set; }
+
+        [NotMapped]
+        public string ListaTiposRemove { get; set; }
 
         [NotMapped]
         [Display(Name = "Tipo do filme")]

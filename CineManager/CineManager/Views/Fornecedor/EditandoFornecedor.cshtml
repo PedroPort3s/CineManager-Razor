@@ -1,0 +1,180 @@
+﻿@model CineManager.Models.Fornecedor
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Criar</h1>
+
+<h4>Fornecedor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="EditandoFornecedor" class="col-lg-12">
+            <input hidden asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (ViewBag.passou) {
+                <div class="form-group">
+                    <label asp-for="NomeResponsavel" class="control-label"></label>
+                    <input asp-for="NomeResponsavel" class="form-control" />
+                    <span asp-validation-for="NomeResponsavel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NomeDaEmpresa" class="control-label"></label>
+                    <input asp-for="NomeDaEmpresa" class="form-control" />
+                    <span asp-validation-for="NomeDaEmpresa" class="text-danger"></span>
+                </div>
+            } else {
+                <div class="form-group">
+                    <label asp-for="NomeResponsavel" class="control-label"></label>
+                    <input readonly asp-for="NomeResponsavel" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="NomeDaEmpresa" class="control-label"></label>
+                    <input readonly asp-for="NomeDaEmpresa" class="form-control" />
+                </div>
+
+                @if (Model.NomeDaEmpresa != null) {
+
+                    <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                        <thead>
+                            <tr>
+                                <th>Nome do logradouro</th>
+                                <th>Numero</th>
+                                <th>CEP</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ListaEndereco.Count != 0) {
+                                if (Model.ListaEndereco.Count == 1) {
+                                    <tr>
+                                        <td>@Model.ListaEndereco[0].NomeLogradouro</td>
+                                        <td>@Model.ListaEndereco[0].Numero</td>
+                                        <td>@Model.ListaEndereco[0].Cep</td>
+                                        <td>
+                                            <a class="btn btn-primary p-1" asp-action="EditandoEnd" asp-route-id="@Model.ListaEndereco[0].Id">Editar</a> |
+                                        </td>
+                                    </tr>
+                                } else if (Model.ListaEndereco.Count > 1) {
+                                    @for (int i = 0; i < Model.ListaEndereco.Count; i++) {
+                                        <tr>
+                                            <td>@Model.ListaEndereco[i].NomeLogradouro</td>
+                                            <td>@Model.ListaEndereco[i].Numero</td>
+                                            <td>@Model.ListaEndereco[i].Cep</td>
+                                            <td>
+                                                <a class="btn btn-primary p-1" asp-action="EditandoEnd" asp-route-id="@Model.ListaEndereco[i].Id">Editar</a> |
+                                                <a class="btn btn-danger p-1" asp-action="DeletarEnd" asp-route-id="@Model.ListaEndereco[i].Id">Excluir</a> |
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
+                }
+
+                @if (Model.ListaEndereco.Count != 0) {
+                    <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                        <thead>
+                            <tr>
+                                <th>DDD</th>
+                                <th>Numero</th>
+                                <th>Telefone/Celular</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ListaTelefone.Count != 0) {
+                                if (Model.ListaTelefone.Count == 1) {
+                                    <tr>
+                                        <td>@Model.ListaTelefone[0].DDD</td>
+                                        <td>@Model.ListaTelefone[0].Numero</td>
+                                        <td>@Model.ListaTelefone[0].Tipo</td>
+                                        <td>
+                                            <a class="btn btn-primary p-1" asp-action="EditandoTel" asp-route-id="@Model.ListaTelefone[0].Id">Editar</a> |
+                                        </td>
+                                    </tr>
+                                } else if (Model.ListaTelefone.Count > 1) {
+                                    @for (int i = 0; i < Model.ListaTelefone.Count; i++) {
+                                        <tr>
+                                            <td>@Model.ListaTelefone[i].DDD</td>
+                                            <td>@Model.ListaTelefone[i].Numero</td>
+                                            <td>@Model.ListaTelefone[i].Tipo</td>
+                                            <td>
+                                                <a class="btn btn-primary p-1" asp-action="EditandoTel" asp-route-id="@Model.ListaTelefone[i].Id">Editar</a> |
+                                                <a class="btn btn-danger p-1" asp-action="DeletandoTel" asp-route-id="@Model.ListaTelefone[i].Id">Excluir</a> |
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary p-1" asp-action="AdicionarTel">Adicionar novo Telefone</a>
+                }
+
+                @if (Model.ListaTelefone.Count != 0) {
+                    <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ListaEmail.Count != 0) {
+                                if (Model.ListaEmail.Count == 1) {
+
+                                    <tr>
+                                        <td>@Model.ListaEmail[0].EnderecoEmail</td>
+                                        <td>
+                                            <a class="btn btn-primary p-1" asp-action="EditandoEmail" asp-route-id="@Model.ListaEmail[0].Id">Editar</a> |
+                                        </td>
+                                    </tr>
+                                } else {
+                                    @for (int i = 0; i < Model.ListaEmail.Count; i++) {
+                                        <tr>
+                                            <td>@Model.ListaEmail[i].EnderecoEmail</td>
+                                            <td>
+                                                <a class="btn btn-primary p-1" asp-action="Edit" asp-route-id="@Model.ListaEmail[i].Id">Editar</a> |
+                                                <a class="btn btn-danger p-1" asp-action="DeletarEmail" asp-route-id="@Model.ListaEmail[i].Id">Excluir</a> |
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary p-1" asp-action="AdicionarEmail">Adicionar novo Email</a>
+                }
+            }
+
+            <div class="form-group">
+                @if (ViewBag.passou) {
+                    <input type="submit" value="Prosseguir" class="btn btn-primary" />
+                } else if (Model.ListaEndereco.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="CreateEndereco">Adicionar novo endereço</a>
+                } else if (Model.ListaTelefone.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="CreateTelefone">Adicionar novo Telefone</a>
+                } else if (Model.ListaEmail.Count == 0) {
+                    <a class="btn btn-primary p-1" asp-action="CreateEmail">Adicionar novo Email</a>
+                } else {
+                    <a class="btn btn-primary p-1" asp-action="AtualizandoFornecedor">Finalizar Cadastro</a>
+                }
+                <a asp-action="Cancelar" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

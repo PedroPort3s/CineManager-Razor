@@ -1,0 +1,49 @@
+﻿@model List<FilmeTipoFilme>
+
+@{
+    ViewData["Title"] = "Tipos do Filme";
+}
+<!--Modal TipoFilme Edit-->
+<div class="modal fade bd-example-modal-lg" id="ShowModalEditTF" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="selectTipos">Selecione o(s) Tipo(s)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 form-group">
+                    <fieldset>
+                        <legend><b>Tipos</b></legend>
+                        <table id="tableModalTipo" class="checkbox" border="0">
+
+                            @foreach (var tipo in ViewBag._ListaTipos)
+                            {
+                                <tr>
+                                    <td>
+                                        <span id="@tipo.Id" val="@tipo.NomeTipoFilme">
+                                            @if (Model.Any(x => x.TipoFilme.Id == tipo.Id))
+                                            {
+                                                <input id="cbxTipo_@tipo.Id" type="checkbox" name="cbxTipoEdit" value="@tipo.Id" checked />
+                                            }
+                                            else
+                                            {
+                                                <input id="cbxTipo_@tipo.Id" type="checkbox" name="cbxTipoEdit" value="@tipo.Id" />
+                                            }
+                                            <label for="cbxTipo_@tipo.Id">@tipo.NomeTipoFilme</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="tipoSaveEdit" onclick="ArmazenarTiposEdit()" class="btn btn-primary">Salvar Edição</button>
+            </div>
+        </div>
+    </div>
+</div>
