@@ -274,10 +274,12 @@ namespace CineManager.Controllers
                         new XRect(15, alturarDatalhesItens, page.Width, page.Height));
                     textFormatter.DrawString(f.Filme.Duracao.ToString(), fonteDetalheDescricao, corFonte,
                         new XRect(220, alturarDatalhesItens, page.Width, page.Height));
-                    textFormatter.DrawString(f.Filme.Lancamento.ToString(), fonteDetalheDescricao, corFonte,
+
+                    textFormatter.DrawString(f.Filme.Lancamento.ToString().Substring(0,10), fonteDetalheDescricao, corFonte,
                         new XRect(290, alturarDatalhesItens, page.Width, page.Height));
-                    textFormatter.DrawString(f.Filme.EmCartazAte.ToString(), fonteDetalheDescricao, corFonte,
-                        new XRect(420, alturarDatalhesItens, page.Width, page.Height));
+
+                    textFormatter.DrawString(f.Filme.EmCartazAte.ToString().Substring(0, 10), fonteDetalheDescricao, corFonte,
+                        new XRect(430, alturarDatalhesItens, page.Width, page.Height));
 
                     alturarDatalhesItens += 20;
                 }
