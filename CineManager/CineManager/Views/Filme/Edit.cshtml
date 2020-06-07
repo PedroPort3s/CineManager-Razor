@@ -12,20 +12,23 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<input asp-for="Genero.Id" hidden/>
-            <input asp-for="TipoFilme.Id" hidden/>*@
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ListaGenerosJoin" id="generosIdsEdit">
+            <input type="hidden" asp-for="ListaGenerosJoinPreserve">
+            <input type="hidden" asp-for="ListaTiposJoin" id="tiposIdsEdit">
+            <input type="hidden" asp-for="ListaTiposRemove">
+
+            <input type="hidden" asp-for="Id" id="IdFilme" />
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
                 <input asp-for="Titulo" class="form-control" />
                 <span asp-validation-for="Titulo" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Genero" class="control-label"></label>
-                <select asp-for="GeneroId " asp-items="@(new SelectList(ViewBag.ListaGeneros, "Id", "Nome"))"
-                        class="form-control"></select>
-                <span asp-validation-for="Genero" class="text-danger"></span>
-            </div>*@
+
+            <div>
+                <a class="btn btn-success" id="btnEditGeneros" onclick="GeneroModalOpenEdit()">Editar Gêneros</a>
+            </div>
+
+
             <div class="form-group">
                 <label asp-for="Duracao" class="control-label"></label>
                 <input asp-for="Duracao" class="form-control" />
@@ -41,12 +44,11 @@
                 <input asp-for="EmCartazAte" class="form-control" />
                 <span asp-validation-for="EmCartazAte" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="TipoFilme" class="control-label"></label>
-                <select asp-for="TipoFilmeId" asp-items="@(new SelectList(ViewBag.ListaTipoFilmes, "Id", "NomeTipoFilme"))"
-                        class="form-control"></select>
-                <span asp-validation-for="TipoFilme" class="text-danger"></span>
-            </div>*@
+
+            <div>
+                <a class="btn btn-success" id="btnEditTipo" onclick="TipoFilmeModalOpenEdit()">Editar Gêneros</a>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-success" />
                 <a class="btn btn-secondary" asp-action="Index">Voltar</a>
@@ -55,6 +57,13 @@
     </div>
 </div>
 
+
+<div id="divPartialEdit"></div>
+<div id="divPartialEditTF"></div>
+
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript" src="@Url.Content("~/js/FilmesEdit.js")"></script>
 }

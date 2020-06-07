@@ -1,0 +1,45 @@
+﻿@model List<FilmeTipoFilme>
+
+@{
+    ViewData["Title"] = "Tipos do Filme";
+}
+<!--Modal TipoFilme Detail-->
+<div class="modal fade bd-example-modal-lg" id="ShowModalDetailTF" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 form-group">
+                    <fieldset>
+                        <legend><b>Tipos</b></legend>
+                        <table id="tableModalTipo" class="checkbox" border="0">
+
+                            @foreach (var tipo in ViewBag._ListaTipos)
+                            {
+                                <tr>
+                                    <td>
+                                        <span id="@tipo.Id" val="@tipo.NomeTipoFilme">
+                                            @if (Model.Any(x => x.TipoFilme.Id == tipo.Id))
+                                            {
+                                                <input id="cbxTipo_@tipo.Id" type="checkbox" name="cbxTipoEdit" value="@tipo.Id" checked disabled="disabled" />
+                                            }
+                                            else
+                                            {
+                                                <input id="cbxTipo_@tipo.Id" type="checkbox" name="cbxTipoEdit" value="@tipo.Id" disabled="disabled" />
+                                            }
+                                            <label for="cbxTipo_@tipo.Id">@tipo.NomeTipoFilme</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </fieldset>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>

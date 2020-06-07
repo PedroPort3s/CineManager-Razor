@@ -10,6 +10,7 @@ using CineManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using CineManager.Areas.Identity.Pages.Account.Manage;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace CineManager.Controllers
 {
@@ -27,6 +28,7 @@ namespace CineManager.Controllers
         public async Task<IActionResult> Index()
         {
             InserirDados();
+
             return View(await _context.Filme.Include(x => x.Generos).
                 Include(x => x.TiposFilme).ToListAsync());
         }
@@ -39,7 +41,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var filme = await _context.Filme.Include(x => x.Generos).Include(x => x.TiposFilme).
+            var filme = await _context.Filme.Include(x => x.Generos).ThenInclude(x => x.Genero).Include(x => x.TiposFilme).ThenInclude(x =>x.TipoFilme).
                     FirstOrDefaultAsync(x => x.Id == id);
             if (filme == null)
             {
@@ -52,10 +54,12 @@ namespace CineManager.Controllers
         // GET: Filme/Create
         public IActionResult Create()
         {
-            ViewBag.ListaTipoFilmes = _context.TipoFilmes.ToList();
+            //ViewBag.ListaTipoFilmes = _context.TipoFilmes.ToList();
             List<Genero> listaGeneros = _context.Generos.ToList();
-            if(listaGeneros.Count > 0)
+            List<TipoFilme> listaTipos = _context.TipoFilmes.ToList();
+            ViewBag.ListaTipos = listaTipos;
 
+            if (listaGeneros.Count > 0)
                 listaGeneros.OrderBy(x => x.Nome);
             ViewBag.ListaGeneros = listaGeneros;
             return View();
@@ -71,11 +75,22 @@ namespace CineManager.Controllers
                 foreach (var gen in filme.ListaGenerosJoin.Split(','))
                 {
                     int generoId = Convert.ToInt32(gen);
-                    Genero genero = await _context.Generos.FirstOrDefaultAsync(x=>x.Id == generoId);
+                    Genero genero = await _context.Generos.FirstOrDefaultAsync(x => x.Id == generoId);
                     FilmeGenero filmGen = new FilmeGenero();
                     filmGen.Genero = genero;
                     filme.Generos.Add(filmGen);
                 }
+
+                foreach (var tipo in filme.ListaTiposJoin.Split(','))
+                {
+                    int tipoId = Convert.ToInt32(tipo);
+                    TipoFilme tipoFilme = await _context.TipoFilmes.FirstOrDefaultAsync(x => x.Id == tipoId);
+                    FilmeTipoFilme filmeTipo = new FilmeTipoFilme();
+                    filmeTipo.TipoFilme = tipoFilme;
+                    filme.TiposFilme.Add(filmeTipo);
+                }
+
+
                 _context.Add(filme);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -84,21 +99,43 @@ namespace CineManager.Controllers
         }
 
         // GET: Filme/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        //[Route("Filme/{id:int}")]
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var filme = await _context.Filme.Include(x => x.Generos).Include(x => x.TiposFilme).
-                    FirstOrDefaultAsync(x => x.Id == id);
+            var filme = _context.Filme.Include(x => x.Generos).ThenInclude(gen => gen.Genero).
+                Include(x => x.TiposFilme).ThenInclude(x =>x.TipoFilme).FirstOrDefault(x => x.Id == id);
+            //var filme = _context.Filme.Include(x => x.Generos).ThenInclude(gen => gen.Genero).
+            //    Include(x => x.TiposFilme).FirstOrDefault(x => x.Id == id);
+
             if (filme == null)
             {
                 return NotFound();
             }
-            ViewBag.ListaTipoFilmes = await _context.TipoFilmes.ToListAsync();
-            ViewBag.ListaGeneros = await _context.Generos.ToListAsync();
+
+            var genSelecionados = new List<int>();
+            foreach (var gen in filme.Generos)
+            {
+                genSelecionados.Add(gen.Genero.Id);
+            }
+
+            var tiposSelecionados = new List<int>();
+            //serasse ta certo esse tiposfilme
+            foreach (var tipo in filme.TiposFilme)
+            {
+                tiposSelecionados.Add(tipo.TipoFilme.Id);
+            }
+
+            filme.ListaGenerosJoinPreserve = string.Join(',', genSelecionados);
+            filme.ListaTiposRemove = string.Join(',', tiposSelecionados);
+
+            ViewBag.ListaTipoFilmes = _context.TipoFilmes.ToListAsync();
+            ViewBag.ListaGeneros = _context.Generos.ToListAsync();
+
             return View(filme);
         }
 
@@ -116,10 +153,48 @@ namespace CineManager.Controllers
             {
                 try
                 {
-                    //filmeGenTipo.Genero = await _context.Generos.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.Filme.GeneroId);
-                    //filmeGenTipo.TipoFilme = await _context.TipoFilmes.FirstOrDefaultAsync(x => x.Id == filmeGenTipo.Filme.TipoFilmeId);
+                    foreach (var gen in filme.ListaGenerosJoinPreserve.Split(','))
+                    {
+                        var genInt = Convert.ToInt32(gen);
+                        var filGen = await _context.FilmeGeneros.Include(x => x.Genero).FirstOrDefaultAsync(x => x.Genero.Id == genInt);
+                        if (filGen != null)
+                        {
+                            filme.Generos.Remove(filGen);
+                            _context.Remove(filGen);
+                        }
+                    }
+                    
+                    //Se editar um filme e não abrir as modais e clicar em salvar, estoura excessão. Precisa tratar!!!
+
+                    foreach (var gen in filme.ListaGenerosJoin.Split(','))
+                    {
+                        var genInt = Convert.ToInt32(gen);
+                        var genero = await _context.Generos.FirstOrDefaultAsync(x => x.Id == genInt);
+                        filme.Generos.Add(new FilmeGenero() { Genero = genero });
+                    }
+                    
+                    foreach (var tipo in filme.ListaTiposRemove.Split(','))
+                    {
+                        var tipoInt = Convert.ToInt32(tipo);
+                        var filmeTipo = await _context.FilmeTiposFilme.Include(x => x.TipoFilme).FirstOrDefaultAsync(x => x.TipoFilme.Id == tipoInt);
+                        if (filmeTipo != null)
+                        {
+                            filme.TiposFilme.Remove(filmeTipo);
+                            _context.Remove(filmeTipo);
+                        }
+                    }
+
+                    //Se editar um filme e não abrir as modais e clicar em salvar, estoura excessão. Precisa tratar!!!
+
+                    foreach (var tipo in filme.ListaTiposJoin.Split(','))
+                    {
+                        var tipoInt = Convert.ToInt32(tipo);
+                        var tipos = await _context.TipoFilmes.FirstOrDefaultAsync(x => x.Id == tipoInt);
+                        filme.TiposFilme.Add(new FilmeTipoFilme() { TipoFilme = tipos });
+                    }
+
                     _context.Update(filme);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -155,6 +230,35 @@ namespace CineManager.Controllers
             return View(filme);
         }
 
+        public ActionResult DeleteFilme(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var filme = _context.Filme.Include(x => x.Generos).Include(x => x.TiposFilme).
+                   FirstOrDefault(x => x.Id == id);
+            if (filme == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var item in filme.Generos)
+            {
+                _context.Remove(item);
+            }
+
+            foreach (var item in filme.TiposFilme)
+            {
+                _context.Remove(item);
+            }
+            _context.Remove(filme);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index)); ;
+        }
+
+
         // POST: Filme/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -178,8 +282,63 @@ namespace CineManager.Controllers
             List<Genero> generos = _context.Generos.ToList();
             this.ViewBag._ListaGeneros = generos.OrderBy(x => x.Nome);
 
-            return PartialView("../Shared/GenerosResult");
+            return PartialView("../Shared/Modais/GenerosResult");
         }
+
+        public async Task<ActionResult> GenerosFilmeEdit(int id)
+        {
+            List<Genero> generos = _context.Generos.ToList();
+            var filme = await _context.Filme.Include(x => x.Generos).
+             FirstOrDefaultAsync(x => x.Id == id);
+
+            this.ViewBag._ListaGeneros = generos.OrderBy(x => x.Nome);
+            var listaGenerosFilme = filme.Generos;
+            return PartialView("../Shared/Modais/GenerosResultEdit", listaGenerosFilme);
+        }
+
+        public ActionResult GenerosFilmeDetail(int id)
+        {
+            List<Genero> generos = _context.Generos.ToList();
+            var filme = _context.Filme.Include(x => x.Generos).
+             FirstOrDefault(x => x.Id == id);
+
+            this.ViewBag._ListaGeneros = generos.OrderBy(x => x.Nome);
+            var listaGenerosFilme = filme.Generos;
+            return PartialView("../Shared/Modais/GenerosResultDetail", listaGenerosFilme);
+        }
+
+        public ActionResult TiposFilme()
+        {
+            List<TipoFilme> tipos = _context.TipoFilmes.ToList();
+            this.ViewBag._ListaTipos = tipos.OrderBy(x => x.NomeTipoFilme);
+
+            return PartialView("../Shared/Modais/TipofilmeResult");
+        }
+
+        public async Task<ActionResult> TiposFilmeEdit(int id)
+        {
+            List<TipoFilme> tipos = _context.TipoFilmes.ToList();
+            var filme = await _context.Filme.Include(x => x.TiposFilme).
+             FirstOrDefaultAsync(x => x.Id == id);
+
+            this.ViewBag._ListaTipos = tipos.OrderBy(x => x.NomeTipoFilme);
+
+            var listaTipos = filme.TiposFilme;
+            return PartialView("../Shared/Modais/TipoFilmeResultEdit", listaTipos);
+        }
+
+        public async Task<ActionResult> TiposFilmeDetail(int id)
+        {
+            List<TipoFilme> tipos = _context.TipoFilmes.ToList();
+            var filme = await _context.Filme.Include(x => x.TiposFilme).
+             FirstOrDefaultAsync(x => x.Id == id);
+
+            this.ViewBag._ListaTipos = tipos.OrderBy(x => x.NomeTipoFilme);
+
+            var listaTipos = filme.TiposFilme;
+            return PartialView("../Shared/Modais/TipoFilmeResultDetail", listaTipos);
+        }
+
 
 
         private bool FilmeExists(int id)
@@ -191,7 +350,7 @@ namespace CineManager.Controllers
         {
             Genero genero = _context.Generos.FirstOrDefault(x => x.Nome.Equals("Ação"));
             if (genero == null)
-           {
+            {
                 Genero obj1 = new Genero();
                 obj1.Nome = "Ação";
                 _context.Generos.Add(obj1);
@@ -300,6 +459,22 @@ namespace CineManager.Controllers
                 objfilme3.NomeTipoFilme = "4D";
                 _context.TipoFilmes.Add(objfilme3);
 
+                TipoFilme objfilme4 = new TipoFilme();
+                objfilme4.NomeTipoFilme = "4DX";
+                _context.TipoFilmes.Add(objfilme4);
+
+                TipoFilme objfilme5 = new TipoFilme();
+                objfilme5.NomeTipoFilme = "IMAX";
+                _context.TipoFilmes.Add(objfilme5);
+
+                TipoFilme objfilme6 = new TipoFilme();
+                objfilme6.NomeTipoFilme = "Macro XE";
+                _context.TipoFilmes.Add(objfilme6);
+                
+                TipoFilme objfilme7 = new TipoFilme();
+                objfilme7.NomeTipoFilme = "XD";
+                _context.TipoFilmes.Add(objfilme7);
+
                 TipoSala objtiposala1 = new TipoSala();
                 objtiposala1.Tipo = "2D";
                 _context.TipoSala.Add(objtiposala1);
@@ -311,6 +486,23 @@ namespace CineManager.Controllers
                 TipoSala objtiposala3 = new TipoSala();
                 objtiposala3.Tipo = "4D";
                 _context.TipoSala.Add(objtiposala3);
+                
+                TipoSala objtiposala4 = new TipoSala();
+                objtiposala4.Tipo = "4DX";
+                _context.TipoSala.Add(objtiposala4);
+
+                TipoSala objtiposala5 = new TipoSala();
+                objtiposala5.Tipo = "IMAX";
+                _context.TipoSala.Add(objtiposala5);
+
+                TipoSala objtiposala6 = new TipoSala();
+                objtiposala6.Tipo = "Macro XE";
+                _context.TipoSala.Add(objtiposala6);
+                
+                TipoSala objtiposala7 = new TipoSala();
+                objtiposala7.Tipo = "XD";
+                _context.TipoSala.Add(objtiposala7);
+
                 _context.SaveChanges();
             }
         }

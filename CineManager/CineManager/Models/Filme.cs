@@ -46,6 +46,15 @@ namespace CineManager.Models {
         public string ListaGenerosJoin { get; set; }
 
         [NotMapped]
+        public string ListaTiposJoin { get; set; }
+
+        [NotMapped]
+        public string ListaGenerosJoinPreserve { get; set; }
+
+        [NotMapped]
+        public string ListaTiposRemove { get; set; }
+
+        [NotMapped]
         [Display(Name = "Tipo do filme")]
         public TipoFilme TipoFilme { get; set; }
 

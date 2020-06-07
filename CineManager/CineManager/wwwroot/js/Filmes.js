@@ -1,4 +1,11 @@
-﻿function GeneroModal() {
+﻿$(document).ready(function () {
+    GeneroModal();
+    TipoFilmeModal();
+});
+
+//Filme Generos
+
+function GeneroModal() {
     var genFilme = $.ajax({
         url: 'GenerosFilme',
         data: {
@@ -6,8 +13,10 @@
     });
     genFilme.done(function (data) {
         $('#divPartial').html(data);
-        $('#ShowModal').modal('show');
     });
+}
+function GeneroModalOpen() {   
+   $('#ShowModal').modal('show');   
 }
 
 function ArmazenarGeneros() {
@@ -20,3 +29,30 @@ function ArmazenarGeneros() {
     $('#ShowModal').modal('hide');
 }
 $('#genSave').click(ArmazenarGeneros);
+
+//TipoFilme
+
+function TipoFilmeModal() {
+    var tipoFilme = $.ajax({
+        url: 'TiposFilme',
+        data: {
+        }
+    });
+    tipoFilme.done(function (data) {
+        $('#divPartialTF').html(data);
+    });
+}
+function TipoFilmeModalOpen() {   
+   $('#ShowModalTF').modal('show');   
+}
+
+function ArmazenarTipos() {
+    var _tiposJoin = [];
+    $('input[name="cbxTF"]:checked').each(function (index) {
+        _tiposJoin.push(parseInt($(this).val()));
+        console.log($(this).val());
+    });
+    $("#tiposIds").val(_tiposJoin.join(","));
+    $('#ShowModalTF').modal('hide');
+}
+$('#tipoSave').click(ArmazenarTipos);
