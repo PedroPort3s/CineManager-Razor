@@ -202,7 +202,7 @@ namespace CineManager.Controllers {
                 return NotFound();
             }
 
-            Telefone telefone = await _context.Telefone.FirstOrDefaultAsync(x => x.Id == id);
+            Telefone telefone = FornecedorEstatico.ListaTelefone.FirstOrDefault(x => x.Id == id);
             if (telefone == null) {
                 return NotFound();
             }
@@ -232,7 +232,7 @@ namespace CineManager.Controllers {
             if (id == null) {
                 return NotFound();
             }
-            Email email = await _context.Email.FirstOrDefaultAsync(x => x.Id == id);
+            Email email = FornecedorEstatico.ListaEmail.FirstOrDefault(x => x.Id == id);
             if (email == null) {
                 return NotFound();
             }

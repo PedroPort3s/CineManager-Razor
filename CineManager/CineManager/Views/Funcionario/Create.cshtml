@@ -43,7 +43,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach (Endereco item in Model.ListaEnderecos) {
+                        @foreach (Endereco item in Model.ListaEndereco) {
                             <tr>
                                 <td>@item.NomeLogradouro</td>
                                 <td>@item.Numero</td>
@@ -59,7 +59,7 @@
                 <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
             }
 
-            @if (Model.ListaEnderecos.Count != 0) {
+            @if (Model.ListaEndereco.Count != 0) {
                 <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
                     <thead>
                         <tr>
@@ -71,7 +71,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach (Telefone item in Model.ListaTelefones) {
+                        @foreach (Telefone item in Model.ListaTelefone) {
                             <tr>
                                 <td>@item.DDD</td>
                                 <td>@item.Numero</td>

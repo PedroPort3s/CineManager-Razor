@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (Endereco end in item.ListaEnderecos) {
+                        @foreach (Endereco end in item.ListaEndereco) {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => end.NomeLogradouro) @Html.DisplayFor(modelItem => end.Numero)
@@ -68,7 +68,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (Telefone tel in item.ListaTelefones) {
+                        @foreach (Telefone tel in item.ListaTelefone) {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => tel.DDD) @Html.DisplayFor(modelItem => tel.Numero)

@@ -29,7 +29,7 @@ namespace CineManager.Controllers
         // GET: Funcionario
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionario.Include(x => x.ListaTelefones).Include(x => x.ListaEnderecos).ToListAsync());
+            return View(await _context.Funcionario.Include(x => x.ListaTelefone).Include(x => x.ListaEndereco).ToListAsync());
         }
 
         // GET: Funcionario/Details/5
@@ -40,8 +40,8 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionario.Include(x => x.ListaTelefones).
-                Include(x => x.ListaEnderecos).FirstOrDefaultAsync(x => x.Id == id);
+            var funcionario = await _context.Funcionario.Include(x => x.ListaTelefone).
+                Include(x => x.ListaEndereco).FirstOrDefaultAsync(x => x.Id == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -76,7 +76,7 @@ namespace CineManager.Controllers
         [HttpPost]
         public IActionResult AdicionarEnd([FromForm] Endereco end) {
             if (ModelState.IsValid) {
-                mFuncionario.ListaEnderecos.Add(end);
+                mFuncionario.ListaEndereco.Add(end);
                 if (acaoAtual == "criando") {
                     return RedirectToAction("CriandoFuncionario");
                 } else if (acaoAtual == "editando") {
@@ -94,7 +94,7 @@ namespace CineManager.Controllers
         public IActionResult AdicionarTel([FromForm] Telefone tel) {
             if (ModelState.IsValid) {
                 if (ModelState.IsValid) {
-                    mFuncionario.ListaTelefones.Add(tel);
+                    mFuncionario.ListaTelefone.Add(tel);
                     if (acaoAtual == "criando") {
                         return RedirectToAction("CriandoFuncionario");
                     } else if (acaoAtual == "editando") {
@@ -128,8 +128,8 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionario.Include(x => x.ListaTelefones).
-                Include(x => x.ListaEnderecos).FirstOrDefaultAsync(x => x.Id == id);
+            var funcionario = await _context.Funcionario.Include(x => x.ListaTelefone).
+                Include(x => x.ListaEndereco).FirstOrDefaultAsync(x => x.Id == id);
 
             if (funcionario == null)
             {
@@ -167,7 +167,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var end = mFuncionario.ListaEnderecos.FirstOrDefault(x => x.Id == id);
+            var end = mFuncionario.ListaEndereco.FirstOrDefault(x => x.Id == id);
 
             if (end == null) {
                 return NotFound();
@@ -178,17 +178,17 @@ namespace CineManager.Controllers
         [HttpPost]
         public IActionResult EditandoEnd([FromForm] Endereco end) {
             if (ModelState.IsValid) {
-                int endereco = mFuncionario.ListaEnderecos.FindIndex(x => x.Id == end.Id);
-                mFuncionario.ListaEnderecos[endereco].NomeLogradouro = end.NomeLogradouro;
-                mFuncionario.ListaEnderecos[endereco].TipoEndereco = end.TipoEndereco;
-                mFuncionario.ListaEnderecos[endereco].TipoLogradouro = end.TipoLogradouro;
-                mFuncionario.ListaEnderecos[endereco].Numero = end.Numero;
-                mFuncionario.ListaEnderecos[endereco].Pais = end.Pais;
-                mFuncionario.ListaEnderecos[endereco].Bairro = end.Bairro;
-                mFuncionario.ListaEnderecos[endereco].Cep = end.Cep;
-                mFuncionario.ListaEnderecos[endereco].Cidade = end.Cidade;
-                mFuncionario.ListaEnderecos[endereco].Complemento = end.Complemento;
-                mFuncionario.ListaEnderecos[endereco].Estado = end.Estado;
+                int endereco = mFuncionario.ListaEndereco.FindIndex(x => x.Id == end.Id);
+                mFuncionario.ListaEndereco[endereco].NomeLogradouro = end.NomeLogradouro;
+                mFuncionario.ListaEndereco[endereco].TipoEndereco = end.TipoEndereco;
+                mFuncionario.ListaEndereco[endereco].TipoLogradouro = end.TipoLogradouro;
+                mFuncionario.ListaEndereco[endereco].Numero = end.Numero;
+                mFuncionario.ListaEndereco[endereco].Pais = end.Pais;
+                mFuncionario.ListaEndereco[endereco].Bairro = end.Bairro;
+                mFuncionario.ListaEndereco[endereco].Cep = end.Cep;
+                mFuncionario.ListaEndereco[endereco].Cidade = end.Cidade;
+                mFuncionario.ListaEndereco[endereco].Complemento = end.Complemento;
+                mFuncionario.ListaEndereco[endereco].Estado = end.Estado;
 
                 if (acaoAtual == "editando") {
                     return RedirectToAction("EditandoFuncionario");
@@ -214,12 +214,12 @@ namespace CineManager.Controllers
         [HttpPost]
         public IActionResult EditandoTel([FromForm] Telefone tel) {
             if (ModelState.IsValid) {
-                int telefone = mFuncionario.ListaTelefones.FindIndex(x => x.Id == tel.Id);
+                int telefone = mFuncionario.ListaTelefone.FindIndex(x => x.Id == tel.Id);
 
-                mFuncionario.ListaTelefones[telefone].Numero = tel.Numero;
-                mFuncionario.ListaTelefones[telefone].Tipo = tel.Tipo;
-                mFuncionario.ListaTelefones[telefone].DDD = tel.DDD;
-                mFuncionario.ListaTelefones[telefone].DDI = tel.DDI;
+                mFuncionario.ListaTelefone[telefone].Numero = tel.Numero;
+                mFuncionario.ListaTelefone[telefone].Tipo = tel.Tipo;
+                mFuncionario.ListaTelefone[telefone].DDD = tel.DDD;
+                mFuncionario.ListaTelefone[telefone].DDI = tel.DDI;
 
                 if (acaoAtual == "editando") {
                     return RedirectToAction("EditandoFuncionario");
@@ -237,12 +237,12 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var obj = mFuncionario.ListaEnderecos.FirstOrDefault(x => x.Id == id);
+            var obj = mFuncionario.ListaEndereco.FirstOrDefault(x => x.Id == id);
             if (_context.Endereco.Contains(obj)) {
                 _context.Endereco.Remove(obj);
                 _context.SaveChanges();
             }
-            mFuncionario.ListaEnderecos.Remove(obj);
+            mFuncionario.ListaEndereco.Remove(obj);
 
             if (acaoAtual == "editando") {
                 return RedirectToAction("EditandoFuncionario");
@@ -259,12 +259,12 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var obj = mFuncionario.ListaTelefones.FirstOrDefault(x => x.Id == id);
+            var obj = mFuncionario.ListaTelefone.FirstOrDefault(x => x.Id == id);
             if (_context.Telefone.Contains(obj)) {
                 _context.Telefone.Remove(obj);
                 _context.SaveChanges();
             }
-            mFuncionario.ListaTelefones.Remove(obj);
+            mFuncionario.ListaTelefone.Remove(obj);
 
             if (acaoAtual == "editando") {
                 return RedirectToAction("EditandoFuncionario");
@@ -291,7 +291,7 @@ namespace CineManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionario.Include(x => x.ListaTelefones).Include(x => x.ListaEnderecos)
+            var funcionario = await _context.Funcionario.Include(x => x.ListaTelefone).Include(x => x.ListaEndereco)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (funcionario == null) {
                 return NotFound();
@@ -306,12 +306,12 @@ namespace CineManager.Controllers
 
 
         public void excluirTudoFuncionario(Funcionario funcionario) {
-            foreach (Endereco end in funcionario.ListaEnderecos) {
+            foreach (Endereco end in funcionario.ListaEndereco) {
                 if (_context.Endereco.Contains(end)) {
                     _context.Endereco.Remove(end);
                 }
             }
-            foreach (Telefone tel in funcionario.ListaTelefones) {
+            foreach (Telefone tel in funcionario.ListaTelefone) {
                 if (_context.Telefone.Contains(tel)) {
                     _context.Telefone.Remove(tel);
                 }

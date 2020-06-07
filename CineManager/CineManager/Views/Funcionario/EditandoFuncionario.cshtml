@@ -88,72 +88,100 @@
                         <input readonly asp-for="Turno" class="form-control" />
                     </div>
                 </div>
-            }
 
-            @if (ViewBag.passando) {
+                @if (Model.NomeCompleto != null) {
 
-                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
-                    <thead>
-                        <tr>
-                            <th>Nome do logradouro</th>
-                            <th>Numero</th>
-                            <th>CEP</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach (Endereco item in Model.ListaEnderecos) {
+                    <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                        <thead>
                             <tr>
-                                <td>@item.NomeLogradouro</td>
-                                <td>@item.Numero</td>
-                                <td>@item.Cep</td>
-                                <td>
-                                </td>
+                                <th>Nome do logradouro</th>
+                                <th>Numero</th>
+                                <th>CEP</th>
+                                <th></th>
                             </tr>
-                        }
-                        <tr>
-                        </tr>
-                    </tbody>
-                </table>
-                <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
-            }
-
-            @if (ViewBag.passando) {
-                <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
-                    <thead>
-                        <tr>
-                            <th>DDD</th>
-                            <th>Numero</th>
-                            <th>Telefone/Celular</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach (Telefone item in Model.ListaTelefones) {
+                        </thead>
+                        <tbody>
+                            @if (Model.ListaEndereco.Count != 0) {
+                                if (Model.ListaEndereco.Count == 1) {
+                                    <tr>
+                                        <td>@Model.ListaEndereco[0].NomeLogradouro</td>
+                                        <td>@Model.ListaEndereco[0].Numero</td>
+                                        <td>@Model.ListaEndereco[0].Cep</td>
+                                        <td>
+                                            <a class="btn btn-primary p-1" asp-action="EditandoEnd" asp-route-id="@Model.ListaEndereco[0].Id">Editar</a> |
+                                        </td>
+                                    </tr>
+                                } else if (Model.ListaEndereco.Count > 1) {
+                                    @for (int i = 0; i < Model.ListaEndereco.Count; i++) {
+                                        <tr>
+                                            <td>@Model.ListaEndereco[i].NomeLogradouro</td>
+                                            <td>@Model.ListaEndereco[i].Numero</td>
+                                            <td>@Model.ListaEndereco[i].Cep</td>
+                                            <td>
+                                                <a class="btn btn-primary p-1" asp-action="EditandoEnd" asp-route-id="@Model.ListaEndereco[i].Id">Editar</a> |
+                                                <a class="btn btn-danger p-1" asp-action="DeletarEnd" asp-route-id="@Model.ListaEndereco[i].Id">Excluir</a> |
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
                             <tr>
-                                <td>@item.DDD</td>
-                                <td>@item.Numero</td>
-                                <td>@item.Tipo</td>
-                                <td>
-                                </td>
                             </tr>
-                        }
-                        <tr>
-                        </tr>
-                    </tbody>
-                </table>
-                <a class="btn btn-primary p-1" asp-action="AdicionarTel">Adicionar novo Telefone</a>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary p-1" asp-action="AdicionarEnd">Adicionar novo endereço</a>
+                }
+
+                @if (Model.ListaEndereco.Count != 0) {
+                    <table class="table table-bordered" style="margin-bottom:10px; margin-top:40px">
+                        <thead>
+                            <tr>
+                                <th>DDD</th>
+                                <th>Numero</th>
+                                <th>Telefone/Celular</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ListaTelefone.Count != 0) {
+                                if (Model.ListaTelefone.Count == 1) {
+                                    <tr>
+                                        <td>@Model.ListaTelefone[0].DDD</td>
+                                        <td>@Model.ListaTelefone[0].Numero</td>
+                                        <td>@Model.ListaTelefone[0].Tipo</td>
+                                        <td>
+                                            <a class="btn btn-primary p-1" asp-action="EditandoTel" asp-route-id="@Model.ListaTelefone[0].Id">Editar</a> |
+                                        </td>
+                                    </tr>
+                                } else if (Model.ListaTelefone.Count > 1) {
+                                    @for (int i = 0; i < Model.ListaTelefone.Count; i++) {
+                                        <tr>
+                                            <td>@Model.ListaTelefone[i].DDD</td>
+                                            <td>@Model.ListaTelefone[i].Numero</td>
+                                            <td>@Model.ListaTelefone[i].Tipo</td>
+                                            <td>
+                                                <a class="btn btn-primary p-1" asp-action="EditandoTel" asp-route-id="@Model.ListaTelefone[i].Id">Editar</a> |
+                                                <a class="btn btn-danger p-1" asp-action="DeletandoTel" asp-route-id="@Model.ListaTelefone[i].Id">Excluir</a> |
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary p-1" asp-action="AdicionarTel">Adicionar novo Telefone</a>
+                }
             }
-        <div class="form-group">
-            @if (!ViewBag.passando) {
-                <input type="submit" value="Prosseguir" class="btn btn-primary" />
-            } else if (ViewBag.passando) {
-                <a class="btn btn-primary p-1" asp-action="AtualizandoFuncionario">Finalizar Edição</a>
-            }
-            <a asp-action="Cancelar" class="btn btn-secondary">Voltar</a>
-        </div>
+            <div class="form-group">
+                @if (!ViewBag.passando) {
+                    <input type="submit" value="Prosseguir" class="btn btn-primary" />
+                } else if (ViewBag.passando) {
+                    <a class="btn btn-primary p-1" asp-action="AtualizandoFuncionario">Finalizar Edição</a>
+                }
+                <a asp-action="Cancelar" class="btn btn-secondary">Voltar</a>
+            </div>
         </form>
     </div>
 </div>

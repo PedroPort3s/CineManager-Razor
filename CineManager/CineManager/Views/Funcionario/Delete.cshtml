@@ -21,20 +21,20 @@
             @Html.DisplayNameFor(model => model.Endereco)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ListaEnderecos[0].TipoLogradouro):
-            @Html.DisplayFor(model => model.ListaEnderecos[0].NomeLogradouro)
-            @Html.DisplayFor(model => model.ListaEnderecos[0].Numero) -
-            @Html.DisplayFor(model => model.ListaEnderecos[0].Cep)
+            @Html.DisplayFor(model => model.ListaEndereco[0].TipoLogradouro):
+            @Html.DisplayFor(model => model.ListaEndereco[0].NomeLogradouro)
+            @Html.DisplayFor(model => model.ListaEndereco[0].Numero) -
+            @Html.DisplayFor(model => model.ListaEndereco[0].Cep)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Telefone)
         </dt>
         <dd class="col-sm-10">
-            +@Html.DisplayFor(model => model.ListaTelefones[0].DDI)
-            (@Html.DisplayFor(model => model.ListaTelefones[0].DDD))
-            @Html.DisplayFor(model => model.ListaTelefones[0].Numero)
+            +@Html.DisplayFor(model => model.ListaTelefone[0].DDI)
+            (@Html.DisplayFor(model => model.ListaTelefone[0].DDD))
+            @Html.DisplayFor(model => model.ListaTelefone[0].Numero)
             <br>Tipo:
-            @Html.DisplayFor(model => model.ListaTelefones[0].Tipo)
+            @Html.DisplayFor(model => model.ListaTelefone[0].Tipo)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Setor)
