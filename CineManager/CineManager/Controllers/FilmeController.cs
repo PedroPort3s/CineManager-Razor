@@ -31,7 +31,8 @@ namespace CineManager.Controllers
             InserirDados();
 
             return View(await _context.Filme.Include(x => x.Generos).
-                Include(x => x.TiposFilme).ToListAsync());
+                Include(x => x.TiposFilme).OrderBy(x => x.Lancamento).Where(x => 
+                (x.Lancamento < DateTime.Now && x.EmCartazAte > DateTime.Now)).ToListAsync());
         }
 
         // GET: Filme/Details/5
