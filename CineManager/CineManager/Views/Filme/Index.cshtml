@@ -9,13 +9,15 @@
 
 <p>
     <a asp-action="Create" class="btn btn-success">Criar</a>
+    <a asp-action="GerarPdf">Gerar Relatorio de Filme</a>
+
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Titulo)
-            </th>       
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Duracao)
             </th>
@@ -33,7 +35,7 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Titulo)
-                </td>     
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Duracao)
                 </td>

@@ -11,18 +11,23 @@ using Microsoft.AspNetCore.Authorization;
 using CineManager.Areas.Identity.Pages.Account.Manage;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.WebUtilities;
+using System.IO;
+using PdfSharpCore.Drawing;
 
-namespace CineManager.Controllers {
-    [Authorize(Policy = "CineManeger")]
-    public class FilmeController : Controller {
+namespace CineManager.Controllers
+{
+    public class FilmeController : Controller
+    {
         private readonly ApplicationDbContext _context;
 
-        public FilmeController(ApplicationDbContext context) {
+        public FilmeController(ApplicationDbContext context)
+        {
             _context = context;
         }
 
         // GET: Filme
-        public async Task<IActionResult> Index() {
+        public async Task<IActionResult> Index()
+        {
             InserirDados();
 
             return View(await _context.Filme.Include(x => x.Generos).
@@ -30,14 +35,17 @@ namespace CineManager.Controllers {
         }
 
         // GET: Filme/Details/5
-        public async Task<IActionResult> Details(int? id) {
-            if (id == null) {
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
                 return NotFound();
             }
 
-            var filme = await _context.Filme.Include(x => x.Generos).ThenInclude(x => x.Genero).Include(x => x.TiposFilme).ThenInclude(x =>x.TipoFilme).
+            var filme = await _context.Filme.Include(x => x.Generos).ThenInclude(x => x.Genero).Include(x => x.TiposFilme).ThenInclude(x => x.TipoFilme).
                     FirstOrDefaultAsync(x => x.Id == id);
-            if (filme == null) {
+            if (filme == null)
+            {
                 return NotFound();
             }
 
@@ -100,7 +108,7 @@ namespace CineManager.Controllers {
             }
 
             var filme = _context.Filme.Include(x => x.Generos).ThenInclude(gen => gen.Genero).
-                Include(x => x.TiposFilme).ThenInclude(x =>x.TipoFilme).FirstOrDefault(x => x.Id == id);
+                Include(x => x.TiposFilme).ThenInclude(x => x.TipoFilme).FirstOrDefault(x => x.Id == id);
 
 
             if (filme == null)
@@ -154,7 +162,7 @@ namespace CineManager.Controllers {
                             _context.Remove(filGen);
                         }
                     }
-                    
+
                     //Se editar um filme e não abrir as modais e clicar em salvar, estoura excessão. Precisa tratar!!!
 
                     foreach (var gen in filme.ListaGenerosJoin.Split(','))
@@ -163,7 +171,7 @@ namespace CineManager.Controllers {
                         var genero = await _context.Generos.FirstOrDefaultAsync(x => x.Id == genInt);
                         filme.Generos.Add(new FilmeGenero() { Genero = genero });
                     }
-                    
+
                     foreach (var tipo in filme.ListaTiposRemove.Split(','))
                     {
                         var tipoInt = Convert.ToInt32(tipo);
@@ -190,7 +198,9 @@ namespace CineManager.Controllers {
                     if (!FilmeExists(filme.Id))
                     {
                         return NotFound();
-                    } else {
+                    }
+                    else
+                    {
                         throw;
                     }
                 }
@@ -200,8 +210,10 @@ namespace CineManager.Controllers {
         }
 
         // GET: Filme/Delete/5
-        public async Task<IActionResult> Delete(int? id) {
-            if (id == null) {
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
                 return NotFound();
             }
 
@@ -331,9 +343,11 @@ namespace CineManager.Controllers {
             return _context.Filme.Any(e => e.Id == id);
         }
 
-        public void InserirDados() {
+        public void InserirDados()
+        {
             Genero genero = _context.Generos.FirstOrDefault(x => x.Nome.Equals("Ação"));
-            if (genero == null) {
+            if (genero == null)
+            {
                 Genero obj1 = new Genero();
                 obj1.Nome = "Ação";
                 _context.Generos.Add(obj1);
@@ -453,7 +467,7 @@ namespace CineManager.Controllers {
                 TipoFilme objfilme6 = new TipoFilme();
                 objfilme6.NomeTipoFilme = "Macro XE";
                 _context.TipoFilmes.Add(objfilme6);
-                
+
                 TipoFilme objfilme7 = new TipoFilme();
                 objfilme7.NomeTipoFilme = "XD";
                 _context.TipoFilmes.Add(objfilme7);
@@ -469,7 +483,7 @@ namespace CineManager.Controllers {
                 TipoSala objtiposala3 = new TipoSala();
                 objtiposala3.Tipo = "4D";
                 _context.TipoSala.Add(objtiposala3);
-                
+
                 TipoSala objtiposala4 = new TipoSala();
                 objtiposala4.Tipo = "4DX";
                 _context.TipoSala.Add(objtiposala4);
@@ -481,7 +495,7 @@ namespace CineManager.Controllers {
                 TipoSala objtiposala6 = new TipoSala();
                 objtiposala6.Tipo = "Macro XE";
                 _context.TipoSala.Add(objtiposala6);
-                
+
                 TipoSala objtiposala7 = new TipoSala();
                 objtiposala7.Tipo = "XD";
                 _context.TipoSala.Add(objtiposala7);
@@ -489,5 +503,90 @@ namespace CineManager.Controllers {
                 _context.SaveChanges();
             }
         }
+
+        public FileResult GerarPdf()
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = XGraphics.FromPdfPage(page);
+                var corFonte = XBrushes.Black;
+                var textFormatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new XFont("Arial", 10);
+                var fonteDescricao = new XFont("Arial", 12, XFontStyle.BoldItalic);
+                var titulodetalhes = new XFont("Arial", 14, XFontStyle.Bold);
+                var fonteDetalheDescricao = new XFont("Arial", 7);
+
+                //var logo = @"C:\Users\pedri\Desktop\CineManager\CineManager\CineManager\CineManager\wwwroot\logo-cm-ps.png";
+
+                var qtdPaginas = doc.PageCount;
+
+                textFormatter.DrawString(qtdPaginas.ToString(), new XFont("Arial", 10), corFonte,
+                    new XRect(578, 825, page.Width, page.Height));
+
+                //XImage imagem = XImage.FromFile(logo);
+                //graphics.DrawImage(imagem, 20, 5, 300, 50);
+
+                textFormatter.DrawString("Filmes que ja estiveram disponiveis e estarão futuramente", fonteDescricao, corFonte,
+                    new XRect(20, 75, page.Width, page.Height));
+
+                var tituloDetalhes = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                tituloDetalhes.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                tituloDetalhes.DrawString("Detalhes", titulodetalhes, corFonte, new PdfSharpCore.Drawing.XRect(0, 120, page.Width, page.Height));
+
+
+                var alturaTituloDetalhesY = 140;
+                var detalhes = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+
+                //titulo
+                detalhes.DrawString("Filme", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(20, alturaTituloDetalhesY, page.Width, page.Height));
+
+                //duração
+                detalhes.DrawString("Duração", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(220, alturaTituloDetalhesY, page.Width, page.Height));
+
+
+                //lançamento
+                detalhes.DrawString("Lançamento", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(290, alturaTituloDetalhesY, page.Width, page.Height));
+
+                //em cartaz
+                detalhes.DrawString("Em cartaz até", fonteDescricao, corFonte, new PdfSharpCore.Drawing.XRect(430, alturaTituloDetalhesY, page.Width, page.Height));
+
+                List<Filme> listaFilmes = _context.Filme.Include(x => x.Generos).Include(x => x.TiposFilme).ToList();
+
+
+                var alturarDatalhesItens = 160;
+
+                foreach (Filme f in listaFilmes)
+                {
+                    textFormatter.DrawString(f.Titulo.ToString(), fonteDetalheDescricao, corFonte,
+                        new XRect(15, alturarDatalhesItens, page.Width, page.Height));
+                    textFormatter.DrawString(f.Duracao.ToString(), fonteDetalheDescricao, corFonte,
+                        new XRect(220, alturarDatalhesItens, page.Width, page.Height));
+
+                    textFormatter.DrawString(f.Lancamento.ToString().Substring(0, 10), fonteDetalheDescricao, corFonte,
+                        new XRect(290, alturarDatalhesItens, page.Width, page.Height));
+
+                    textFormatter.DrawString(f.EmCartazAte.ToString().Substring(0, 10), fonteDetalheDescricao, corFonte,
+                        new XRect(430, alturarDatalhesItens, page.Width, page.Height));
+
+                    alturarDatalhesItens += 20;
+                }
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+
+                    doc.Save(stream, false);
+
+                    var nomeArquivo = "relatorioFilmes.pdf";
+
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
     }
 }
